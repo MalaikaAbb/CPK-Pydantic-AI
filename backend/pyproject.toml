@@ -1,0 +1,15 @@
+[project]
+name = "pydantic-ai-copilotkit-backend"
+version = "0.1.0"
+description = "Pydantic AI agents served over AG-UI for the CopilotKit test harness."
+requires-python = ">=3.12"
+dependencies = [
+    # The Quickstart's install line, verbatim:
+    #   uv add 'pydantic-ai-slim[ag-ui]' 'pydantic-ai-slim[openai]' uvicorn starlette==0.45.3
+    "pydantic-ai-slim[ag-ui,openai]>=1.107.1",
+    "starlette==0.45.3",
+    "uvicorn>=0.52.1",
+    # Not in the Quickstart — it exports OPENAI_API_KEY inline instead. Reading a
+    # .env file is friendlier for a repo you clone.
+    "python-dotenv>=1.2.2",
+]
