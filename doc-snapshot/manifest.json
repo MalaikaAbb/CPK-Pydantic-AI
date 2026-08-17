@@ -1,0 +1,337 @@
+{
+  "schema": 1,
+  "docsRoot": "https://docs.copilotkit.ai/pydantic-ai",
+  "syncedAt": "2026-08-17T13:48:24.173Z",
+  "pages": {
+    "/pydantic-ai": {
+      "file": "pydantic-ai.md",
+      "sha256": "1fc59ec27bca6d5023f4aaa35b9c2aa54b7da2fe9f9499dc2d95b0ec52a26ed8",
+      "bytes": 3103,
+      "lines": 53,
+      "routes": [
+        "/",
+        "/doc-sync"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:24 GMT"
+    },
+    "/pydantic-ai/ag-ui": {
+      "file": "pydantic-ai__ag-ui.md",
+      "sha256": "9c8f469f548ced938c0ba775467717120dddbe45e319f9eb8efef11cc3f3d554",
+      "bytes": 3931,
+      "lines": 124,
+      "routes": [
+        "/ag-ui"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:24 GMT"
+    },
+    "/pydantic-ai/copilot-runtime": {
+      "file": "pydantic-ai__copilot-runtime.md",
+      "sha256": "ff9dbc00af56107425f1f48bc9b3d3cc413ef05c514a01e907a833b391fe0c03",
+      "bytes": 6695,
+      "lines": 182,
+      "routes": [
+        "/copilot-runtime"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/custom-look-and-feel/headless-ui": {
+      "file": "pydantic-ai__custom-look-and-feel__headless-ui.md",
+      "sha256": "16e83023e7c73841f0ac77450c02287be3bdd31b2be81d670dcb601f2e52ada5",
+      "bytes": 4507,
+      "lines": 167,
+      "routes": [
+        "/custom-look-and-feel/headless-ui"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/custom-look-and-feel/slots": {
+      "file": "pydantic-ai__custom-look-and-feel__slots.md",
+      "sha256": "b03880eee02e91ff61fa3a8e6531a5ad5cae7faad6e67187fec0d464cf5d374a",
+      "bytes": 10397,
+      "lines": 315,
+      "routes": [
+        "/custom-look-and-feel/slots"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/frontend-tools": {
+      "file": "pydantic-ai__frontend-tools.md",
+      "sha256": "327c41f583f6b771d69e0a0a56748cf680244b94eef46bb964159f9e7d59e29b",
+      "bytes": 159,
+      "lines": 6,
+      "routes": [
+        "/frontend-tools"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/generative-ui/state-rendering": {
+      "file": "pydantic-ai__generative-ui__state-rendering.md",
+      "sha256": "d091a8f99c7d5aa9aee6c8748e1a421d1463edc37dd5f7dd8a95c3b01eb19bab",
+      "bytes": 4440,
+      "lines": 145,
+      "routes": [
+        "/generative-ui/state-rendering"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/generative-ui/tool-rendering": {
+      "file": "pydantic-ai__generative-ui__tool-rendering.md",
+      "sha256": "c92e9f341a76cfbc371933a2e551880d9248db41f0a4f5dad3cff7a08a074024",
+      "bytes": 5462,
+      "lines": 174,
+      "routes": [
+        "/generative-ui/tool-rendering"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/generative-ui/your-components/display-only": {
+      "file": "pydantic-ai__generative-ui__your-components__display-only.md",
+      "sha256": "880fe95dbf752b2d60a87769957d91ab4e77a06a115161029175df3dd3618487",
+      "bytes": 2475,
+      "lines": 90,
+      "routes": [
+        "/generative-ui/your-components/display-only"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/generative-ui/your-components/interactive": {
+      "file": "pydantic-ai__generative-ui__your-components__interactive.md",
+      "sha256": "e56398c6c5c6e42de30845a4a9088620418399315938d3dce1e5dff102a3d471",
+      "bytes": 157,
+      "lines": 6,
+      "routes": [
+        "/generative-ui/your-components/interactive"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/inspector": {
+      "file": "pydantic-ai__inspector.md",
+      "sha256": "6a3455d6ded7d51bc22e24cd0f0feec86bc0dced9391a9acfc6411c6333b4cf6",
+      "bytes": 5149,
+      "lines": 112,
+      "routes": [
+        "/inspector"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/multi-agent-flows": {
+      "file": "pydantic-ai__multi-agent-flows.md",
+      "sha256": "107f8ebce8602245665c62fe62b951128450875d107f284975d67e6a212252a2",
+      "bytes": 3162,
+      "lines": 55,
+      "routes": [
+        "/multi-agent-flows"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/prebuilt-components": {
+      "file": "pydantic-ai__prebuilt-components.md",
+      "sha256": "099a458289aafe80b91867bdb8c2546fbadd6ab0e09bdb67da00373e69b6c9a5",
+      "bytes": 156,
+      "lines": 7,
+      "routes": [
+        "/prebuilt-components"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/programmatic-control": {
+      "file": "pydantic-ai__programmatic-control.md",
+      "sha256": "72bda00a749f215f30de4271e7cffe699105955cc187707641c6d2a5c5b2d689",
+      "bytes": 13316,
+      "lines": 475,
+      "routes": [
+        "/programmatic-control"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/quickstart": {
+      "file": "pydantic-ai__quickstart.md",
+      "sha256": "804769b3db64c886870358c4a8a6031bab17514482cdbca98359b16b8530f1a6",
+      "bytes": 12869,
+      "lines": 388,
+      "routes": [
+        "/quickstart"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/shared-state/in-app-agent-read": {
+      "file": "pydantic-ai__shared-state__in-app-agent-read.md",
+      "sha256": "d21684a074087d4a4f6ce63febbf256ec6fe52bf7a6b5836b54e35f378e5c08c",
+      "bytes": 6292,
+      "lines": 192,
+      "routes": [
+        "/shared-state/in-app-agent-read"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    },
+    "/pydantic-ai/shared-state/in-app-agent-write": {
+      "file": "pydantic-ai__shared-state__in-app-agent-write.md",
+      "sha256": "fe8b8ce23b6aa6785b3287a594aa257311d9089a48e5deb36c8c2d67c5fde163",
+      "bytes": 6741,
+      "lines": 204,
+      "routes": [
+        "/shared-state/in-app-agent-write"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+    }
+  },
+  "sitemap": {
+    "fetchedAt": "2026-08-17T13:48:24.173Z",
+    "urlsUnderRoot": 135,
+    "knownUnmapped": [
+      "https://docs.copilotkit.ai/pydantic-ai/agent-config",
+      "https://docs.copilotkit.ai/pydantic-ai/agent-spec",
+      "https://docs.copilotkit.ai/pydantic-ai/agent-spec/human-in-the-loop",
+      "https://docs.copilotkit.ai/pydantic-ai/agent-spec/langgraph",
+      "https://docs.copilotkit.ai/pydantic-ai/agent-spec/quickstart",
+      "https://docs.copilotkit.ai/pydantic-ai/agent-spec/wayflow",
+      "https://docs.copilotkit.ai/pydantic-ai/agentic-chat-ui",
+      "https://docs.copilotkit.ai/pydantic-ai/agentic-protocols",
+      "https://docs.copilotkit.ai/pydantic-ai/agentic-protocols/a2a",
+      "https://docs.copilotkit.ai/pydantic-ai/agentic-protocols/ag-ui",
+      "https://docs.copilotkit.ai/pydantic-ai/agentic-protocols/ag-ui-middleware",
+      "https://docs.copilotkit.ai/pydantic-ai/agentic-protocols/mcp",
+      "https://docs.copilotkit.ai/pydantic-ai/auth",
+      "https://docs.copilotkit.ai/pydantic-ai/backend/ag-ui",
+      "https://docs.copilotkit.ai/pydantic-ai/backend/agent-runner",
+      "https://docs.copilotkit.ai/pydantic-ai/backend/copilot-runtime",
+      "https://docs.copilotkit.ai/pydantic-ai/backend/custom-agent",
+      "https://docs.copilotkit.ai/pydantic-ai/backend/runtime-endpoints",
+      "https://docs.copilotkit.ai/pydantic-ai/backend/self-managed-agents",
+      "https://docs.copilotkit.ai/pydantic-ai/build-with-agents",
+      "https://docs.copilotkit.ai/pydantic-ai/built-in-agent",
+      "https://docs.copilotkit.ai/pydantic-ai/cli",
+      "https://docs.copilotkit.ai/pydantic-ai/concepts/architecture",
+      "https://docs.copilotkit.ai/pydantic-ai/concepts/generative-ui-overview",
+      "https://docs.copilotkit.ai/pydantic-ai/concepts/oss-vs-enterprise",
+      "https://docs.copilotkit.ai/pydantic-ai/concepts/which-hook",
+      "https://docs.copilotkit.ai/pydantic-ai/contributing/code-contributions",
+      "https://docs.copilotkit.ai/pydantic-ai/contributing/code-contributions/package-linking",
+      "https://docs.copilotkit.ai/pydantic-ai/contributing/docs-contributions",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook/angular-adk-agentic-app",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook/arcade",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook/daytona",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook/openbox-governed-copilotkit",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook/oracle-agent-spec-memory",
+      "https://docs.copilotkit.ai/pydantic-ai/custom-look-and-feel/css",
+      "https://docs.copilotkit.ai/pydantic-ai/custom-look-and-feel/reasoning-messages",
+      "https://docs.copilotkit.ai/pydantic-ai/deepagents",
+      "https://docs.copilotkit.ai/pydantic-ai/deploy/agentcore",
+      "https://docs.copilotkit.ai/pydantic-ai/examples",
+      "https://docs.copilotkit.ai/pydantic-ai/faq",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/dynamic-schema",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/fixed-schema",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/display",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/interactive",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-generative-ui",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-json-ui",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/reasoning",
+      "https://docs.copilotkit.ai/pydantic-ai/generative-ui/tool-based",
+      "https://docs.copilotkit.ai/pydantic-ai/headless",
+      "https://docs.copilotkit.ai/pydantic-ai/headless-threads",
+      "https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop",
+      "https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent",
+      "https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/headless",
+      "https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt",
+      "https://docs.copilotkit.ai/pydantic-ai/migrate/1.10.X",
+      "https://docs.copilotkit.ai/pydantic-ai/migrate/1.8.2",
+      "https://docs.copilotkit.ai/pydantic-ai/migrate/v2",
+      "https://docs.copilotkit.ai/pydantic-ai/multi-agent/subagents",
+      "https://docs.copilotkit.ai/pydantic-ai/multimodal-attachments",
+      "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/chat",
+      "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/chat-controls",
+      "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer",
+      "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/popup",
+      "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/sidebar",
+      "https://docs.copilotkit.ai/pydantic-ai/premium/headless-ui",
+      "https://docs.copilotkit.ai/pydantic-ai/premium/intelligence-platform",
+      "https://docs.copilotkit.ai/pydantic-ai/premium/managed-intelligence-platform",
+      "https://docs.copilotkit.ai/pydantic-ai/premium/overview",
+      "https://docs.copilotkit.ai/pydantic-ai/premium/self-hosting",
+      "https://docs.copilotkit.ai/pydantic-ai/premium/threads-explained",
+      "https://docs.copilotkit.ai/pydantic-ai/reference/v2/hooks/useCapabilities",
+      "https://docs.copilotkit.ai/pydantic-ai/runtime-server-adapter",
+      "https://docs.copilotkit.ai/pydantic-ai/shared-state",
+      "https://docs.copilotkit.ai/pydantic-ai/shared-state/agent-readonly",
+      "https://docs.copilotkit.ai/pydantic-ai/shared-state/predictive-state-updates",
+      "https://docs.copilotkit.ai/pydantic-ai/shared-state/rendering-in-app",
+      "https://docs.copilotkit.ai/pydantic-ai/shared-state/streaming",
+      "https://docs.copilotkit.ai/pydantic-ai/telemetry",
+      "https://docs.copilotkit.ai/pydantic-ai/threads",
+      "https://docs.copilotkit.ai/pydantic-ai/threads-import",
+      "https://docs.copilotkit.ai/pydantic-ai/threads-lifecycle",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/common-issues",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/debug-mode",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/error-debugging",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/error-reference",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/event-inspector",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/hook-explorer",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/inspector-dev-console",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/migrate-to-1.10.X",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/migrate-to-1.8.2",
+      "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/migrate-to-v2",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-powered-textarea/next-steps",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-powered-textarea/overview",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-powered-textarea/step-1-checkout-repo",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-powered-textarea/step-2-setup-copilotkit",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-powered-textarea/step-3-copilot-textarea",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-powered-textarea/step-4-copilot-readable-state",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-todo-app/next-steps",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-todo-app/overview",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-todo-app/step-1-checkout-repo",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-todo-app/step-2-setup-copilotkit",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-todo-app/step-3-copilot-readable-state",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/ai-todo-app/step-4-frontend-tools",
+      "https://docs.copilotkit.ai/pydantic-ai/tutorials/multi-conversation-chat",
+      "https://docs.copilotkit.ai/pydantic-ai/voice",
+      "https://docs.copilotkit.ai/pydantic-ai/vs-code-extension",
+      "https://docs.copilotkit.ai/pydantic-ai/whats-new",
+      "https://docs.copilotkit.ai/pydantic-ai/whats-new/a2a-mcp-handshake",
+      "https://docs.copilotkit.ai/pydantic-ai/whats-new/a2ui-launch",
+      "https://docs.copilotkit.ai/pydantic-ai/whats-new/generative-ui-spec-support",
+      "https://docs.copilotkit.ai/pydantic-ai/whats-new/langgraph-deep-agents",
+      "https://docs.copilotkit.ai/pydantic-ai/whats-new/mcp-apps-support",
+      "https://docs.copilotkit.ai/pydantic-ai/whats-new/v1-50"
+    ]
+  }
+}
