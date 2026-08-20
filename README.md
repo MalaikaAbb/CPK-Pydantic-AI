@@ -352,6 +352,49 @@ Commit `doc-snapshot/` — `pages/`, `manifest.json` and `CHANGELOG.md` are the 
 
 ---
 
+## Screen recordings
+
+`autorecorder/` produces one demo video per doc page: it opens the live doc page
+and scrolls it, switches to a simulated VS Code showing the exact code that
+implements it, then switches to the browser and drives the real feature. All 16
+routes with a `demo-chat` page are registered; `/` is orientation and has nothing
+to drive.
+
+Both services must be running first — the recorder refuses to start against a
+dead page.
+
+```bash
+cd autorecorder
+npm install && npx playwright install chromium
+
+npm run doctor            # static: config, files, line ranges, handlers
+npm run doctor:online     # also: every demo route, every doc URL, the selectors
+npm run record -- --quickstart
+npm run record            # all 16, in doc-nav order
+```
+
+Clips land in `videos/` as `PYDANTICAI-react-<NN>-<name>.webm` and are
+**gitignored** — they are build output, and committing ~5 MB × 16 on every
+re-record bloats history fast. `npm run manifest` writes `videos/manifest.json`
+and `videos/MANIFEST.md`, which record each clip's date, hash, and whether the
+code it shows has changed since; commit those two instead.
+
+Two things worth knowing before watching the output:
+
+- **`state-rendering` records the documented gap, not a working feature.** No
+  agent writes `searches` (§9.1), so the list stays empty on purpose. Its handler
+  passes on "the agent replied and the panel rendered without throwing", and
+  rests the cursor on the in-app warning so the video explains itself.
+- **`frontend-tools` asserts the browser dialog fired.** The tool's handler calls
+  `alert()`, which is browser chrome and never appears in the recording, so the
+  handler listens for the dialog instead. Without that check an agent that merely
+  *described* a greeting would still have passed.
+
+Porting the recorder to another framework repo is documented in
+`autorecorder/ADAPT.md`; `autorecorder/core/` is shared and deliberately frozen.
+
+---
+
 ## 11. Project structure
 
 ```
@@ -359,6 +402,13 @@ pydantic-ai/
 ├── CLAUDE.md                     build instructions (shared across framework repos)
 ├── README.md                     this file
 ├── .env.example                  every variable, annotated
+│
+├── autorecorder/                 screen-recording suite (see "Screen recordings")
+│   ├── ADAPT.md                  how to port it to another framework repo
+│   ├── config/                   the adaptation surface: project, pages, selectors
+│   ├── actions/                  what to do on each demo page
+│   ├── core/                     shared engine — frozen, do not edit
+│   └── videos/                   output (gitignored) + tracked manifest
 │
 ├── backend/                      Python agent server — localhost:8000
 │   ├── main.py                   Starlette parent; mounts one to_ag_ui() app per agent + /health

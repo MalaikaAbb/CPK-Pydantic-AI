@@ -20,7 +20,7 @@ from pydantic import BaseModel
 from pydantic_ai import Agent, RunContext
 from pydantic_ai.ag_ui import StateDeps
 
-# region agent
+#region agent
 # The doc's `agent.py`, with `openai:gpt-5.4-mini` swapped for MODEL.
 
 
@@ -55,4 +55,4 @@ async def language_instructions(ctx: RunContext[StateDeps[AgentState]]) -> str:
 
 
 app = agent.to_ag_ui(deps=StateDeps(AgentState()))
-# endregion
+#endregion

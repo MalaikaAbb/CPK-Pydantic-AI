@@ -10,7 +10,7 @@ from .model import MODEL
 
 from pydantic_ai import Agent
 
-# region agent
+#region agent
 # The doc's `agent.py`. Its model id is `openai:gpt-5.4-mini`, which does not
 # resolve on a normal OpenAI account — MODEL is the Quickstart's id instead.
 agent = Agent(MODEL)
@@ -23,4 +23,4 @@ async def get_weather(location: str = "Everywhere ever") -> str:
 
 
 app = agent.to_ag_ui()
-# endregion
+#endregion

@@ -11,9 +11,9 @@ from .model import MODEL
 
 from pydantic_ai import Agent
 
-# region agent
+#region agent
 # The Quickstart's `main.py`, unchanged apart from the model id — see model.py
 # for why that is a variable here.
 agent = Agent(MODEL, instructions='Be fun!')
 app = agent.to_ag_ui()
-# endregion
+#endregion

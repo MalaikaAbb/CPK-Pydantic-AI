@@ -1,0 +1,196 @@
+{
+  "generatedAt": "2026-08-20T07:46:37.767Z",
+  "framework": "Pydantic AI (Python)",
+  "videoPrefix": "PYDANTICAI-react",
+  "clips": {
+    "quickstart": {
+      "order": 1,
+      "id": "quickstart",
+      "name": "Quickstart",
+      "file": "PYDANTICAI-react-01-Quickstart.webm",
+      "sources": [
+        "frontend/package.json",
+        "frontend/src/app/quickstart/demo-chat/page.tsx",
+        "frontend/src/app/api/copilotkit/route.ts",
+        "backend/agents/my_agent.py"
+      ],
+      "sourceSha": "1983f4d44396",
+      "recordedAt": "2026-08-20T07:45:19.731Z",
+      "bytes": 4235487,
+      "sha256": "89278c349978",
+      "status": "current"
+    },
+    "prebuilt-components": {
+      "order": 2,
+      "id": "prebuilt-components",
+      "name": "Prebuilt Components",
+      "file": "PYDANTICAI-react-02-PrebuiltComponents.webm",
+      "sources": [
+        "frontend/src/app/prebuilt-components/demo-chat/page.tsx"
+      ],
+      "sourceSha": "10cee8e9d9ed",
+      "status": "missing"
+    },
+    "slots": {
+      "order": 3,
+      "id": "slots",
+      "name": "Custom Look and Feel - Slots",
+      "file": "PYDANTICAI-react-03-Slots.webm",
+      "sources": [
+        "frontend/src/app/custom-look-and-feel/slots/demo-chat/page.tsx"
+      ],
+      "sourceSha": "1510070bd1a8",
+      "status": "missing"
+    },
+    "headless-ui": {
+      "order": 4,
+      "id": "headless-ui",
+      "name": "Custom Look and Feel - Headless UI",
+      "file": "PYDANTICAI-react-04-HeadlessUI.webm",
+      "sources": [
+        "frontend/src/app/custom-look-and-feel/headless-ui/demo-chat/page.tsx"
+      ],
+      "sourceSha": "dbaba236846d",
+      "status": "missing"
+    },
+    "programmatic-control": {
+      "order": 5,
+      "id": "programmatic-control",
+      "name": "Custom Look and Feel - Programmatic Control",
+      "file": "PYDANTICAI-react-05-ProgrammaticControl.webm",
+      "sources": [
+        "frontend/src/app/programmatic-control/demo-chat/page.tsx"
+      ],
+      "sourceSha": "946a49a81f18",
+      "status": "missing"
+    },
+    "inspector": {
+      "order": 6,
+      "id": "inspector",
+      "name": "Custom Look and Feel - Inspector",
+      "file": "PYDANTICAI-react-06-Inspector.webm",
+      "sources": [
+        "frontend/src/components/providers.tsx",
+        "frontend/src/app/inspector/demo-chat/page.tsx"
+      ],
+      "sourceSha": "3c221d16dc50",
+      "status": "missing"
+    },
+    "display-only": {
+      "order": 7,
+      "id": "display-only",
+      "name": "Generative UI - Your Components, Display Only",
+      "file": "PYDANTICAI-react-07-DisplayOnly.webm",
+      "sources": [
+        "frontend/src/app/generative-ui/your-components/display-only/demo-chat/page.tsx"
+      ],
+      "sourceSha": "b3c567a04b47",
+      "status": "missing"
+    },
+    "interactive": {
+      "order": 8,
+      "id": "interactive",
+      "name": "Generative UI - Your Components, Interactive",
+      "file": "PYDANTICAI-react-08-Interactive.webm",
+      "sources": [
+        "frontend/src/app/generative-ui/your-components/interactive/demo-chat/page.tsx"
+      ],
+      "sourceSha": "8479c40e969b",
+      "status": "missing"
+    },
+    "tool-rendering": {
+      "order": 9,
+      "id": "tool-rendering",
+      "name": "Generative UI - Tool Rendering",
+      "file": "PYDANTICAI-react-09-ToolRendering.webm",
+      "sources": [
+        "frontend/src/app/generative-ui/tool-rendering/demo-chat/page.tsx",
+        "backend/agents/weather_agent.py"
+      ],
+      "sourceSha": "f08997e93088",
+      "status": "missing"
+    },
+    "state-rendering": {
+      "order": 10,
+      "id": "state-rendering",
+      "name": "Generative UI - State Rendering",
+      "file": "PYDANTICAI-react-10-StateRendering.webm",
+      "sources": [
+        "frontend/src/app/generative-ui/state-rendering/demo-chat/page.tsx",
+        "backend/agents/search_agent.py"
+      ],
+      "sourceSha": "39d7e5b80c09",
+      "status": "missing"
+    },
+    "frontend-tools": {
+      "order": 11,
+      "id": "frontend-tools",
+      "name": "App Control - Frontend Tools",
+      "file": "PYDANTICAI-react-11-FrontendTools.webm",
+      "sources": [
+        "frontend/src/app/frontend-tools/demo-chat/page.tsx"
+      ],
+      "sourceSha": "b7d8eaa8c5f0",
+      "status": "missing"
+    },
+    "shared-state-read": {
+      "order": 12,
+      "id": "shared-state-read",
+      "name": "Shared State - Reading agent state",
+      "file": "PYDANTICAI-react-12-SharedStateRead.webm",
+      "sources": [
+        "frontend/src/app/shared-state/in-app-agent-read/demo-chat/page.tsx",
+        "backend/agents/language_agent.py"
+      ],
+      "sourceSha": "9d1bbc0bb8f1",
+      "status": "missing"
+    },
+    "shared-state-write": {
+      "order": 13,
+      "id": "shared-state-write",
+      "name": "Shared State - Writing agent state",
+      "file": "PYDANTICAI-react-13-SharedStateWrite.webm",
+      "sources": [
+        "frontend/src/app/shared-state/in-app-agent-write/demo-chat/page.tsx"
+      ],
+      "sourceSha": "1bd27501fbf7",
+      "status": "missing"
+    },
+    "multi-agent-flows": {
+      "order": 14,
+      "id": "multi-agent-flows",
+      "name": "Pydantic AI - Multi-Agent Flows",
+      "file": "PYDANTICAI-react-14-MultiAgentFlows.webm",
+      "sources": [
+        "frontend/src/app/multi-agent-flows/demo-chat/page.tsx",
+        "frontend/src/app/api/copilotkit/route.ts"
+      ],
+      "sourceSha": "03f5f4b27f95",
+      "status": "missing"
+    },
+    "copilot-runtime": {
+      "order": 15,
+      "id": "copilot-runtime",
+      "name": "Backend - Copilot Runtime",
+      "file": "PYDANTICAI-react-15-CopilotRuntime.webm",
+      "sources": [
+        "frontend/src/app/copilot-runtime/demo-chat/page.tsx",
+        "frontend/src/app/api/copilotkit/route.ts",
+        "backend/main.py"
+      ],
+      "sourceSha": "4656495d67fe",
+      "status": "missing"
+    },
+    "ag-ui": {
+      "order": 16,
+      "id": "ag-ui",
+      "name": "Backend - AG-UI Protocol Stream",
+      "file": "PYDANTICAI-react-16-AgUi.webm",
+      "sources": [
+        "frontend/src/app/ag-ui/demo-chat/page.tsx"
+      ],
+      "sourceSha": "a98e1343406b",
+      "status": "missing"
+    }
+  }
+}
