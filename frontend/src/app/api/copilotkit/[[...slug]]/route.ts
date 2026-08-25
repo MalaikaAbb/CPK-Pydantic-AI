@@ -1,8 +1,8 @@
 import {
   CopilotRuntime,
-  ExperimentalEmptyAdapter,
-  copilotRuntimeNextJSAppRouterEndpoint,
-} from "@copilotkit/runtime";
+  createCopilotRuntimeHandler,
+  InMemoryAgentRunner,
+} from "@copilotkit/runtime/v2";
 import { HttpAgent } from "@ag-ui/client";
 import { NextRequest } from "next/server";
 
@@ -17,7 +17,6 @@ const agentUrl = (id: string) => `${AGENT_BASE_URL.replace(/\/$/, "")}/${id}/`;
 
 // The model provider key never reaches the browser: the Python process holds
 // it, and this route is the only thing that talks to that process.
-const serviceAdapter = new ExperimentalEmptyAdapter();
 
 // Ids are the keys of this object — that is what routes pass as `agentId`, and
 // what the Multi-Agent Flows page routes between. They deliberately match the
@@ -33,14 +32,12 @@ const runtime = new CopilotRuntime({
     weather_agent: new HttpAgent({ url: agentUrl("weather_agent") }),
     language_agent: new HttpAgent({ url: agentUrl("language_agent") }),
   },
+  runner: new InMemoryAgentRunner(),
 });
 
-export const POST = async (req: NextRequest) => {
-  const { handleRequest } = copilotRuntimeNextJSAppRouterEndpoint({
-    runtime,
-    serviceAdapter,
-    endpoint: "/api/copilotkit",
-  });
-
-  return handleRequest(req);
-};
+const handler = createCopilotRuntimeHandler({
+  runtime,
+  basePath: "/api/copilotkit",
+});
+export const GET = handler;
+export const POST = handler;
