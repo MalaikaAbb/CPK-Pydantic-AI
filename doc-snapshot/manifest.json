@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "docsRoot": "https://docs.copilotkit.ai/pydantic-ai",
-  "syncedAt": "2026-08-17T13:48:24.173Z",
+  "syncedAt": "2026-08-21T16:08:33.252Z",
   "pages": {
     "/pydantic-ai": {
       "file": "pydantic-ai.md",
@@ -14,7 +14,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:24 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/ag-ui": {
       "file": "pydantic-ai__ag-ui.md",
@@ -26,7 +26,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:24 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/copilot-runtime": {
       "file": "pydantic-ai__copilot-runtime.md",
@@ -38,7 +38,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/custom-look-and-feel/headless-ui": {
       "file": "pydantic-ai__custom-look-and-feel__headless-ui.md",
@@ -50,7 +50,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/custom-look-and-feel/slots": {
       "file": "pydantic-ai__custom-look-and-feel__slots.md",
@@ -62,7 +62,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/frontend-tools": {
       "file": "pydantic-ai__frontend-tools.md",
@@ -74,7 +74,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/generative-ui/state-rendering": {
       "file": "pydantic-ai__generative-ui__state-rendering.md",
@@ -86,7 +86,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/generative-ui/tool-rendering": {
       "file": "pydantic-ai__generative-ui__tool-rendering.md",
@@ -98,7 +98,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/generative-ui/your-components/display-only": {
       "file": "pydantic-ai__generative-ui__your-components__display-only.md",
@@ -110,7 +110,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/generative-ui/your-components/interactive": {
       "file": "pydantic-ai__generative-ui__your-components__interactive.md",
@@ -122,19 +122,19 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/inspector": {
       "file": "pydantic-ai__inspector.md",
-      "sha256": "6a3455d6ded7d51bc22e24cd0f0feec86bc0dced9391a9acfc6411c6333b4cf6",
-      "bytes": 5149,
-      "lines": 112,
+      "sha256": "42192ba4275bcb0707474c45a9ae503e2a69c4d0e7a7654a0c0f2328d5685284",
+      "bytes": 5595,
+      "lines": 119,
       "routes": [
         "/inspector"
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/multi-agent-flows": {
       "file": "pydantic-ai__multi-agent-flows.md",
@@ -146,7 +146,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/prebuilt-components": {
       "file": "pydantic-ai__prebuilt-components.md",
@@ -158,7 +158,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/programmatic-control": {
       "file": "pydantic-ai__programmatic-control.md",
@@ -170,19 +170,19 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/quickstart": {
       "file": "pydantic-ai__quickstart.md",
-      "sha256": "804769b3db64c886870358c4a8a6031bab17514482cdbca98359b16b8530f1a6",
-      "bytes": 12869,
-      "lines": 388,
+      "sha256": "59813307a96767f7b9389a15b1b0dc049193d9a8ac88a3ba3997c185db334012",
+      "bytes": 13324,
+      "lines": 403,
       "routes": [
         "/quickstart"
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/shared-state/in-app-agent-read": {
       "file": "pydantic-ai__shared-state__in-app-agent-read.md",
@@ -194,7 +194,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     },
     "/pydantic-ai/shared-state/in-app-agent-write": {
       "file": "pydantic-ai__shared-state__in-app-agent-write.md",
@@ -206,12 +206,12 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Mon, 17 Aug 2026 13:48:25 GMT"
+      "date": "Fri, 21 Aug 2026 16:08:34 GMT"
     }
   },
   "sitemap": {
-    "fetchedAt": "2026-08-17T13:48:24.173Z",
-    "urlsUnderRoot": 135,
+    "fetchedAt": "2026-08-21T16:08:33.252Z",
+    "urlsUnderRoot": 140,
     "knownUnmapped": [
       "https://docs.copilotkit.ai/pydantic-ai/agent-config",
       "https://docs.copilotkit.ai/pydantic-ai/agent-spec",
@@ -245,6 +245,7 @@
       "https://docs.copilotkit.ai/pydantic-ai/cookbook",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/angular-adk-agentic-app",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/arcade",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook/claude-managed-agents",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/daytona",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/openbox-governed-copilotkit",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/oracle-agent-spec-memory",
@@ -252,6 +253,8 @@
       "https://docs.copilotkit.ai/pydantic-ai/custom-look-and-feel/reasoning-messages",
       "https://docs.copilotkit.ai/pydantic-ai/deepagents",
       "https://docs.copilotkit.ai/pydantic-ai/deploy/agentcore",
+      "https://docs.copilotkit.ai/pydantic-ai/deploy/aws-lambda",
+      "https://docs.copilotkit.ai/pydantic-ai/deploy/langsmith",
       "https://docs.copilotkit.ai/pydantic-ai/examples",
       "https://docs.copilotkit.ai/pydantic-ai/faq",
       "https://docs.copilotkit.ai/pydantic-ai/generative-ui",
@@ -283,6 +286,7 @@
       "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer",
       "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/popup",
       "https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/sidebar",
+      "https://docs.copilotkit.ai/pydantic-ai/premium/connect-your-runtime",
       "https://docs.copilotkit.ai/pydantic-ai/premium/headless-ui",
       "https://docs.copilotkit.ai/pydantic-ai/premium/intelligence-platform",
       "https://docs.copilotkit.ai/pydantic-ai/premium/managed-intelligence-platform",
@@ -300,6 +304,7 @@
       "https://docs.copilotkit.ai/pydantic-ai/threads",
       "https://docs.copilotkit.ai/pydantic-ai/threads-import",
       "https://docs.copilotkit.ai/pydantic-ai/threads-lifecycle",
+      "https://docs.copilotkit.ai/pydantic-ai/threads-self-managed",
       "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/common-issues",
       "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/debug-mode",
       "https://docs.copilotkit.ai/pydantic-ai/troubleshooting/error-debugging",
