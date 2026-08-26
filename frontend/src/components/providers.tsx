@@ -33,6 +33,7 @@ export function Providers({ children }: { children: ReactNode }) {
       onError={(event) => {
         console.error(`[CopilotKit ${event.code}]`, event.error);
       }}
+      useSingleEndpoint={false}
     >
       {children}
     </CopilotKitProvider>
