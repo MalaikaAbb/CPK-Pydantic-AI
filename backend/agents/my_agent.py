@@ -11,9 +11,12 @@ from .model import MODEL
 
 from pydantic_ai import Agent
 
-# region agent
+#region agent
 # The Quickstart's `main.py`, unchanged apart from the model id — see model.py
 # for why that is a variable here.
+#
+# Note there is no `to_ag_ui()` any more: the Quickstart now hands the agent to
+# `AGUIAdapter.dispatch_request` inside a Starlette route. `main.py` does that
+# for every agent in this package.
 agent = Agent(MODEL, instructions='Be fun!')
-app = agent.to_ag_ui()
-# endregion
+#endregion

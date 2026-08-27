@@ -5,20 +5,20 @@ A navigable, working test harness for the CopilotKit Pydantic AI integration —
 | | |
 |---|---|
 | **Doc sync date** | Machine-maintained — `doc-snapshot/manifest.json` → `syncedAt`, rewritten on every sync |
-| **CopilotKit packages** | `@copilotkit/react-core` 1.66.2 · `@copilotkit/runtime` 1.66.2 |
+| **CopilotKit packages** | `@copilotkit/react-core` 1.69.0 · `@copilotkit/runtime` 1.69.0 (v2 surface) |
 | **AG-UI package** | `@ag-ui/client` 0.0.57 |
 | **Pydantic AI** | `pydantic-ai-slim[ag-ui,openai]` 1.107.1 · Starlette 0.45.3 · uvicorn 0.52.1 |
 | **Frontend** | Next.js 16.3.0 (App Router) · React 19.2.8 · TypeScript 5 · Tailwind 4.3.3 |
 | **Backend** | Python 3.12 · uv |
-| **Build status** | No CI. Verified locally: lint ✅ · typecheck ⚠️ (4 known errors, all in one file — see §9) · both servers boot ✅ · all 34 routes return 200 ✅ · end-to-end run through runtime → Python agent ✅ |
+| **Build status** | No CI. Verified locally: lint ✅ · typecheck ⚠️ (4 known errors, all in one file — see §9) · agent server boots with zero deprecation warnings ✅ · live AG-UI stream through `AGUIAdapter` ✅ · runtime `/info` 200 in both SSE and Intelligence modes ✅ |
 
 ---
 
 ## 2. Overview
 
-[Pydantic AI](https://ai.pydantic.dev) is a Python agent framework with first-class AG-UI support: `agent.to_ag_ui()` turns an ordinary agent into an ASGI app that speaks the protocol, which is what lets a React app drive it with streaming, tool calls, shared state, and generative UI.
+[Pydantic AI](https://ai.pydantic.dev) is a Python agent framework with first-class AG-UI support: `AGUIAdapter.dispatch_request` turns an ordinary agent into a Starlette route that speaks the protocol, which is what lets a React app drive it with streaming, tool calls, shared state, and generative UI.
 
-This repo covers a **scoped set of 17 doc pages** (§8). Each route implements what its page teaches and shows the exact source that makes it work, read off disk at render time.
+This repo covers a **scoped set of 20 doc pages** (§8). Each route implements what its page teaches and shows the exact source that makes it work, read off disk at render time.
 
 **Everything comes from the documentation.** No agent, tool, instruction, or state model was invented. Where a doc page does not supply working code — as on State Rendering, whose `agent.py` block contains React — the route says so, is marked ⚠️ Partial, and ships a documented placeholder rather than a guess.
 
@@ -31,15 +31,17 @@ Tracks: **<https://docs.copilotkit.ai/pydantic-ai>**
 ```
 Browser (React 19)
   │  @copilotkit/react-core/v2 — CopilotKitProvider, CopilotChat, hooks
-  │  POST /api/copilotkit   { method, params, body }
+  │  GET /api/copilotkit/info · POST agent runs · PATCH/DELETE threads
   ▼
 Next.js 16 App Router  ·  localhost:3000
-  │  Copilot Runtime  (@copilotkit/runtime)
+  │  Copilot Runtime  (@copilotkit/runtime/v2)
+  │  app/api/copilotkit/[[...slug]]/route.ts — a multi-route fetch handler
   │  agents: { default, my_agent, weather_agent, language_agent }
   │  each a  new HttpAgent({ url: "http://localhost:8000/<id>/" })
+  │  optional: CopilotKitIntelligence + identifyUser (threads, persistence)
   ▼  HTTP, server-to-server
 Pydantic AI agent server  ·  localhost:8000  (Python)
-  │  backend/main.py — Starlette parent mounting one to_ag_ui() app per agent
+  │  backend/main.py — Starlette, one AGUIAdapter.dispatch_request route per agent
   │  AG-UI events streamed back as SSE
   ▼
 OpenAI  (openai:gpt-4.1-mini by default)
@@ -107,7 +109,11 @@ Frontend variables belong in `frontend/.env.local` (Next does not read `backend/
 | Variable | What it does |
 |---|---|
 | `PYDANTIC_AI_AGENT_URL` | Base URL for the agent server. Defaults to `http://localhost:8000`. Use `127.0.0.1` if `localhost` resolves to IPv6 while uvicorn binds IPv4. |
-| `NEXT_PUBLIC_COPILOTKIT_LICENSE_KEY` | Optional; no route here needs it. |
+| `INTELLIGENCE_API_KEY` | Optional. Puts the runtime in Intelligence mode: threads persist and rename/archive/delete get an endpoint. Server-side only — never `NEXT_PUBLIC_`. |
+| `COPILOTKIT_LICENSE_TOKEN` | Optional, and **independent** of the key above. `/info` derives `licenseStatus` from it, and `<CopilotThreadsDrawer>` gates its locked view on that field. |
+| `NEXT_PUBLIC_DEMO_USER_ID` / `_NAME` | Optional. The identity `identifyUser` reads off request headers. Threads are per-user; change it to watch two lists diverge. |
+
+Without the two Intelligence variables the runtime falls back to SSE with an in-memory runner: **every chat route still works**, and only the three Rich Threads routes degrade. `/info` reports which mode you are actually in, and the connection panel on `/` shows it.
 
 **Default ports:** frontend **3000**, agent server **8000**.
 
@@ -124,10 +130,9 @@ cd backend
 uv run main.py
 ```
 
-Success looks like this (the deprecation warnings are expected — see §9):
+Success looks like this:
 
 ```
-PydanticAIDeprecationWarning: `Agent.to_ag_ui()` is deprecated and will be removed in 2.0. …
 INFO:     Started server process [378964]
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
@@ -172,11 +177,19 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/`** — Orientation, the agent roster, and the live backend probe.
 
-**`/quickstart`** — A Pydantic AI agent served by `to_ag_ui()`, reached with `HttpAgent`. **Try:** `What can you help me with?` **Pass:** tokens stream, and the tone is noticeably jokey — the agent's only instruction is `'Be fun!'`. **Fail:** an error banner; check the connection panel, then `OPENAI_API_KEY`.
+**`/quickstart`** — A Pydantic AI agent served by `AGUIAdapter.dispatch_request`, reached with `HttpAgent` through the multi-route runtime handler. The page shows that runtime route verbatim, including where Intelligence is configured. **Try:** `What can you help me with?` **Pass:** tokens stream, and the tone is noticeably jokey — the agent's only instruction is `'Be fun!'`. **Fail:** an error banner; check the connection panel, then `OPENAI_API_KEY`.
 
 ### Basics
 
 **`/prebuilt-components`** — `CopilotChat`, `CopilotSidebar`, `CopilotPopup` in tabs, with the doc's `labels`. **Pass:** all three drive the same agent and the conversation survives tab switches. **Fail:** a component renders unstyled or invisible — usually the `styles.css` import.
+
+### Rich Threads
+
+**`/prebuilt-components/copilot-threads-drawer`** — The drop-in sidebar. Drawer and chat share one `CopilotChatConfigurationProvider`, so selecting a row moves the chat with no state of your own. **Try:** send a message, click **New Conversation**, send another, then click back. **Pass:** the first thread's history replays. **Fail:** a locked "Threads are a CopilotKit Intelligence feature" panel — that is `licenseStatus`, not a bug (§9.16).
+
+**`/headless-threads`** — The same data through `useThreads`, hand-rendered, including **rename**, which the drawer omits. **Try:** send a message, then Rename / Archive / Delete the row. **Pass:** each acts on the row. **Fail:** they no-op — in SSE mode `/info` reports `mutations: false` and there is no endpoint behind them.
+
+**`/threads-lifecycle`** — Where a `threadId` comes from and what makes history replay. **Try:** **New chat**, then **Open conversation**. **Pass:** New chat mints a visibly different id and clears the transcript; Open sets `explicit=true` and replays. **Fail:** the id never moves — that happens when a `threadId` prop is also passed, which makes both setters no-op.
 
 ### Custom Look and Feel
 
@@ -226,6 +239,9 @@ Code on a page is never a re-typed approximation: each page reads real files via
 |---|---|---|---|
 | [Quickstart](https://docs.copilotkit.ai/pydantic-ai/quickstart?agent=bring-your-own) | `/quickstart` | ✅ Working | Bring-your-own-agent path. Model id and multi-agent mounting differ — §9. |
 | [Prebuilt Components](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components) | `/prebuilt-components` | ✅ Working | All three components, doc `labels`. |
+| [Threads Drawer](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer) | `/prebuilt-components/copilot-threads-drawer` | ✅ Working | Drop-in drawer sharing one chat configuration. Renders locked without a license token — §9.16. |
+| [Headless Threads](https://docs.copilotkit.ai/pydantic-ai/headless-threads) | `/headless-threads` | ✅ Working | `useThreads` + hand-built list, including rename. Mutations need Intelligence mode. |
+| [Thread & History Lifecycle](https://docs.copilotkit.ai/pydantic-ai/threads-lifecycle) | `/threads-lifecycle` | ✅ Working | `setActiveThreadId` / `startNewThread`, with the explicit-vs-not distinction live. |
 | [Slots](https://docs.copilotkit.ai/pydantic-ai/custom-look-and-feel/slots) | `/custom-look-and-feel/slots` | ✅ Working | Runs correctly; **does not typecheck** by design — §9. Not in the doc sidebar. |
 | [Headless UI](https://docs.copilotkit.ai/pydantic-ai/custom-look-and-feel/headless-ui) | `/custom-look-and-feel/headless-ui` | ✅ Working | All four doc snippets assembled. Not in the doc sidebar. |
 | [Programmatic Control](https://docs.copilotkit.ai/pydantic-ai/programmatic-control) | `/programmatic-control` | ✅ Working | Dashboard + state write + subscriber. Tool-call rendering shown, not implemented. |
@@ -254,8 +270,22 @@ Code on a page is never a re-typed approximation: each page reads real files via
 **2. The slots demo does not typecheck — deliberately.**
 `frontend/src/app/custom-look-and-feel/slots/demo-chat/page.tsx` is the doc's level-3 sample transcribed as written. `tsc --noEmit` reports four errors: `TS7031` ×2 and `TS7006` for the untyped `messages`, `isRunning`, and `msg` bindings under `strict`, and `TS2322` because the `messageView` slot is typed as `typeof CopilotChatMessageView` and expects a static `Cursor` member a plain arrow function does not have. It runs correctly under `next dev` and **will fail `next build`**. Kept unpatched so the drift stays visible.
 
-**3. `to_ag_ui()` and `pydantic_ai.ag_ui` are deprecated.**
-Every doc page's Python uses `agent.to_ag_ui()`, and the Shared State pages import `StateDeps` from `pydantic_ai.ag_ui`. In pydantic-ai-slim 1.107.1 both emit `PydanticAIDeprecationWarning` and are slated for removal in 2.0, in favour of `from pydantic_ai.ui import StateDeps` and `AGUIAdapter.dispatch_request()`. This repo keeps the documented API — it still works — so **the warnings on startup are expected**, not a misconfiguration.
+**3. `to_ag_ui()` is gone — resolved by the Quickstart rewrite.**
+This used to be a live discrepancy: every doc page built its server with `agent.to_ag_ui()`, which pydantic-ai-slim 1.107 deprecates and 2.0 removes, so the repo printed a `PydanticAIDeprecationWarning` for each agent on every boot. The Quickstart has since moved to a Starlette route around `AGUIAdapter.dispatch_request(request, agent=agent)`, and this repo followed. **Startup is now warning-free** for that API. Two follow-ons: the Shared State pages still import `StateDeps` from the deprecated `pydantic_ai.ag_ui`, so `language_agent.py` imports it from `pydantic_ai.ui` instead (same object); and deps are now built per request rather than once at import, since `dispatch_request` takes `deps` per call.
+
+**16. Threads have two independent gates, and the drawer reads the one you would not expect.**
+`INTELLIGENCE_API_KEY` decides whether threads *work*: it puts `/info` into `mode: "intelligence"` and turns on `threadEndpoints.mutations`. `COPILOTKIT_LICENSE_TOKEN` decides whether `<CopilotThreadsDrawer>` *renders* them: the drawer gates on `/info`'s `licenseStatus`, which is derived from the license token and not from the project key. Verified directly against the runtime handler:
+
+| | no key | both keys set |
+|---|---|---|
+| `mode` | `sse` | `intelligence` |
+| `licenseStatus` | *(absent)* | `invalid` (a deliberately fake token) |
+| `threadEndpoints.mutations` | `false` | `true` |
+
+So a correctly-keyed runtime can serve threads perfectly while every drawer in the app shows an Upgrade button. The connection panel on `/` reports the two on separate rows for that reason, and reads both off `/info` rather than off whether the variables happen to be set — a key can be present and still unread.
+
+**17. SSE mode's thread flags read as a false positive.**
+With no Intelligence key the in-memory runner still reports `threadEndpoints.list: true` and `inspect: true`. Only `mutations` and `realtimeMetadata` distinguish the two modes, which is why the health panel keys off `mode` rather than off the thread flags.
 
 **4. `openai:gpt-5.4-mini` is not a real model id.**
 [Tool Rendering](https://docs.copilotkit.ai/pydantic-ai/generative-ui/tool-rendering) and both Shared State pages build `Agent("openai:gpt-5.4-mini", …)`. OpenAI does not serve that id — an agent built with it fails on its first run with a 404. `backend/agents/model.py` uses the Quickstart's `openai:gpt-4.1-mini` instead, overridable with `OPENAI_MODEL`.
@@ -291,7 +321,7 @@ Unlike its neighbours, [the page](https://docs.copilotkit.ai/pydantic-ai/multi-a
 The `Shared State` group renders as a heading with no items, though both pages resolve. `custom-look-and-feel/slots`, `custom-look-and-feel/headless-ui`, and both `generative-ui/your-components/*` pages resolve fine but are absent from the sidebar — they are flagged **Not in doc sidebar** in-app.
 
 **15. The Quickstart assumes one agent at the root.**
-It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so `backend/main.py` mounts each `to_ag_ui()` app under its own path and the runtime addresses `http://localhost:8000/<id>/`. How each agent is built is unchanged. The trailing slash matters — without it Starlette issues a redirect the POST does not survive cleanly.
+It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so `backend/main.py` gives each agent its own `POST /<id>/` route and the runtime addresses `http://localhost:8000/<id>/`. How each agent is built is unchanged. The trailing slash matters — without it Starlette issues a redirect the POST does not survive cleanly.
 
 ---
 
@@ -314,6 +344,15 @@ The renderer name must equal the Python function's name exactly — `get_weather
 
 **The inspector never appears.**
 It is force-disabled in production builds. Confirm you are on `npm run dev`, and note this app needs `showDevConsole`, not `enableInspector` — §9 item 10.
+
+**The Threads Drawer shows "Threads are a CopilotKit Intelligence feature".**
+That is `licenseStatus`, not the project key. Set `COPILOTKIT_LICENSE_TOKEN` as well as `INTELLIGENCE_API_KEY` — see §9.16. The connection panel on `/` tells you which of the two is missing.
+
+**Rename / Archive / Delete do nothing on `/headless-threads`.**
+`/info` reports `threadEndpoints.mutations: false`, which is SSE mode. Set `INTELLIGENCE_API_KEY`. Also confirm the runtime route exports `PATCH` and `DELETE` — the Quickstart's sample exports only `GET` and `POST`, and those mutations 405 without them.
+
+**Everything 404s except the bare `/api/copilotkit` URL.**
+The handler is at the single-segment `route.ts` rather than `[[...slug]]/route.ts`. `GET /info` still answers 200 from the old shape, so the app looks connected and never replies — §9.
 
 **`next build` fails with TS7031 / TS2322.**
 Expected, and confined to the slots demo. See §9 item 2.
@@ -361,14 +400,14 @@ pydantic-ai/
 ├── .env.example                  every variable, annotated
 │
 ├── backend/                      Python agent server — localhost:8000
-│   ├── main.py                   Starlette parent; mounts one to_ag_ui() app per agent + /health
+│   ├── main.py                   Starlette; one AGUIAdapter.dispatch_request route per agent + /health
 │   ├── pyproject.toml            the Quickstart's dependency set
 │   └── agents/
 │       ├── __init__.py           AGENTS — id → ASGI app, the mount table
 │       ├── model.py              the one place the model id is decided
-│       ├── my_agent.py           Quickstart agent
+│       ├── my_agent.py           Quickstart agent (exports `agent`, not an ASGI app)
 │       ├── weather_agent.py      Tool Rendering agent — get_weather
-│       ├── language_agent.py     Shared State agent — StateDeps[AgentState]
+│       ├── language_agent.py     Shared State agent — StateDeps + per-request build_deps()
 │       └── search_agent.py       PLACEHOLDER — State Rendering has no Python (§9)
 │
 └── frontend/                     Next.js app — localhost:3000
@@ -376,22 +415,27 @@ pydantic-ai/
     │   ├── layout.tsx            provider + styles.css import
     │   ├── page.tsx              landing page + connection check
     │   ├── status/               in-app status table
-    │   ├── api/copilotkit/route.ts   Copilot Runtime — HttpAgent per agent
+    │   ├── prebuilt-components/copilot-threads-drawer/   Rich Threads: drop-in drawer
+    │   ├── headless-threads/     Rich Threads: useThreads + hand-built list
+    │   ├── threads-lifecycle/    Rich Threads: threadId resolution and replay
+    │   ├── api/copilotkit/[[...slug]]/route.ts
+    │   │                         Copilot Runtime (v2) — HttpAgent per agent,
+    │   │                         CopilotKitIntelligence, identifyUser, 4 verbs
     │   └── <doc-route>/
     │       ├── page.tsx          notes, pass/fail, source panels
     │       └── demo-chat/page.tsx    the running feature, chrome-free
     ├── src/components/
-    │   ├── providers.tsx         CopilotKitProvider — router mode, inspector on
+    │   ├── providers.tsx         CopilotKitProvider — router mode, identity headers, inspector on
     │   ├── nav-sidebar.tsx       nav, generated from nav-config
     │   ├── route-header.tsx      title, status badge, doc link
     │   ├── demo-frame.tsx        chrome for /demo-chat routes
     │   ├── source-code.tsx       renders repo files verbatim
-    │   ├── backend-health.tsx    server-side probe of :8000
+    │   ├── backend-health.tsx    server-side probe of :8000 and of /api/copilotkit/info
     │   └── ui.tsx                Panel, Callout, TryIt, CodeBlock
     └── src/lib/
         ├── nav-config.ts         single source of truth: routes, docs, statuses
         ├── source.ts             reads repo files, slices # region markers
-        └── health.ts             the backend probe
+        └── health.ts             probes the agent server AND the runtime's /info (mode, licenseStatus)
 ```
 
 `src/lib/nav-config.ts` is the file to edit when a status changes — the sidebar, every route header, and `/status` all read from it.
@@ -408,6 +452,11 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 
 **Basics**
 - [Prebuilt Components](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components)
+
+**Rich Threads**
+- [Threads Drawer](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer)
+- [Headless Threads](https://docs.copilotkit.ai/pydantic-ai/headless-threads)
+- [Thread & History Lifecycle](https://docs.copilotkit.ai/pydantic-ai/threads-lifecycle)
 
 **Custom Look and Feel**
 - [Slots](https://docs.copilotkit.ai/pydantic-ai/custom-look-and-feel/slots) ⚑

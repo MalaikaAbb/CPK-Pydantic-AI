@@ -1,23 +1,33 @@
 """Serves every Pydantic AI agent in this harness over AG-UI.
 
-The Quickstart runs one agent: `app = agent.to_ag_ui()`, served at the root of
-port 8000. That is still what each module in `agents/` does — `to_ag_ui()`
-returns an ASGI app with a single `POST /` route.
+The Quickstart's shape, extended to more than one agent:
 
-This harness needs several agents at once, though, because the doc pages define
-different ones (a plain chat agent, a tool-calling agent, a `StateDeps` agent).
-Rather than change how any of them is built, each app is mounted under its own
-path on one Starlette parent:
+    async def run_agent(request: Request) -> Response:
+        return await AGUIAdapter.dispatch_request(request, agent=agent)
+
+    app = Starlette(routes=[Route("/", run_agent, methods=["POST"])])
+
+That is one agent at `POST /`. This harness needs three, because the doc pages
+define different ones (a plain chat agent, a tool-calling agent, a `StateDeps`
+agent), so the same call is wrapped once per agent and mounted under its id:
 
     POST /my_agent/        → the Quickstart agent
     POST /weather_agent/   → the Tool Rendering agent
     POST /language_agent/  → the Shared State agent
 
-Those paths line up with the ids in `frontend/src/app/api/copilotkit/route.ts`.
+Those paths line up with the ids in
+`frontend/src/app/api/copilotkit/[[...slug]]/route.ts`.
+
+── Why this replaced `to_ag_ui()` ────────────────────────────────────────────
+The Quickstart used to end each agent file with `app = agent.to_ag_ui()` and
+mount those ASGI apps. `to_ag_ui()` and the whole `pydantic_ai.ag_ui` module are
+deprecated in pydantic-ai-slim 1.107 and removed in 2.0; the docs have since
+moved to `AGUIAdapter.dispatch_request`, and so has this file. The startup
+deprecation warnings this repo used to print are gone with it.
 
 The browser never calls this service — the Next.js runtime route does,
 server-to-server. CORS is opened for the dev origin only so you can poke an
-endpoint directly with curl or the browser devtools while debugging.
+endpoint directly with curl while debugging.
 """
 
 import os
@@ -32,13 +42,15 @@ _ROOT_ENV = Path(__file__).parent.parent / ".env"
 load_dotenv(_BACKEND_ENV)
 load_dotenv(_ROOT_ENV, override=False)
 
-from starlette.applications import Starlette  # noqa: E402 - must follow load_dotenv
+from pydantic_ai.ui.ag_ui import AGUIAdapter  # noqa: E402 - must follow load_dotenv
+from starlette.applications import Starlette  # noqa: E402
 from starlette.middleware import Middleware  # noqa: E402
 from starlette.middleware.cors import CORSMiddleware  # noqa: E402
-from starlette.responses import JSONResponse  # noqa: E402
-from starlette.routing import Mount, Route  # noqa: E402
+from starlette.requests import Request  # noqa: E402
+from starlette.responses import JSONResponse, Response  # noqa: E402
+from starlette.routing import Route  # noqa: E402
 
-from agents import AGENTS  # noqa: E402
+from agents import AGENTS, AgentEntry  # noqa: E402
 
 PORT = int(os.getenv("AGENT_PORT", "8000"))
 
@@ -58,7 +70,22 @@ if not os.getenv("OPENAI_API_KEY"):
     )
 
 
-async def health(_request):
+def make_route(entry: AgentEntry):
+    """The Quickstart's `run_agent`, closed over one agent.
+
+    A factory rather than a loop variable: closing over the loop variable
+    directly would give every route the last agent in the dict.
+    """
+
+    async def run_agent(request: Request) -> Response:
+        return await AGUIAdapter.dispatch_request(
+            request, agent=entry.agent, deps=entry.deps()
+        )
+
+    return run_agent
+
+
+async def health(_request: Request) -> Response:
     """Lets the frontend tell 'agent server down' apart from 'agent errored'."""
     return JSONResponse({"status": "ok", "agents": sorted(AGENTS)})
 
@@ -66,7 +93,10 @@ async def health(_request):
 app = Starlette(
     routes=[
         Route("/health", health, methods=["GET"]),
-        *[Mount(f"/{agent_id}", app=agui_app) for agent_id, agui_app in AGENTS.items()],
+        *[
+            Route(f"/{agent_id}/", make_route(entry), methods=["POST"])
+            for agent_id, entry in AGENTS.items()
+        ],
     ],
     middleware=[
         Middleware(
