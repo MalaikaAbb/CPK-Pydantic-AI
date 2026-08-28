@@ -18,9 +18,14 @@ from .model import MODEL
 
 from pydantic import BaseModel
 from pydantic_ai import Agent, RunContext
-from pydantic_ai.ag_ui import StateDeps
 
-# region agent
+# The Shared State pages import this from `pydantic_ai.ag_ui`, which is the
+# deprecated module path. `pydantic_ai.ui` is where 1.107 moved it, and it is
+# the same object — the Quickstart's own migration to `pydantic_ai.ui.ag_ui`
+# for the adapter is the same move.
+from pydantic_ai.ui import StateDeps
+
+#region agent
 # The doc's `agent.py`, with `openai:gpt-5.4-mini` swapped for MODEL.
 
 
@@ -54,5 +59,13 @@ async def language_instructions(ctx: RunContext[StateDeps[AgentState]]) -> str:
     )
 
 
-app = agent.to_ag_ui(deps=StateDeps(AgentState()))
-# endregion
+def build_deps() -> StateDeps[AgentState]:
+    """Fresh deps per request.
+
+    The old `to_ag_ui(deps=StateDeps(AgentState()))` built this once at import
+    time and reused the same object for every run. `dispatch_request` takes
+    `deps` per call, so each request gets its own — which is what stops one
+    visitor's language from leaking into another's.
+    """
+    return StateDeps(AgentState())
+#endregion

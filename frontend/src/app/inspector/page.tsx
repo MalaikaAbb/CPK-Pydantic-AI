@@ -1,6 +1,6 @@
 import { RouteHeader } from "@/components/route-header";
 import { SourceCode } from "@/components/source-code";
-import { Callout, CodeBlock, Panel, TryIt } from "@/components/ui";
+import { CodeBlock, Panel, TryIt } from "@/components/ui";
 
 const CONTROL_SNIPPET = `// <CopilotKit> — takes enableInspector. On for localhost by default, and
 // force-disabled in production builds. This is the prop the doc shows.
