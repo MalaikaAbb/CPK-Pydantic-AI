@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect } from "react";
+
 import { CopilotChat, useAgent } from "@copilotkit/react-core/v2";
 
 import { DemoFrame } from "@/components/demo-frame";
@@ -12,18 +14,37 @@ import { DemoFrame } from "@/components/demo-frame";
  * object both ways, so `agent.state` — and this panel — follow it with no
  * message parsing on the frontend.
  *
- * The doc seeds the starting value with `useAgent({ initialState })`. That prop
- * does not exist on `useAgent` in @copilotkit/react-core 1.66.2, so the value
- * simply starts undefined until the agent first writes it.
+ * Two things the doc's snippet leaves out, both load-bearing:
+ *
+ *  1. `useAgent({ initialState })` does not exist. In @copilotkit/react-core
+ *     1.69.3 `useAgent` takes `{ agentId, threadId, runtimeAgentId, updates,
+ *     throttleMs }` and nothing else, so the doc's seed value is dropped
+ *     silently and `agent.state` starts `undefined`. `agent.setState` on mount
+ *     is the equivalent, and it is what puts "english" on screen before the
+ *     first turn — and into `RunAgentInput.state` on it.
+ *
+ *  2. The agent only pushes state back because `language_agent` grew a
+ *     `set_language` tool that returns a `StateSnapshotEvent`. Pydantic AI's
+ *     AG-UI adapter reads state in but never emits a state event, so without
+ *     that tool this panel can only ever show what the app itself wrote.
  */
 
 type AgentState = {
   language: "english" | "spanish";
 };
 
+const INITIAL_STATE: AgentState = { language: "english" };
+
+
 export default function Page() {
   const { agent } = useAgent({ agentId: "language_agent" });
   const state = agent.state as AgentState | undefined;
+
+  useEffect(() => {
+    if (agent.state.language != null && Object.keys(agent.state).length > 0) return;
+    agent.setState(INITIAL_STATE);
+  }, [agent]);
+
 
   return (
     <DemoFrame
@@ -63,3 +84,5 @@ export default function Page() {
     </DemoFrame>
   );
 }
+
+//

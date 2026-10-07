@@ -22,15 +22,29 @@ from collections.abc import Callable
 from typing import Any
 
 from pydantic_ai.agent import AbstractAgent
+from pydantic_ai.ui import StateDeps
 
-from . import language_agent, my_agent, weather_agent
+from . import (
+    a2ui_dynamic,
+    a2ui_fixed,
+    byoc_hashbrown_agent,
+    byoc_json_render_agent,
+    hitl_agent,
+    language_agent,
+    my_agent,
+    open_gen_ui_advanced_agent,
+    open_gen_ui_agent,
+    subagents,
+    weather_agent,
+)
 
 
 class AgentEntry:
     """One agent, plus how to build its per-request deps.
 
-    `deps_factory` exists because only the Shared State agent takes deps. The
-    rest pass `None`, which is what `dispatch_request` defaults to.
+    `deps_factory` exists because only the `StateDeps` agents take deps (Shared
+    State, A2UI Fixed Schema, Sub-Agents). The rest pass `None`, which is what
+    `dispatch_request` defaults to.
     """
 
     def __init__(
@@ -53,6 +67,24 @@ AGENTS: dict[str, AgentEntry] = {
     "weather_agent": AgentEntry(weather_agent.agent),
     "language_agent": AgentEntry(
         language_agent.agent, language_agent.build_deps
+    ),
+    # Generative UI. The two `StateDeps` agents come verbatim from the doc's
+    # demo bundle, which serves them through its own adapter and never shows
+    # how deps are built. A fresh empty state per request is the same thing
+    # `language_agent.build_deps` does.
+    "a2ui_fixed": AgentEntry(
+        a2ui_fixed.agent, lambda: StateDeps(a2ui_fixed.EmptyState())
+    ),
+    "a2ui_dynamic": AgentEntry(a2ui_dynamic.agent),
+    "byoc_json_render": AgentEntry(byoc_json_render_agent.agent),
+    "byoc_hashbrown": AgentEntry(byoc_hashbrown_agent.agent),
+    "open_gen_ui": AgentEntry(open_gen_ui_agent.agent),
+    "open_gen_ui_advanced": AgentEntry(open_gen_ui_advanced_agent.agent),
+    # Human in the Loop.
+    "hitl_agent": AgentEntry(hitl_agent.agent),
+    # Multi-agent.
+    "subagents": AgentEntry(
+        subagents.agent, lambda: StateDeps(subagents.SubagentsState())
     ),
 }
 
