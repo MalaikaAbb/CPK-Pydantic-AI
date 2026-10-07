@@ -73,6 +73,27 @@ export default function Page() {
       </Panel>
 
       <Panel
+        title="The provider — the Quickstart's app/providers.tsx and app/layout.tsx"
+        description="The doc's provider file is verbatim. It wraps the Quickstart demo only, so every other route keeps the harness's own root provider."
+      >
+        <SourceCodeGroup
+          files={[
+            { file: "frontend/src/app/quickstart/providers.tsx" },
+            { file: "frontend/src/app/quickstart/demo-chat/layout.tsx" },
+          ]}
+        />
+        <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
+          Because the provider sets <code>agent=&quot;my_agent&quot;</code>,
+          the doc&apos;s <code>&lt;CopilotSidebar /&gt;</code> needs no{" "}
+          <code>agentId</code>. <code>useSingleEndpoint={"{false}"}</code>{" "}
+          matches the <code>[[...slug]]</code> runtime route below. In 1.77,{" "}
+          <code>&lt;CopilotKit&gt;</code> passes the flag straight through, so
+          leaving it out would mean <code>auto</code> (probe{" "}
+          <code>/info</code>), not single-endpoint.
+        </p>
+      </Panel>
+
+      <Panel
         title="The runtime route — where Intelligence is configured"
         description="Read from disk, so it can be diffed against the doc's sample directly. This is the file the Quickstart rewrote."
       >
@@ -195,7 +216,7 @@ export default function Page() {
         are gone.
       </Callout>
 
-      <Callout tone="warn" title="Two remaining departures from the doc's samples">
+      <Callout tone="warn" title="Remaining departures from the doc's samples">
         <p>
           <strong>The install line pulls in v1 React packages.</strong> The
           Quickstart runs{" "}
@@ -207,6 +228,19 @@ export default function Page() {
           <code>@copilotkit/react-core/v2</code>.{" "}
           <code>@copilotkit/react-ui</code> is the v1 package and is not a
           dependency here.
+        </p>
+        <p className="mt-2">
+          <strong>The Intelligence key has a new name.</strong> The doc&apos;s
+          runtime now reads <code>process.env.CPK_INTELLIGENCE_API_KEY</code>,
+          which is what <code>npx copilotkit@latest project select</code>{" "}
+          writes. This repo still reads <code>INTELLIGENCE_API_KEY</code>. Set
+          that one, or Intelligence stays off.
+        </p>
+        <p className="mt-2">
+          <strong>The doc pins Pydantic AI 2.x.</strong> The install line is
+          now <code>pydantic-ai-slim[ag-ui,openai]&gt;=2,&lt;3</code> with{" "}
+          <code>starlette&gt;=0.46.2</code>. This repo is still on
+          pydantic-ai-slim 1.107 and starlette 0.45.3.
         </p>
         <p className="mt-2">
           <strong>One agent at the root, versus several.</strong> The doc points{" "}

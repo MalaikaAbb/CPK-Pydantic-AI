@@ -58,8 +58,10 @@ export const NAV: NavGroup[] = [
         title: "Quickstart",
         docPath: "/pydantic-ai/quickstart?agent=bring-your-own",
         summary:
-          "The bring-your-own-agent path: a Pydantic AI agent served with to_ag_ui() and reached through HttpAgent.",
+          "The bring-your-own-agent path: a Pydantic AI agent behind AGUIAdapter, reached through HttpAgent, under the doc's own <CopilotKit> provider.",
         status: "working",
+        statusNote:
+          "The doc's providers.tsx wraps the Quickstart demo only. The runtime still reads INTELLIGENCE_API_KEY, not the doc's renamed CPK_INTELLIGENCE_API_KEY.",
       },
     ],
   },
@@ -201,6 +203,60 @@ export const NAV: NavGroup[] = [
         statusNote:
           "Frontend implemented as documented. The doc's agent.py block contains React code, not Python — there is no agent to write `searches`, so the list stays empty.",
       },
+      {
+        path: "/generative-ui/a2ui/dynamic-schema",
+        hasDemo: true,
+        title: "A2UI · Dynamic Schema",
+        docPath: "/pydantic-ai/generative-ui/a2ui/dynamic-schema",
+        summary:
+          "A catalog of custom components on the provider; the model designs a surface from it per request.",
+        status: "partial",
+        statusNote:
+          "Prose auto-inject path, not the demo code: the bundle's agent-side tool imports an unpublished helper. Catalog is the bundle's, verbatim. Not yet checked in a browser.",
+      },
+      {
+        path: "/generative-ui/a2ui/fixed-schema",
+        hasDemo: true,
+        title: "A2UI · Fixed Schema",
+        docPath: "/pydantic-ai/generative-ui/a2ui/fixed-schema",
+        summary:
+          "A flight card whose component tree is authored as JSON up front; the agent's tool supplies only the data.",
+        status: "partial",
+        statusNote:
+          "Backend verified (display_flight returns the a2ui_operations container). booked_schema.json borrowed from the google-adk bundle; renderers are the Mastra bundle's. Not yet checked in a browser.",
+      },
+      {
+        path: "/generative-ui/open-generative-ui",
+        hasDemo: true,
+        title: "Open Generative UI",
+        docPath: "/pydantic-ai/generative-ui/open-generative-ui",
+        summary:
+          "The agent writes sandboxed HTML/CSS/JS that streams into an iframe, with a minimal and a sandbox-functions cell.",
+        status: "partial",
+        statusNote: "All demo-bundle code, verbatim. Not yet checked in a browser.",
+      },
+      {
+        path: "/generative-ui/json-render",
+        hasDemo: true,
+        title: "JSON Render",
+        docPath: "/pydantic-ai/generative-ui/json-render",
+        summary:
+          "An agent-emitted { root, elements } spec, meant to be validated against a Zod catalog and drawn by @json-render/react.",
+        status: "broken",
+        statusNote:
+          "As published it throws (<Renderer catalog> instead of registry, no JSONUIProvider). The bundle agent's MetricCard props don't match the doc's catalog, so metric cards are always dropped. The 'fixed' mode renders the charts.",
+      },
+      {
+        path: "/generative-ui/hashbrown",
+        hasDemo: true,
+        title: "Hashbrown",
+        docPath: "/pydantic-ai/generative-ui/hashbrown",
+        summary:
+          "Streamed JSON meant to be parsed progressively by @hashbrownai/react and rendered through a component catalog.",
+        status: "broken",
+        statusNote:
+          "As published it throws (0.6.1 hook API mismatch). The bundle agent emits lowercase component names the doc's catalog lacks, so even the 'fixed' mode renders nothing.",
+      },
     ],
   },
   {
@@ -214,6 +270,33 @@ export const NAV: NavGroup[] = [
         summary:
           "A tool the agent calls that executes in the browser, forwarded automatically over AG-UI.",
         status: "working",
+      },
+    ],
+  },
+  {
+    title: "Human in the Loop",
+    routes: [
+      {
+        path: "/human-in-the-loop/agent",
+        hasDemo: true,
+        title: "Pydantic AI Agents",
+        docPath: "/pydantic-ai/human-in-the-loop/agent",
+        summary:
+          "An essay draft the user approves before the agent continues, via a frontend tool that waits for a response.",
+        status: "broken",
+        statusNote:
+          "By design. Frontend and backend both define write_essay, and Pydantic AI rejects the run with RUN_ERROR (observed in the browser). The hook also uses v1-only options (renderAndWaitForResponse).",
+      },
+      {
+        path: "/human-in-the-loop/governed-actions",
+        hasDemo: true,
+        title: "Governed Action Approval UI",
+        docPath: "/pydantic-ai/human-in-the-loop/governed-actions",
+        summary:
+          "Gating a side-effecting action behind an approve/reject card, driven by the action's verdict.",
+        status: "partial",
+        statusNote:
+          "Only the useHumanInTheLoop half can run (on my_agent). useInterrupt needs an AG-UI interrupt, which Pydantic AI's adapter never emits. No policy engine, agent or executeSideEffect is published. Not yet checked in a browser.",
       },
     ],
   },
@@ -237,6 +320,22 @@ export const NAV: NavGroup[] = [
         summary:
           "Writing back into agent state with agent.setState, plus the doc's re-run variant.",
         status: "working",
+      },
+    ],
+  },
+  {
+    title: "Multi-Agent",
+    routes: [
+      {
+        path: "/multi-agent/subagents",
+        hasDemo: true,
+        title: "Sub-Agents",
+        docPath: "/pydantic-ai/multi-agent/subagents",
+        summary:
+          "A supervisor delegating to research, writing and critique sub-agents, with a delegation log in shared state.",
+        status: "partial",
+        statusNote:
+          "Delegation works and the inline cards render from the tool stream. The delegation log stays empty: the tools mutate ctx.deps.state, and Pydantic AI's AG-UI adapter never emits a state snapshot (observed: zero STATE_* events).",
       },
     ],
   },

@@ -7,16 +7,26 @@ The Quickstart's shape, extended to more than one agent:
 
     app = Starlette(routes=[Route("/", run_agent, methods=["POST"])])
 
-That is one agent at `POST /`. This harness needs three, because the doc pages
-define different ones (a plain chat agent, a tool-calling agent, a `StateDeps`
-agent), so the same call is wrapped once per agent and mounted under its id:
+That is one agent at `POST /`. This harness needs several, because the doc
+pages define different ones, so the same call is wrapped once per agent and
+mounted under its id:
 
-    POST /my_agent/        → the Quickstart agent
-    POST /weather_agent/   → the Tool Rendering agent
-    POST /language_agent/  → the Shared State agent
+    POST /my_agent/              → the Quickstart agent
+    POST /weather_agent/         → the Tool Rendering agent
+    POST /language_agent/        → the Shared State agent
+    POST /a2ui_fixed/            → A2UI · Fixed Schema
+    POST /a2ui_dynamic/          → A2UI · Dynamic Schema
+    POST /byoc_json_render/      → JSON Render
+    POST /byoc_hashbrown/        → Hashbrown
+    POST /open_gen_ui/           → Open Generative UI (minimal)
+    POST /open_gen_ui_advanced/  → Open Generative UI (advanced)
+    POST /hitl_agent/            → Human in the Loop · Pydantic AI Agents
+    POST /subagents/             → Sub-Agents
 
-Those paths line up with the ids in
-`frontend/src/app/api/copilotkit/[[...slug]]/route.ts`.
+The full list is the keys of `agents.AGENTS`. Each path matches the `HttpAgent`
+URL in whichever runtime route serves that agent: the main one at
+`frontend/src/app/api/copilotkit/[[...slug]]/route.ts`, or a dedicated
+`frontend/src/app/api/copilotkit-*/` route.
 
 ── Why this replaced `to_ag_ui()` ────────────────────────────────────────────
 The Quickstart used to end each agent file with `app = agent.to_ag_ui()` and

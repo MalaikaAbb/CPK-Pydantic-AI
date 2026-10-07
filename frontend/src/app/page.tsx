@@ -13,13 +13,25 @@ const AGENTS: [string, string, string][] = [
   [
     "my_agent",
     "—",
-    "Quickstart, Prebuilt Components, Slots, Headless UI, Programmatic Control, Inspector, Display-only, Interactive, Frontend Tools, State Rendering, Multi-Agent Flows, Runtime, AG-UI",
+    "Quickstart, Prebuilt Components, Slots, Headless UI, Programmatic Control, Inspector, Display-only, Interactive, Frontend Tools, State Rendering, Governed Actions, Multi-Agent Flows, Runtime, AG-UI",
   ],
   ["weather_agent", "get_weather (tool_plain)", "Tool Rendering, Multi-Agent Flows"],
   [
     "language_agent",
     "StateDeps[AgentState] — language",
     "Shared State read + write, Multi-Agent Flows",
+  ],
+  ["a2ui_fixed", "display_flight · StateDeps[EmptyState]", "A2UI · Fixed Schema"],
+  ["a2ui_dynamic", "— (generate_a2ui injected by the runtime)", "A2UI · Dynamic Schema"],
+  ["byoc_json_render", "— (prompted to emit { root, elements })", "JSON Render"],
+  ["byoc_hashbrown", "— (prompted to emit { ui: [...] })", "Hashbrown"],
+  ["open_gen_ui", "— (generateSandboxedUi injected)", "Open Generative UI · minimal"],
+  ["open_gen_ui_advanced", "— (generateSandboxedUi injected)", "Open Generative UI · advanced"],
+  ["hitl_agent", "write_essay (tool_plain)", "Human in the Loop · Pydantic AI Agents"],
+  [
+    "subagents",
+    "research_agent, writing_agent, critique_agent · StateDeps[SubagentsState]",
+    "Sub-Agents",
   ],
 ];
 
@@ -76,8 +88,8 @@ export default function Page() {
       </Callout>
 
       <Panel
-        title="The three agents"
-        description="One per doc page that defines one. Each is a separate to_ag_ui() app mounted under its own path by backend/main.py."
+        title="The agents"
+        description="One per doc page that defines one. backend/main.py mounts each under its own path with AGUIAdapter.dispatch_request. The Generative UI and Sub-Agents agents come verbatim from the docs' demo Code tabs."
       >
         <div className="overflow-x-auto">
           <table className="w-full min-w-[42rem] text-left text-sm">
@@ -106,7 +118,8 @@ export default function Page() {
           </table>
         </div>
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
-          Three rather than one because state is per-agent: the Shared State
+          Several rather than one, because each page defines its own agent.
+          State is per-agent too: the Shared State
           agent is built with <code>deps_type=StateDeps[AgentState]</code>, which
           the Quickstart agent is not. Agent ids come from the keys in the
           runtime&apos;s <code>agents: {"{ … }"}</code> object, and those keys

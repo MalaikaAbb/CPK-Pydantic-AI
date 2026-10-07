@@ -88,7 +88,7 @@ export default function Page() {
       <Callout tone="warn" title="The doc's single-agent URL versus this one">
         The Quickstart points <code>HttpAgent</code> at{" "}
         <code>http://localhost:8000/</code>, which works because it serves one
-        agent at the root. This harness needs three, so each is mounted under its
+        agent at the root. This harness needs several, so each is mounted under its
         own path and the runtime addresses{" "}
         <code>{"http://localhost:8000/<id>/"}</code>. The trailing slash matters:
         without it Starlette issues a redirect that the POST does not survive
@@ -97,7 +97,7 @@ export default function Page() {
 
       <Panel
         title="Built-in middleware"
-        description="Documented on this page but not exercised here — A2UI and MCP Apps each have their own doc page outside this repo's scope."
+        description="Documented on this page. A2UI is exercised on the A2UI Fixed and Dynamic Schema routes, each with its own runtime route. MCP Apps is not built yet."
       >
         <CodeBlock
           code={MIDDLEWARE}

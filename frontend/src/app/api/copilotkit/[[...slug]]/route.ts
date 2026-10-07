@@ -43,6 +43,11 @@ const agents = {
   my_agent: new HttpAgent({ url: agentUrl("my_agent") }),
   weather_agent: new HttpAgent({ url: agentUrl("weather_agent") }),
   language_agent: new HttpAgent({ url: agentUrl("language_agent") }),
+  // Human in the Loop · Pydantic AI Agents, and Sub-Agents. The Sub-Agents
+  // bundle page mounts `<CopilotKit runtimeUrl="/api/copilotkit"
+  // agent="subagents">`, so its agent has to live on this route.
+  hitl_agent: new HttpAgent({ url: agentUrl("hitl_agent") }),
+  subagents: new HttpAgent({ url: agentUrl("subagents") }),
 };
 
 /**

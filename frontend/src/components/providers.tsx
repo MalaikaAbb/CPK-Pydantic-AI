@@ -1,7 +1,10 @@
 "use client";
 
 import { CopilotKitProvider } from "@copilotkit/react-core/v2";
+import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+
+import { rootInspectorSetting } from "@/lib/inspector";
 
 /**
  * One provider for the whole app, so chat state survives navigation between
@@ -30,9 +33,12 @@ import type { ReactNode } from "react";
  * harness has no session, so it sends a fixed demo identity you can override
  * with NEXT_PUBLIC_DEMO_USER_ID to watch two thread lists diverge.
  *
- * `showDevConsole="auto"` mounts the Inspector on localhost. It is needed
- * because `CopilotKitProvider` defaults it to false — `<CopilotKit>` is the
- * component that takes `enableInspector` and defaults to on. Never mount
+ * `enableInspector` decides whether this provider mounts the Inspector. In
+ * 1.77 `CopilotKitProvider` reads only `enableInspector`; the `showDevConsole`
+ * this file used to pass was ignored, and the Inspector was on in every dev
+ * build anyway. Left unset it stays on. It is switched off only on the routes
+ * whose page mounts its own `<CopilotKit>`, so a page never gets two
+ * Inspectors (see `lib/inspector.ts` for why two is fatal). Never mount
  * `<CopilotKitInspector />` by hand: it forwards `core ?? null`, so a bare
  * instance reports "CopilotKit core not attached".
  */
@@ -43,6 +49,8 @@ const DEMO_USER_ID = process.env.NEXT_PUBLIC_DEMO_USER_ID ?? "harness-local";
 const DEMO_USER_NAME = process.env.NEXT_PUBLIC_DEMO_USER_NAME ?? "Harness User";
 
 export function Providers({ children }: { children: ReactNode }) {
+  const pathname = usePathname();
+
   return (
     <CopilotKitProvider
       runtimeUrl={RUNTIME_URL}
@@ -50,7 +58,7 @@ export function Providers({ children }: { children: ReactNode }) {
         "x-user-id": DEMO_USER_ID,
         "x-user-name": DEMO_USER_NAME,
       }}
-      showDevConsole="auto"
+      enableInspector={rootInspectorSetting(pathname)}
       onError={(event) => {
         console.error(`[CopilotKit ${event.code}]`, event.error);
       }}
