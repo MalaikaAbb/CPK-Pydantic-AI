@@ -126,8 +126,10 @@ export const NAV: NavGroup[] = [
         title: "Slots",
         docPath: "/pydantic-ai/custom-look-and-feel/slots",
         summary:
-          "Replacing chat sub-components at three levels: class strings, prop overrides, and whole components.",
+          "Replacing chat sub-components at three levels (class strings, prop overrides, whole components), plus groupMessages folding tool steps into one row.",
         status: "working",
+        statusNote:
+          "The groupMessages tab (added in the 2026-10-08 sync) has passed typecheck but has not been checked in a browser yet.",
         offNav: true,
       },
       {

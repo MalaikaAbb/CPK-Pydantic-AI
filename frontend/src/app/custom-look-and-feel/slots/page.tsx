@@ -80,14 +80,52 @@ export default function Page() {
 
         <div className="mt-4">
           <TryIt
-            prompts={["Hello there"]}
-            expect="Level 1 tints the message bubbles and outlines the input. Level 2 focuses the input on mount. Level 3 replaces the message list with a plain custom layout."
-            fail="The chat looks identical across all three tabs — the slot props are not reaching the component."
+            prompts={["Hello there", "What's the weather in Paris, London and Tokyo?"]}
+            expect={
+              <>
+                Level 1 tints the message bubbles and outlines the input. Level
+                2 focuses the input on mount. Level 3 replaces the message list
+                with a plain custom layout. On tab 4, the weather prompt&apos;s
+                tool calls fold into one <code>N tool steps ▸</code> row; it
+                opens and closes when clicked, and the reply text sits on its own
+                row below it.
+              </>
+            }
+            fail={
+              <>
+                The chat looks identical across the first three tabs, which
+                means the slot props are not reaching the component. On tab 4,
+                each <code>get_weather</code> call is its own row and there is no
+                toggle, or the console warns that a message rendered twice or two
+                groups share a key.
+              </>
+            }
           />
         </div>
       </Panel>
 
-      
+      <Panel
+        title="Grouping messages into one row"
+        description="New on the doc page in the 2026-10-08 sync. Tab 4 of the demo."
+      >
+        <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+          <code>messageView.groupMessages</code> receives the message list and
+          returns <em>rows</em>. <code>messageRow(m)</code> gives a message its
+          own row; <code>messageGroup({"{ key, messages, wrapper }"})</code> renders
+          several messages together inside your wrapper. The wrapper gets{" "}
+          <code>state</code>/<code>setState</code>, which the chat keeps per group
+          key, so a group you expanded stays expanded after it scrolls out of
+          the virtualized window and back in.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+          The sample only folds tool steps, and <code>my_agent</code> has no tools.
+          This tab therefore runs on <code>weather_agent</code>. That is the only
+          change to the doc&apos;s code.
+        </p>
+        <div className="mt-4">
+          <SourceCode file="frontend/src/app/custom-look-and-feel/slots/group-messages.tsx" />
+        </div>
+      </Panel>
 
       <Panel title="Source">
         <SourceCode file="frontend/src/app/custom-look-and-feel/slots/demo-chat/page.tsx" />
