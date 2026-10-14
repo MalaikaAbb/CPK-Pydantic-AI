@@ -1,54 +1,67 @@
 "use client";
 
-import {
-  CopilotChat,
-  CopilotChatConfigurationProvider,
-  CopilotThreadsDrawer,
-} from "@copilotkit/react-core/v2";
+import { useState } from "react";
 
 import { DemoFrame } from "@/components/demo-frame";
 
-/** The runtime id this demo binds to. Also shown in the demo header. */
-const AGENT_ID = "my_agent";
+import { SetupPage, SidebarPage } from "../doc-samples";
+
+type Sample = "setup" | "sidebar";
 
 /**
- * The doc's whole integration: a drawer and a chat inside one shared
- * `CopilotChatConfigurationProvider`.
+ * One tab per code sample on the doc page. The samples themselves live in
+ * `../doc-samples.tsx`, one `#region` each, so the notes page can show each
+ * sample's source.
  *
- * The shared configuration is the point. It holds the active thread, so
- * selecting a row connects the chat to that thread and replays its history, and
- * the "New Conversation" row resets the chat to a fresh welcome screen — with no
- * `threadId` state, no selection handler, and no props passed between the two
- * components.
- *
- * `CopilotKitProvider` is not repeated here; the app already mounts one at the
- * root. The doc nests them because its sample is a whole page, and it passes
- * `publicLicenseKey` there — this harness sets the license on the runtime
- * instead (`COPILOTKIT_LICENSE_TOKEN`), which is what `/info`'s `licenseStatus`
- * reports and what this drawer actually gates on.
- *
- * One departure, and it is presentational only. The doc's wrapper is
- * `<div style={{ display: "flex", height: "100dvh" }}>` with the two components
- * as bare children. In a flex row `CopilotChat` has no flex basis of its own, so
- * it collapses to min-content — the chat renders one word per line beside a
- * full-width drawer. `flex: 1` plus `minWidth: 0` gives it the remaining space;
- * `minWidth` matters because a flex item's default `min-width: auto` refuses to
- * shrink below its content and would push the layout wider than the viewport.
+ * Every sample mounts its own `<CopilotKitProvider>`, as the doc does. Each tab
+ * is keyed, so switching tabs remounts that provider. Nothing carries over
+ * between tabs except the threads stored on the server.
  */
+const SAMPLES: { id: Sample; label: string; blurb: string }[] = [
+  {
+    id: "setup",
+    label: "1 · Drawer + CopilotChat",
+    blurb: "Drawer + CopilotChat in one CopilotChatConfigurationProvider. No callbacks.",
+  },
+  {
+    id: "sidebar",
+    label: "2 · Drawer + CopilotSidebar",
+    blurb: "The same drawer, hosted by CopilotSidebar defaultOpen.",
+  },
+];
+
 export default function Page() {
+  const [sample, setSample] = useState<Sample>("setup");
+  const active = SAMPLES.find((s) => s.id === sample)!;
+
   return (
     <DemoFrame
       parentPath="/prebuilt-components/copilot-threads-drawer"
-      subtitle={`agent: ${AGENT_ID} · CopilotThreadsDrawer + CopilotChat`}
+      subtitle={`agent: default · ${active.blurb}`}
     >
-      <CopilotChatConfigurationProvider agentId={AGENT_ID}>
-        <div style={{ display: "flex", height: "100%" }}>
-          <CopilotThreadsDrawer />
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <CopilotChat />
-          </div>
+      <div className="flex h-full flex-col">
+        <div className="flex shrink-0 flex-wrap gap-2 border-b border-slate-200 p-3 dark:border-slate-800">
+          {SAMPLES.map((s) => (
+            <button
+              key={s.id}
+              type="button"
+              onClick={() => setSample(s.id)}
+              className={`rounded-md border px-3 py-1.5 text-sm font-medium transition-colors ${
+                sample === s.id
+                  ? "border-[var(--accent)] text-[var(--accent)]"
+                  : "border-slate-300 text-slate-600 hover:border-slate-400 dark:border-slate-600 dark:text-slate-300"
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
         </div>
-      </CopilotChatConfigurationProvider>
+
+        <div className="min-h-0 flex-1">
+          {sample === "setup" && <SetupPage key="setup" />}
+          {sample === "sidebar" && <SidebarPage key="sidebar" />}
+        </div>
+      </div>
     </DemoFrame>
   );
 }
