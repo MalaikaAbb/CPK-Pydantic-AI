@@ -5,7 +5,9 @@ import { useState } from "react";
 
 import { DemoFrame } from "@/components/demo-frame";
 
-type Level = "classes" | "props" | "component";
+import { Chat as GroupedChat } from "../group-messages";
+
+type Level = "classes" | "props" | "component" | "grouped";
 
 const LEVELS: { id: Level; label: string; blurb: string }[] = [
   {
@@ -22,6 +24,12 @@ const LEVELS: { id: Level; label: string; blurb: string }[] = [
     id: "component",
     label: "3 · Custom component",
     blurb: "Your own component replaces the default, plus a custom layout.",
+  },
+  {
+    id: "grouped",
+    label: "4 · groupMessages",
+    blurb:
+      'Runs of tool steps fold into one collapsible row. weather_agent — try "Weather in Paris, London and Tokyo?"',
   },
 ];
 
@@ -105,6 +113,8 @@ export default function Page() {
               
             </CopilotChat>
           )}
+
+          {level === "grouped" && <GroupedChat key="grouped" />}
         </div>
       </div>
     </DemoFrame>
