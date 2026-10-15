@@ -202,7 +202,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 ### Rich Threads
 
-**`/prebuilt-components/copilot-threads-drawer`** — The drop-in sidebar. Drawer and chat share one `CopilotChatConfigurationProvider`, so selecting a row moves the chat with no state of your own. **Try:** send a message, click **New Conversation**, send another, then click back. **Pass:** the first thread's history replays. **Fail:** a locked "Threads are a CopilotKit Intelligence feature" panel — that is `licenseStatus`, not a bug (§9.16).
+**`/prebuilt-components/copilot-threads-drawer`** — The drop-in sidebar. Drawer and chat share one `CopilotChatConfigurationProvider`, so selecting a row moves the chat with no state of your own. The doc's two code samples are the two demo tabs, in [`doc-samples.tsx`](frontend/src/app/prebuilt-components/copilot-threads-drawer/doc-samples.tsx). Each one mounts its own `<CopilotKitProvider>`, as the doc does. The tabs are **1 · Drawer + CopilotChat** and **2 · Drawer + CopilotSidebar**. **Try:** on tab 1, send a message, click **New Conversation**, send another, then click back. **Pass:** the first thread's history replays. **Fail:** a locked "Threads are a CopilotKit Intelligence feature" panel, which means `licenseStatus` is not entitled (§9.16). Because the doc's provider sends no identity headers, these threads belong to `anonymous`, not to the `harness-local` user that Headless Threads lists.
 
 **`/headless-threads`** — The same data through `useThreads`, hand-rendered, including **rename**, which the drawer omits. **Try:** send a message, then Rename / Archive / Delete the row. **Pass:** each acts on the row. **Fail:** they no-op — in SSE mode `/info` reports `mutations: false` and there is no endpoint behind them.
 
@@ -276,7 +276,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 |---|---|---|---|
 | [Quickstart](https://docs.copilotkit.ai/pydantic-ai/quickstart?agent=bring-your-own) | `/quickstart` | ✅ Working | Bring-your-own-agent path, under the doc's `providers.tsx` (Quickstart demo only). Env var name and Pydantic AI major version differ — §9.25. |
 | [Prebuilt Components](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components) | `/prebuilt-components` | ✅ Working | All three components, doc `labels`. |
-| [Threads Drawer](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer) | `/prebuilt-components/copilot-threads-drawer` | ✅ Working | Drop-in drawer sharing one chat configuration. Renders locked without a license token — §9.16. |
+| [Threads Drawer](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer) | `/prebuilt-components/copilot-threads-drawer` | ✅ Working | Synced 2026-10-14: the doc's two samples, drawer + `CopilotChat` and drawer + `CopilotSidebar`, as published. Needs an active Intelligence entitlement — §9.16, §9.26. Routes render 200 and typecheck; the tabs are not yet checked in a browser. |
 | [Headless Threads](https://docs.copilotkit.ai/pydantic-ai/headless-threads) | `/headless-threads` | ✅ Working | `useThreads` + hand-built list, including rename. Mutations need Intelligence mode. |
 | [Thread & History Lifecycle](https://docs.copilotkit.ai/pydantic-ai/threads-lifecycle) | `/threads-lifecycle` | ✅ Working | `setActiveThreadId` / `startNewThread`, with the explicit-vs-not distinction live. |
 | [Slots](https://docs.copilotkit.ai/pydantic-ai/custom-look-and-feel/slots) | `/custom-look-and-feel/slots` | ✅ Working | Runs correctly; **does not typecheck** by design — §9. Not in the doc sidebar. `groupMessages` tab added for the 2026-10-08 doc change: typechecks, not yet checked in a browser. |
@@ -329,6 +329,8 @@ This used to be a live discrepancy: every doc page built its server with `agent.
 | `threadEndpoints.mutations` | `false` | `true` |
 
 So a correctly-keyed runtime can serve threads perfectly while every drawer in the app shows an Upgrade button. The connection panel on `/` reports the two on separate rows for that reason, and reads both off `/info` rather than off whether the variables happen to be set — a key can be present and still unread.
+
+*Update for 1.79 (matches the current doc's "Intelligence access" section):* in Intelligence mode, `/info` now looks up the org's subscription (`runtimeEntitlements`) first, and only then falls back to the license token. An active cloud subscription reports `valid` without any `COPILOTKIT_LICENSE_TOKEN`. If the lookup fails with a retryable error and there is no token, it reports `unknown`, and the drawer treats `unknown` as licensed. That is what this harness saw on 2026-10-14: `runtimeEntitlements.status: "unavailable"`, `licenseStatus: "unknown"`, drawer unlocked.
 
 **17. SSE mode's thread flags read as a false positive.**
 With no Intelligence key the in-memory runner still reports `threadEndpoints.list: true` and `inspect: true`. Only `mutations` and `realtimeMetadata` distinguish the two modes, which is why the health panel keys off `mode` rather than off the thread flags.
@@ -410,6 +412,14 @@ The page now pins `pydantic-ai-slim[ag-ui,openai]>=2,<3` and `starlette>=0.46.2`
 
 **15. The Quickstart assumes one agent at the root.**
 It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so `backend/main.py` gives each agent its own `POST /<id>/` route and the runtime addresses `http://localhost:8000/<id>/`. How each agent is built is unchanged. The trailing slash matters — without it Starlette issues a redirect the POST does not survive cleanly.
+
+**26. Threads Drawer: where the two samples differ from what runs.**
+[The page](https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer), checked against `@copilotkit/react-core` 1.79.0:
+
+- **`YourMainContent`** in the sidebar sample is never defined, so the sample does not compile as printed. Here it is a stand-in that renders `null`.
+- **Layout.** The first sample puts `<CopilotChat>` in a flex row with no `flex: 1`. On 1.77 this repo saw the chat collapse to a narrow column, so the old demo wrapped it. The wrapper is gone now, so if the doc's layout is still broken, tab 1 shows it.
+- **`CPK_INTELLIGENCE_API_KEY`.** The doc uses this name. This repo's runtime route reads `INTELLIGENCE_API_KEY` (the same drift as Quickstart, §9.25). The shared runtime route is left unchanged here, because changing it affects every route.
+- **Identity.** The doc's `<CopilotKitProvider>` sends no identity headers, so `identifyUser` falls back to `anonymous`. Verified: `GET /api/copilotkit/threads` with no headers returns `endUserId: "anonymous"` rows. With the root provider's headers it returns `harness-local` rows.
 
 ---
 
