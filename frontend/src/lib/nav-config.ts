@@ -282,6 +282,17 @@ export const NAV: NavGroup[] = [
           "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. ProductCard and productSchema are repo scaffolding; maplibre-gl added as the page says. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
       },
       {
+        path: "/generative-ui/components/state-and-actions",
+        hasDemo: true,
+        title: "Components · State and actions",
+        docPath: "/pydantic-ai/generative-ui/components/state-and-actions",
+        summary:
+          "App state bound into props, functions run on click, events sent to the agent, and writable props that keep user input.",
+        status: "partial",
+        statusNote:
+          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Cart, cart.addItem, the state-catalog ProductCard and the catalogs around the fragment snippets are repo scaffolding. 'Send a click to the agent' is not exercised (it names no component). pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
