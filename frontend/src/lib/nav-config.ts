@@ -304,6 +304,17 @@ export const NAV: NavGroup[] = [
           "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The dark-mode script renders in the demo body, not <head>; the page's mapStyle URLs are placeholders, so the Map variant draws no basemap. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
       },
       {
+        path: "/generative-ui/components/transports",
+        hasDemo: true,
+        title: "Components · Transports",
+        docPath: "/pydantic-ai/generative-ui/components/transports",
+        summary:
+          "The render_ui tool transport vs the markdown transport, the runtime's generativeUI flag, and agentIds scoping.",
+        status: "partial",
+        statusNote:
+          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The runtime sample's agent is undefined; this repo's Pydantic AI genui agent stands in. The shop agent named in agentIds is never printed, so it isn't registered. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
