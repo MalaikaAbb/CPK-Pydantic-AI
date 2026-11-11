@@ -69,9 +69,11 @@ export default function Page() {
       >
         <SourceCode file="backend/agents/language_agent.py" region="agent" />
         <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
-          The only edit is the model id: the doc builds{" "}
-          <code>Agent(&quot;openai:gpt-5.4-mini&quot;, …)</code>, which OpenAI
-          does not serve.
+          The only edit is the model id: the doc now builds{" "}
+          <code>Agent(&quot;openai:gpt-6-luna&quot;, …)</code> (it was{" "}
+          <code>openai:gpt-5.4-mini</code>, which OpenAI does not serve). The
+          new id is unchecked, so the agent keeps <code>MODEL</code>; set{" "}
+          <code>OPENAI_MODEL=openai:gpt-6-luna</code> to run the doc&apos;s.
         </p>
       </Panel>
 

@@ -336,7 +336,7 @@ So a correctly-keyed runtime can serve threads perfectly while every drawer in t
 With no Intelligence key the in-memory runner still reports `threadEndpoints.list: true` and `inspect: true`. Only `mutations` and `realtimeMetadata` distinguish the two modes, which is why the health panel keys off `mode` rather than off the thread flags.
 
 **4. `openai:gpt-5.4-mini` is not a real model id.**
-[Tool Rendering](https://docs.copilotkit.ai/pydantic-ai/generative-ui/tool-rendering) and both Shared State pages build `Agent("openai:gpt-5.4-mini", …)`. OpenAI does not serve that id — an agent built with it fails on its first run with a 404. `backend/agents/model.py` uses the Quickstart's `openai:gpt-4.1-mini` instead, overridable with `OPENAI_MODEL`.
+[Tool Rendering](https://docs.copilotkit.ai/pydantic-ai/generative-ui/tool-rendering) and both Shared State pages build `Agent("openai:gpt-5.4-mini", …)` (the Shared State pages print `openai:gpt-6-luna` since 2026-11-11, not yet checked; `language_agent` keeps `MODEL`, and `OPENAI_MODEL=openai:gpt-6-luna` runs the page's value). OpenAI does not serve that id — an agent built with it fails on its first run with a 404. `backend/agents/model.py` uses the Quickstart's `openai:gpt-4.1-mini` instead, overridable with `OPENAI_MODEL`.
 
 **5. The Quickstart's install line pulls in v1 React packages.**
 It runs `npm install @copilotkit/react-ui @copilotkit/react-core @copilotkit/runtime @ag-ui/client`, but every component it then imports comes from `@copilotkit/react-core/v2`. `@copilotkit/react-ui` is the v1 package and is **not** a dependency here.

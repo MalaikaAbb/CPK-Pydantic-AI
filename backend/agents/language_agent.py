@@ -26,7 +26,9 @@ from pydantic_ai import Agent, RunContext
 from pydantic_ai.ui import StateDeps
 
 #region agent
-# The doc's `agent.py`, with `openai:gpt-5.4-mini` swapped for MODEL.
+# The doc's `agent.py`, with its model id swapped for MODEL. The id was
+# `openai:gpt-5.4-mini` (not served by OpenAI) and is `openai:gpt-6-luna` since
+# 2026-11-11 (not checked); OPENAI_MODEL=openai:gpt-6-luna runs it.
 
 
 class AgentState(BaseModel):
