@@ -407,6 +407,8 @@ The frontend registers `write_essay` and the backend defines `write_essay`, so t
 **24. Sub-Agents: the delegation log is never synced.**
 The supervisor's tools append to and update `ctx.deps.state.delegations`, and the code comments say Pydantic AI's AG-UI bridge "syncs those back to the frontend at end-of-turn". It does not (§9.6b). Observed: a full research → write → critique run streams three tool calls and results and `RUN_FINISHED`, with zero `STATE_SNAPSHOT`/`STATE_DELTA` events. The inline cards (`useRenderTool`) and the activity banner work, because they read the tool-call stream; the left-hand log stays at *0 calls*. The bundle's docstring describes returning a `StateSnapshotEvent` per step, which would work, but no such code is in the file.
 
+The page now builds the supervisor and all three sub-agents on `OpenAIResponsesModel("gpt-6-luna")` (previously `gpt-5-mini`). The backend keeps that literal verbatim. Whether OpenAI serves that id has not been checked in this sync; if it does not, every Sub-Agents run fails on the first model call with a 404 from the provider, and that is a doc bug, not a harness one.
+
 **25. Quickstart drift not yet applied.**
 The page now pins `pydantic-ai-slim[ag-ui,openai]>=2,<3` and `starlette>=0.46.2`, while this repo is on 1.107.7 / 0.45.3. Its runtime reads `CPK_INTELLIGENCE_API_KEY`, which is what `npx copilotkit@latest project select` writes; this repo still reads `INTELLIGENCE_API_KEY`. Its `providers.tsx` is applied, but only around the Quickstart demo, because every other route needs the harness's root provider (identity headers, no locked agent).
 
