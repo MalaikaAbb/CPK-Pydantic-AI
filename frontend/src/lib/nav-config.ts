@@ -259,14 +259,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/catalogs",
-        hasDemo: true,
         title: "Components · Catalogs",
         docPath: "/pydantic-ai/generative-ui/components/catalogs",
         summary:
           "createGenerativeUI catalogs: typed components, zod and Valibot props, extends, parameterOrder and exportA2UICatalog.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Hero, Panel and cartUI are repo scaffolding; valibot added for the schema-library sample. The fs.writeFileSync line is kept as a // doc: comment and the demo prints the exported catalog. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The fragments use Hero, Panel and cartUI without defining them; the Valibot sample also needs valibot and @valibot/to-json-schema, which this repo doesn't install.",
       },
       {
         path: "/generative-ui/components/standard-catalog",
