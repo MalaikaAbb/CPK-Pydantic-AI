@@ -251,6 +251,8 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/human-in-the-loop/useInterrupt`** — ❌ **Broken (as published).** The page's backend block (`interrupt_agent`, told to call a client-side `schedule_meeting`) behind a chat, with the page's Approve / Cancel `useInterrupt` component mounted. The frontend `schedule_meeting` snippet is not published for pydantic-ai, so nothing registers it (§9.32). **Try:** `Book a 30-minute call with Alex about the roadmap.` **Pass (for this route):** a text reply and no picker; no Approve / Cancel card. **Fail:** a backend run error, or a picker (something registered the tool).
 
+**`/human-in-the-loop/headless`** — ❌ **Broken (reference only).** The page describes a Promise-based frontend tool whose pending payload drives a picker outside the chat, but its only code sample is not published for pydantic-ai (region missing, no Code tab), so nothing is built (§9.32). **Try:** nothing to run.
+
 **`/human-in-the-loop/governed-actions`** — ⚠️ **Partial (not yet checked in a browser).** The `useHumanInTheLoop` half of the page on `my_agent`. `useInterrupt` and `handleApproval` are shown as text. **Try:** `Use approve_governed_action to apply a 30% discount to account NW-8812, verdict require_approval.` **Pass:** a *User approval required* card with the arguments as JSON. The run waits for Approve or Reject. **Fail:** a prose answer. Name the tool explicitly; nothing in the agent's prompt mentions it.
 
 ### Shared State
@@ -301,6 +303,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [Frontend Tools](https://docs.copilotkit.ai/pydantic-ai/frontend-tools) | `/frontend-tools` | ✅ Working | `sayHello`, browser-executed. |
 | [HITL Overview](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/index) | `/human-in-the-loop` | 📖 Reference | Added 2026-11-11. Overview, no code. |
 | [Pausing the Agent for Input](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt) | `/human-in-the-loop/useInterrupt` | ❌ Broken | Added 2026-11-11. Frontend `schedule_meeting` snippet unpublished; backend block runs — §9.32. Not yet type-checked or run. |
+| [Headless Interrupts](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/headless) | `/human-in-the-loop/headless` | ❌ Broken | Added 2026-11-11. Reference only: the page's one snippet is unpublished for pydantic-ai — §9.32. |
 | [HITL · Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent) | `/human-in-the-loop/agent` | ❌ Broken | By design: front and back both define `write_essay`; the run is refused with `RUN_ERROR` (observed in the browser) — §9.23. |
 | [Governed Action Approval UI](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/governed-actions) | `/human-in-the-loop/governed-actions` | ⚠️ Partial | `useHumanInTheLoop` half only; Pydantic AI never emits an AG-UI interrupt. Not yet checked in a browser. |
 | [Reading agent state](https://docs.copilotkit.ai/pydantic-ai/shared-state/in-app-agent-read) | `/shared-state/in-app-agent-read` | ✅ Working | `initialState`/`render` missing, and `StateDeps` is one-way — §9. |
@@ -429,7 +432,7 @@ It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so 
 - **Identity.** The doc's `<CopilotKitProvider>` sends no identity headers, so `identifyUser` falls back to `anonymous`. Verified: `GET /api/copilotkit/threads` with no headers returns `endUserId: "anonymous"` rows. With the root provider's headers it returns `harness-local` rows.
 
 **32. Pausing the Agent for Input: the frontend half is not published.**
-[The page](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt) explains that for Pydantic AI the pause is a frontend `schedule_meeting` tool with a Promise-based handler, then renders `snippet skipped: region 'frontend-promise-handler' missing in pydantic-ai::gen-ui-interrupt` where that code should be, and has no Code tab. Only the backend block is printed (`SYSTEM_PROMPT` and `Agent(model=OpenAIResponsesModel("gpt-6-luna"), …)`, without imports). The harness runs that block as `interrupt_agent` (imports added) and registers no `schedule_meeting`, so the model is told to call a tool that does not exist. The page's generic `useInterrupt` samples (Approve / Cancel, multi-interrupt) target AG-UI interrupt outcomes, which Pydantic AI's adapter never emits; the first is mounted and never renders, the second is a bare hook call kept in `_doc/` and type-checked only.
+[The page](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt) explains that for Pydantic AI the pause is a frontend `schedule_meeting` tool with a Promise-based handler, then renders `snippet skipped: region 'frontend-promise-handler' missing in pydantic-ai::gen-ui-interrupt` where that code should be, and has no Code tab. Only the backend block is printed (`SYSTEM_PROMPT` and `Agent(model=OpenAIResponsesModel("gpt-6-luna"), …)`, without imports). The harness runs that block as `interrupt_agent` (imports added) and registers no `schedule_meeting`, so the model is told to call a tool that does not exist. The page's generic `useInterrupt` samples (Approve / Cancel, multi-interrupt) target AG-UI interrupt outcomes, which Pydantic AI's adapter never emits; the first is mounted and never renders, the second is a bare hook call kept in `_doc/` and type-checked only. [Headless Interrupts](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/headless) has the same problem in full: its only sample renders `snippet skipped: region 'headless-promise-primitives' missing in pydantic-ai::interrupt-headless`, so that route is reference-only.
 
 ---
 
@@ -625,6 +628,7 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 - [HITL Overview](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/index)
 - [Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent)
 - [Pausing the Agent for Input](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt)
+- [Headless Interrupts](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/headless)
 - [Governed Action Approval UI](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/governed-actions)
 
 **Multi-Agent**

@@ -311,6 +311,16 @@ export const NAV: NavGroup[] = [
           "The page's frontend schedule_meeting snippet is not published for pydantic-ai (region missing, no Code tab), so it isn't registered; the agent is the printed backend block. The generic useInterrupt samples never fire against a Pydantic AI agent. Not yet run.",
       },
       {
+        path: "/human-in-the-loop/headless",
+        title: "Headless Interrupts",
+        docPath: "/pydantic-ai/human-in-the-loop/headless",
+        summary:
+          "Resolving a paused run from a surface outside the chat: a Promise-based frontend tool exposes its pending payload as React state.",
+        status: "broken",
+        statusNote:
+          "Reference only. The page's only code sample is not published for pydantic-ai (region 'headless-promise-primitives' missing, no Code tab), so there is nothing to build.",
+      },
+      {
         path: "/human-in-the-loop/governed-actions",
         hasDemo: true,
         title: "Governed Action Approval UI",
