@@ -315,6 +315,17 @@ export const NAV: NavGroup[] = [
           "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The runtime sample's agent is undefined; this repo's Pydantic AI genui agent stands in. The shop agent named in agentIds is never printed, so it isn't registered. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
       },
       {
+        path: "/generative-ui/components/markdown-mode",
+        hasDemo: true,
+        title: "Components · Markdown mode",
+        docPath: "/pydantic-ai/generative-ui/components/markdown-mode",
+        summary:
+          "The agent writes A2UI operations in a2ui code blocks inside its reply; sendContext: false moves the catalog into forwardedProps.",
+        status: "partial",
+        statusNote:
+          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The fence guide travels as context, which AGUIAdapter drops; the sendContext: false variant needs a backend reading forwarded_props, which AGUIAdapter doesn't pass to the agent — no UI expected from either (§9.29).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
