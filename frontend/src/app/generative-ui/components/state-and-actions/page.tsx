@@ -1,94 +1,34 @@
-// Ported from the agno harness (itself from CPK-LangGraph-TS / aws-strands-ts).
-// The pydantic-ai doc page is byte-identical to the agno one (diffed
-// 2026-11-11). Harness glue points at this repo's Pydantic AI `genui` agent.
-
 import { RouteHeader } from "@/components/route-header";
-import { SourceCodeGroup } from "@/components/source-code";
-import { Callout, Panel, TryIt } from "@/components/ui";
+import { Callout, Panel } from "@/components/ui";
 
-const BASE = "frontend/src/app/generative-ui/components/state-and-actions/demo-chat";
-
+/**
+ * Reference only. This page's code imports `@copilotkit/react-core/v2/generative-ui`,
+ * which the pinned CopilotKit (^1.77.0) does not export (added in 1.85). Bumping
+ * dependencies is out of scope for a doc sync, so nothing is built here; see
+ * README §9.29. An earlier revision of this branch ported a working demo from
+ * the agno harness on a 1.85 bump; that port was reverted.
+ */
 export default function Page() {
   return (
     <>
       <RouteHeader path="/generative-ui/components/state-and-actions" />
 
-      <Panel title="What it demonstrates">
+      <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          Generated components can be wired back into the app. A catalog can
-          declare <strong>state</strong> that your code fills and the agent
-          never sets; <strong>functions</strong> that a component&apos;s event
-          calls in the browser; <strong>events</strong> that, when no function
-          matches, turn a click into a message to the agent; and{" "}
-          <strong>writable</strong> props whose user edits stick.
+          State and actions: app state bound into component props, functions run on click, events sent to the agent, allowedCallers, and writable props that keep user input.
         </p>
-        <div className="mt-4 space-y-3">
-          <TryIt
-            prompts={["(App state) show a product card for p1 Trail Runner"]}
-            expect="The card reads 'In cart: 0' from app state (nothing on the page adds to the cart), not from the agent."
-            fail="'In cart' missing or wrong — the bind selector did not run, or the agent set inCart itself."
-          />
-          <TryIt
-            prompts={["(Run code on click) show a product card for p1 Trail Runner"]}
-            expect="The card renders. The page prints no ProductCard, so the stand-in has no Add to cart button and the addToCart function can't be clicked here."
-            fail="A chat message appears on click — the event did not match addToCart."
-          />
-          <TryIt
-            prompts={["(Writable) show a checkout form with the email set to me@example.com"]}
-            expect="The input starts with the agent's value and keeps whatever you type; asking the agent to change the email afterwards does not overwrite your edit."
-          />
-        </div>
       </Panel>
 
-      <Panel title="The page's code">
-        <SourceCodeGroup
-          files={[
-            { file: `${BASE}/state-catalog.tsx` },
-            { file: `${BASE}/functions-catalog.tsx` },
-            { file: `${BASE}/declarations.ts` },
-            { file: `${BASE}/writable-catalog.tsx` },
-          ]}
-        />
-      </Panel>
-
-      <Panel title="The demo">
-        <SourceCodeGroup files={[{ file: `${BASE}/page.tsx` }, { file: `${BASE}/sections.tsx` }]} />
-      </Panel>
-
-      <Callout tone="warn" title="Gaps and harness changes">
-        <ul className="space-y-1.5">
-          <li>
-            · Every snippet omits some imports (<code>z</code>,{" "}
-            <code>createGenerativeUI</code>, <code>Cart</code>); added and marked.
-          </li>
-          <li>
-            · The state catalog uses a <code>ProductCard</code> the page never
-            prints; scaffolding renders <code>inCart</code>.
-          </li>
-          <li>
-            · <code>Cart</code> and <code>cart.addItem</code> are undefined; a
-            React-state cart stands in.
-          </li>
-          <li>
-            · &ldquo;Who may call&rdquo; and &ldquo;Keep what the user
-            types&rdquo; are fragments; the catalogs around them are
-            scaffolding. &ldquo;Send a click to the agent&rdquo; prints only an{" "}
-            <code>events</code> fragment and names no component, so it is not
-            exercised here.
-          </li>
-          <li>
-            · The state and functions catalogs declare only{" "}
-            <code>ProductCard</code>, and a surface has one root, so two cards
-            have nothing to sit in: the agent invents a container and the
-            browser rejects the <code>createSurface</code>. The catalogs are
-            used as published, with no layout container added, so ask for one
-            card at a time.
-          </li>
-          <li>
-            · The page says the agent cannot call renderer functions in this
-            version whatever <code>allowedCallers</code> says, so the
-            declarations are shown as exported rather than exercised.
-          </li>
+      <Callout tone="warn" title="Reference only — needs CopilotKit 1.85">
+        <p>
+          The page&apos;s code imports{" "}
+          <code>@copilotkit/react-core/v2/generative-ui</code>, which this
+          repo&apos;s pinned <code>@copilotkit/react-core</code> (^1.77.0)
+          does not export. A doc sync does not bump dependencies, so no demo is
+          built until the repo moves to 1.85.
+        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          <li>The fragments use a Cart, cart.addItem and a ProductCard they never define, and are not inside complete catalogs.</li>
         </ul>
       </Callout>
     </>
