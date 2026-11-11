@@ -226,6 +226,8 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/generative-ui/tool-rendering`** — Named renderer for `get_weather` plus a wildcard fallback. **Try:** `What's the weather in Tokyo?` **Pass:** `Calling weather API...` becomes `Called the weather API for Tokyo.` **Fail:** raw JSON or nothing — the renderer name and the Python function name disagree.
 
+**`/generative-ui/a2ui`** — 📖 **Reference.** The A2UI overview: `a2ui: {}` on `CopilotRuntime` (optionally scoped with `a2ui.agents`) and an optional `a2ui={{ theme }}` prop on `<CopilotKit>`. No demo and no agent on the page. Both snippets are kept byte-for-byte in `frontend/src/app/generative-ui/a2ui/_doc/`, type-checked but never served; `myAgent` and `children` are undefined on the page and suppressed with `@ts-expect-error` (§9.28). **Try:** nothing to run; use the Fixed / Dynamic Schema routes below.
+
 **`/generative-ui/a2ui/dynamic-schema`** — ⚠️ **Partial (not yet checked in a browser).** A catalog of custom components (cards, metrics, tables, Recharts bar/pie) on a nested `<CopilotKit a2ui={{ catalog }}>`. The model designs a surface from it per request. This follows the prose's auto-inject path, not the demo code (§9.20). **Try:** `Show me my sales dashboard for this quarter.` **Pass:** a one-line reply and a rendered surface; the Inspector shows a `generate_a2ui` call the agent never declared. **Fail:** prose only (no tool injected), or a red *Catalog not found* box (the model omitted `catalogId`).
 
 **`/generative-ui/a2ui/fixed-schema`** — ⚠️ **Partial (backend verified, not yet checked in a browser).** A flight card whose component tree is JSON on the agent side; `display_flight` supplies only the data. **Try:** `Find me a flight from SFO to JFK on United for $289.` **Pass:** a *Flight Details* card showing `SFO → JFK`, a `UNITED` badge and `$289`; *Book flight* turns green and reads *Booked*. **Fail:** text only (the middleware did not see the operations), or a card with blank fields (zod 4 installed instead of 3, §9.18).
@@ -287,6 +289,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [Interactive](https://docs.copilotkit.ai/pydantic-ai/generative-ui/your-components/interactive) | `/generative-ui/your-components/interactive` | ✅ Working | `useHumanInTheLoop`. Generic supplied explicitly — §9. Not in the doc sidebar. |
 | [Tool Rendering](https://docs.copilotkit.ai/pydantic-ai/generative-ui/tool-rendering) | `/generative-ui/tool-rendering` | ✅ Working | Named + wildcard renderers over a real `tool_plain`. |
 | [State Rendering](https://docs.copilotkit.ai/pydantic-ai/generative-ui/state-rendering) | `/generative-ui/state-rendering` | ⚠️ Partial | The doc's `agent.py` block contains React, not Python. Frontend complete; no agent writes `searches` — §9. |
+| [A2UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui) | `/generative-ui/a2ui` | 📖 Reference | Added 2026-11-11. Overview, no demo; snippets type-checked verbatim with `myAgent` / `children` suppressed — §9.28. |
 | [A2UI · Dynamic Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/dynamic-schema) | `/generative-ui/a2ui/dynamic-schema` | ⚠️ Partial | Prose auto-inject path; the demo's agent-side tool needs an unpublished helper — §9.20. Not yet checked in a browser. |
 | [A2UI · Fixed Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/fixed-schema) | `/generative-ui/a2ui/fixed-schema` | ⚠️ Partial | Backend verified. Needs zod 3 (§9.18), borrowed `booked_schema.json` (§9.19), Mastra's renderers. Not yet checked in a browser. |
 | [Open Generative UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-generative-ui) | `/generative-ui/open-generative-ui` | ⚠️ Partial | Demo-bundle code, verbatim; both cells. Not yet checked in a browser. |
@@ -420,6 +423,9 @@ It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so 
 - **Layout.** The first sample puts `<CopilotChat>` in a flex row with no `flex: 1`. On 1.77 this repo saw the chat collapse to a narrow column, so the old demo wrapped it. The wrapper is gone now, so if the doc's layout is still broken, tab 1 shows it.
 - **`CPK_INTELLIGENCE_API_KEY`.** The doc uses this name. This repo's runtime route reads `INTELLIGENCE_API_KEY` (the same drift as Quickstart, §9.25). The shared runtime route is left unchanged here, because changing it affects every route.
 - **Identity.** The doc's `<CopilotKitProvider>` sends no identity headers, so `identifyUser` falls back to `anonymous`. Verified: `GET /api/copilotkit/threads` with no headers returns `endUserId: "anonymous"` rows. With the root provider's headers it returns `harness-local` rows.
+
+**28. A2UI overview: two snippets with undefined names.**
+[The page](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui) registers `{ default: myAgent }` on its runtime and never defines `myAgent` (nor names a Pydantic AI agent for it), and its theme snippet is a bare `<CopilotKit …>{children}</CopilotKit>` expression with `children` undefined. Both are kept byte-for-byte in `frontend/src/app/generative-ui/a2ui/_doc/` with a `@ts-expect-error` on each undefined name. The page also says A2UI output then renders with no further code; with `a2ui: {}` and no provider catalog, nothing in that setup lets a plain agent produce A2UI unless its own tools return A2UI operations. Not run here.
 
 ---
 
@@ -600,6 +606,7 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 - [Your Components · Interactive](https://docs.copilotkit.ai/pydantic-ai/generative-ui/your-components/interactive) ⚑
 - [Tool Rendering](https://docs.copilotkit.ai/pydantic-ai/generative-ui/tool-rendering)
 - [State Rendering](https://docs.copilotkit.ai/pydantic-ai/generative-ui/state-rendering)
+- [A2UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui)
 - [A2UI · Dynamic Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/dynamic-schema)
 - [A2UI · Fixed Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/fixed-schema) · [Mastra's version](https://docs.copilotkit.ai/mastra/generative-ui/a2ui/fixed-schema) (renderers used here)
 - [Open Generative UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-generative-ui)
