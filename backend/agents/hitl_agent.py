@@ -8,8 +8,10 @@ its tool are here.
 
 Two things about it are worth knowing before you test:
 
-  - The page prints `openai:gpt-5.4-mini`, which OpenAI does not serve. MODEL
-    (see model.py) is used instead, as on every other route that prints it.
+  - The page printed `openai:gpt-5.4-mini`, which OpenAI does not serve, and
+    prints `openai:gpt-6-luna` since 2026-11-11 (not checked). MODEL (see
+    model.py) is used instead, as on every other route that prints a model id;
+    OPENAI_MODEL=openai:gpt-6-luna runs the page's value.
   - The frontend registers a tool that is also named `write_essay`. That makes
     two tools with one name in the same run, one in the browser and one here.
     It is reproduced as published; see the route for what happens.
@@ -20,7 +22,7 @@ from .model import MODEL
 from pydantic_ai import Agent
 
 #region agent
-# Verbatim, apart from the model id: the page has Agent('openai:gpt-5.4-mini').
+# Verbatim, apart from the model id: the page has Agent('openai:gpt-6-luna').
 agent = Agent(MODEL)
 
 @agent.tool_plain
