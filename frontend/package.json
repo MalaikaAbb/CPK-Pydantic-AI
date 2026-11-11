@@ -18,12 +18,14 @@
     "@hashbrownai/react": "^0.6.1",
     "@json-render/react": "^0.21.0",
     "@radix-ui/react-separator": "^1.1.16",
+    "@valibot/to-json-schema": "^1.8.0",
     "next": "16.3.0",
     "react": "19.2.8",
     "react-dom": "19.2.8",
     "recharts": "^3.10.1",
     "server-only": "^0.0.1",
     "shiki": "^4.4.2",
+    "valibot": "^1.5.0",
     "zod": "^3.25.76"
   },
   "devDependencies": {

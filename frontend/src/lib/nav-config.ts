@@ -260,6 +260,17 @@ export const NAV: NavGroup[] = [
           "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Product, ProductRow and the product list are repo scaffolding; ./catalog is taken to be the Catalogs page's shopUI; no products tool, so the model invents products. Target descriptions also travel as context. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
       },
       {
+        path: "/generative-ui/components/catalogs",
+        hasDemo: true,
+        title: "Components · Catalogs",
+        docPath: "/pydantic-ai/generative-ui/components/catalogs",
+        summary:
+          "createGenerativeUI catalogs: typed components, zod and Valibot props, extends, parameterOrder and exportA2UICatalog.",
+        status: "partial",
+        statusNote:
+          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Hero, Panel and cartUI are repo scaffolding; valibot added for the schema-library sample. The fs.writeFileSync line is kept as a // doc: comment and the demo prints the exported catalog. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
