@@ -299,14 +299,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/transports",
-        hasDemo: true,
         title: "Components · Transports",
         docPath: "/pydantic-ai/generative-ui/components/transports",
         summary:
           "The render_ui tool transport vs the markdown transport, the runtime's generativeUI flag, and agentIds scoping.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The runtime sample's agent is undefined; this repo's Pydantic AI genui agent stands in. The shop agent named in agentIds is never printed, so it isn't registered. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The runtime sample's agent is never defined, and the shop agent named in agentIds is never built. Both transports send their guide as AG-UI context, which Pydantic AI's AGUIAdapter drops (§9.29).",
       },
       {
         path: "/generative-ui/components/markdown-mode",

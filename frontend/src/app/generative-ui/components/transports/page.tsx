@@ -1,67 +1,35 @@
-// Ported from the agno harness (itself from CPK-LangGraph-TS / aws-strands-ts).
-// The pydantic-ai doc page is byte-identical to the agno one (diffed
-// 2026-11-11). Harness glue points at this repo's Pydantic AI `genui` agent.
-
 import { RouteHeader } from "@/components/route-header";
-import { SourceCode, SourceCodeGroup } from "@/components/source-code";
-import { Callout, Panel, TryIt } from "@/components/ui";
+import { Callout, Panel } from "@/components/ui";
 
-const BASE = "frontend/src/app/generative-ui/components/transports/demo-chat";
-
+/**
+ * Reference only. This page's code imports `@copilotkit/react-core/v2/generative-ui`,
+ * which the pinned CopilotKit (^1.77.0) does not export (added in 1.85). Bumping
+ * dependencies is out of scope for a doc sync, so nothing is built here; see
+ * README §9.29. An earlier revision of this branch ported a working demo from
+ * the agno harness on a 1.85 bump; that port was reverted.
+ */
 export default function Page() {
   return (
     <>
       <RouteHeader path="/generative-ui/components/transports" />
 
-      <Panel title="What it demonstrates">
+      <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          The same catalog can reach the browser two ways: the agent calls a{" "}
-          <code>render_ui</code> tool the runtime adds (checked server-side as
-          it streams), or it writes <code>a2ui</code> code blocks inside its
-          reply (checked in the browser). <code>agentIds</code> limits which
-          agents get any of it, and the runtime&apos;s{" "}
-          <code>generativeUI</code> option controls when the tool is added.
+          Transports: the render_ui tool transport vs the markdown transport, the runtime&apos;s generativeUI flag, and agentIds scoping.
         </p>
-        <div className="mt-4 space-y-3">
-          <TryIt
-            prompts={["Compare the Starter, Team, and Enterprise plans in a table"]}
-            expect="Tool: a table component in its own message. Markdown: prose with the table embedded in the same reply. agentIds [shop]: a plain-text or markdown answer, because default is not in the list (and no shop agent exists to compare against)."
-            fail="The 'as default' variant renders a component — agentIds was ignored."
-          />
-        </div>
       </Panel>
 
-      <Panel title="The runtime" description="The page's CopilotRuntime sample; its undefined agent is this repo's genui agent.">
-        <SourceCode file="frontend/src/app/api/copilotkit-genui-transports/[[...slug]]/route.ts" />
-      </Panel>
-
-      <Panel title="The provider configs and demo">
-        <SourceCodeGroup files={[{ file: `${BASE}/configs.ts` }, { file: `${BASE}/page.tsx` }]} />
-      </Panel>
-
-      <Callout tone="warn" title="Gaps and harness changes">
-        <ul className="space-y-1.5">
-          <li>
-            · The runtime sample references an <code>agent</code> it never
-            builds; this repo&apos;s Pydantic AI <code>genui</code> agent is
-            used through <code>HttpAgent</code> (<code>/genui/</code>).
-          </li>
-          <li>
-            · The &ldquo;Only some agents&rdquo; sample lists a{" "}
-            <code>shop</code> agent in <code>agentIds</code> that no page
-            builds. None is registered, so only the &ldquo;outside the
-            list&rdquo; half can be tested.
-          </li>
-          <li>
-            · pydantic-ai-slim 1.107&apos;s <code>AGUIAdapter</code> forwards
-            the run&apos;s <code>tools</code> (so <code>render_ui</code>{" "}
-            reaches the model) but drops AG-UI <code>context</code>, so the
-            catalog guide never reaches it. Not worked around here.
-          </li>
-          <li>
-            · The runtime sample sets no <code>runner</code>; it gets the
-            runtime&apos;s default in-memory runner.
-          </li>
+      <Callout tone="warn" title="Reference only — needs CopilotKit 1.85">
+        <p>
+          The page&apos;s code imports{" "}
+          <code>@copilotkit/react-core/v2/generative-ui</code>, which this
+          repo&apos;s pinned <code>@copilotkit/react-core</code> (^1.77.0)
+          does not export. A doc sync does not bump dependencies, so no demo is
+          built until the repo moves to 1.85.
+        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          <li>The runtime sample&apos;s agent is never defined, and the shop agent named in agentIds is never built.</li>
+          <li>Both transports send their guide as AG-UI context, which Pydantic AI&apos;s AGUIAdapter drops (§9.29).</li>
         </ul>
       </Callout>
     </>
