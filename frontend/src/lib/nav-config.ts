@@ -319,14 +319,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/from-a2ui",
-        hasDemo: true,
         title: "Components · Adopt from A2UI",
         docPath: "/pydantic-ai/generative-ui/components/from-a2ui",
         summary:
           "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Airport and Arrow are repo scaffolding. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The After catalog names Airport and Arrow components without defining them.",
       },
       {
         path: "/generative-ui/json-render",
