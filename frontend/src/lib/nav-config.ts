@@ -249,14 +249,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/surfaces",
-        hasDemo: true,
         title: "Components · Surfaces",
         docPath: "/pydantic-ai/generative-ui/components/surfaces",
         summary:
           "GenerativeUISurface page targets the chat can fill, limit, scroll to, and replace, with per-component error boundaries.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Product, ProductRow and the product list are repo scaffolding; ./catalog is taken to be the Catalogs page's shopUI; no products tool, so the model invents products. Target descriptions also travel as context. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The samples use Product, ProductRow and a product list they never define, and import shopUI from a ./catalog the page doesn't print. Target descriptions travel as AG-UI context, which Pydantic AI's AGUIAdapter drops (§9.29).",
       },
       {
         path: "/generative-ui/components/catalogs",

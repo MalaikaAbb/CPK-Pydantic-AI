@@ -1,84 +1,35 @@
-// Ported from the agno harness (itself from CPK-LangGraph-TS / aws-strands-ts).
-// The pydantic-ai doc page is byte-identical to the agno one (diffed
-// 2026-11-11). Harness glue points at this repo's Pydantic AI `genui` agent.
-
 import { RouteHeader } from "@/components/route-header";
-import { SourceCodeGroup } from "@/components/source-code";
-import { Callout, Panel, TryIt } from "@/components/ui";
+import { Callout, Panel } from "@/components/ui";
 
-const BASE = "frontend/src/app/generative-ui/components/surfaces/demo-chat";
-
+/**
+ * Reference only. This page's code imports `@copilotkit/react-core/v2/generative-ui`,
+ * which the pinned CopilotKit (^1.77.0) does not export (added in 1.85). Bumping
+ * dependencies is out of scope for a doc sync, so nothing is built here; see
+ * README §9.29. An earlier revision of this branch ported a working demo from
+ * the agno harness on a 1.85 bump; that port was reverted.
+ */
 export default function Page() {
   return (
     <>
       <RouteHeader path="/generative-ui/components/surfaces" />
 
-      <Panel title="What it demonstrates">
+      <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          Generated UI can land outside the chat. A{" "}
-          <code>GenerativeUISurface</code> marks an area of the page as a target
-          with an id and a description the agent reads on every run; asking in
-          the chat then changes that area. A target can restrict which catalog
-          components may go in it, opt out of auto-scroll, or exist once per
-          item.
+          Surfaces: GenerativeUISurface targets on the page that the chat can fill, limit, scroll to and replace, with per-component error boundaries.
         </p>
-        <div className="mt-4 space-y-3">
-          <TryIt
-            prompts={[
-              "Show me cheap running shoes in the featured row",
-              "Show the featured products again",
-            ]}
-            expect="The first prompt replaces the page's own three-product row with an agent-rendered ProductGrid; the second deletes that surface and the fallback row comes back."
-            fail="The grid appears in the chat instead of the featured row — the target's description never reached the agent."
-          />
-          <TryIt
-            prompts={["Recommend two related shoes under the Trail Runner"]}
-            expect="With Trail Runner selected, a grid fills the recommendations target for that product only. Switch product and the target is empty; switch back and it is still there."
-          />
-          <TryIt
-            prompts={["(Limit tab) Put a table of shoe sizes in the featured area"]}
-            expect="The agent cannot use Table there: it is not in this catalog nor in the target's components list, so it either builds ProductCards or explains it cannot."
-          />
-        </div>
       </Panel>
 
-      <Panel title="The page's code">
-        <SourceCodeGroup
-          files={[
-            { file: `${BASE}/featured-products.tsx` },
-            { file: `${BASE}/targets.tsx` },
-            { file: `${BASE}/surfaces.css` },
-            { file: `${BASE}/catalog.ts` },
-          ]}
-        />
-      </Panel>
-
-      <Panel title="The demo" description="The provider config is the page's 'When a component fails' sample.">
-        <SourceCodeGroup files={[{ file: `${BASE}/page.tsx` }]} />
-      </Panel>
-
-      <Callout tone="warn" title="Gaps and harness changes">
-        <ul className="space-y-1.5">
-          <li>
-            · <code>Product</code>, <code>ProductRow</code> and the products
-            list are used by <code>FeaturedProducts</code> but never defined.
-            Supplied from <code>_shared/scaffolding.tsx</code>.
-          </li>
-          <li>
-            · <code>./catalog</code> is imported but not printed on this page; it
-            is taken to be the Catalogs page&apos;s <code>shopUI</code>, the
-            only catalog with ProductGrid and ProductCard.
-          </li>
-          <li>
-            · The one-line targets (<code>sidebar-notes</code>, per-product
-            recommendations) are shown without a page around them; the layout is
-            scaffolding, and the first scaffolding product stands in for the
-            page&apos;s undefined <code>product</code>.
-          </li>
-          <li>
-            · No page gives the agent products, and this repo doesn&apos;t add a
-            products tool, so the model invents the products it renders.
-          </li>
+      <Callout tone="warn" title="Reference only — needs CopilotKit 1.85">
+        <p>
+          The page&apos;s code imports{" "}
+          <code>@copilotkit/react-core/v2/generative-ui</code>, which this
+          repo&apos;s pinned <code>@copilotkit/react-core</code> (^1.77.0)
+          does not export. A doc sync does not bump dependencies, so no demo is
+          built until the repo moves to 1.85.
+        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          <li>The samples use Product, ProductRow and a product list they never define, and import shopUI from a ./catalog the page doesn&apos;t print.</li>
+          <li>Target descriptions travel as AG-UI context, which Pydantic AI&apos;s AGUIAdapter drops (§9.29).</li>
         </ul>
       </Callout>
     </>
