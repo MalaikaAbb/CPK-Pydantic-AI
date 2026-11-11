@@ -30,6 +30,7 @@ from . import (
     byoc_hashbrown_agent,
     byoc_json_render_agent,
     hitl_agent,
+    interrupt_agent,
     language_agent,
     my_agent,
     open_gen_ui_advanced_agent,
@@ -82,6 +83,7 @@ AGENTS: dict[str, AgentEntry] = {
     "open_gen_ui_advanced": AgentEntry(open_gen_ui_advanced_agent.agent),
     # Human in the Loop.
     "hitl_agent": AgentEntry(hitl_agent.agent),
+    "interrupt_agent": AgentEntry(interrupt_agent.agent),
     # Multi-agent.
     "subagents": AgentEntry(
         subagents.agent, lambda: StateDeps(subagents.SubagentsState())

@@ -300,6 +300,17 @@ export const NAV: NavGroup[] = [
           "By design. Frontend and backend both define write_essay, and Pydantic AI rejects the run with RUN_ERROR (observed in the browser). The hook also uses v1-only options (renderAndWaitForResponse).",
       },
       {
+        path: "/human-in-the-loop/useInterrupt",
+        hasDemo: true,
+        title: "Pausing the Agent for Input",
+        docPath: "/pydantic-ai/human-in-the-loop/useInterrupt",
+        summary:
+          "A scheduling agent told to call a frontend schedule_meeting tool whose Promise handler holds the run until the user picks a slot; plus useInterrupt's resolve/cancel API.",
+        status: "broken",
+        statusNote:
+          "The page's frontend schedule_meeting snippet is not published for pydantic-ai (region missing, no Code tab), so it isn't registered; the agent is the printed backend block. The generic useInterrupt samples never fire against a Pydantic AI agent. Not yet run.",
+      },
+      {
         path: "/human-in-the-loop/governed-actions",
         hasDemo: true,
         title: "Governed Action Approval UI",
