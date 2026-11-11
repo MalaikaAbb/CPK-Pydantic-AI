@@ -244,6 +244,8 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 ### Human in the Loop
 
+**`/human-in-the-loop`** — 📖 **Reference.** The HITL overview: what pausing for a person is for, with a video, an infographic and one link to the Pydantic AI Agents page. No code. **Try:** nothing to run; follow the links to the routes below. Its card link omits the `/pydantic-ai` prefix.
+
 **`/human-in-the-loop/agent`** — ❌ **Broken, by design.** The page's essay-approval tool, frontend and backend both as published. **Try:** `Write an essay about the benefits of AI.` **Pass:** a run error before any reply: `The AG-UI frontend tools defines a tool whose name conflicts with existing tool from the agent: 'write_essay'` (observed in the browser as a `RUN_ERROR` event, and against the backend directly). **Fail:** a draft card. That would mean the frontend tool was not sent (§9.23).
 
 **`/human-in-the-loop/governed-actions`** — ⚠️ **Partial (not yet checked in a browser).** The `useHumanInTheLoop` half of the page on `my_agent`. `useInterrupt` and `handleApproval` are shown as text. **Try:** `Use approve_governed_action to apply a 30% discount to account NW-8812, verdict require_approval.` **Pass:** a *User approval required* card with the arguments as JSON. The run waits for Approve or Reject. **Fail:** a prose answer. Name the tool explicitly; nothing in the agent's prompt mentions it.
@@ -294,6 +296,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ❌ Broken | By design: the doc's hook calls throw. Fixed mode renders nothing for the bundle agent — §9.22. |
 | [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | — | 🚧 Not started | Skipped for now. The prose uses a TypeScript `BuiltInAgent` and an MCP server on `:3108` it does not provide; the demo bundle uses a Pydantic AI agent and the public Excalidraw server. |
 | [Frontend Tools](https://docs.copilotkit.ai/pydantic-ai/frontend-tools) | `/frontend-tools` | ✅ Working | `sayHello`, browser-executed. |
+| [HITL Overview](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/index) | `/human-in-the-loop` | 📖 Reference | Added 2026-11-11. Overview, no code. |
 | [HITL · Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent) | `/human-in-the-loop/agent` | ❌ Broken | By design: front and back both define `write_essay`; the run is refused with `RUN_ERROR` (observed in the browser) — §9.23. |
 | [Governed Action Approval UI](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/governed-actions) | `/human-in-the-loop/governed-actions` | ⚠️ Partial | `useHumanInTheLoop` half only; Pydantic AI never emits an AG-UI interrupt. Not yet checked in a browser. |
 | [Reading agent state](https://docs.copilotkit.ai/pydantic-ai/shared-state/in-app-agent-read) | `/shared-state/in-app-agent-read` | ✅ Working | `initialState`/`render` missing, and `StateDeps` is one-way — §9. |
@@ -611,6 +614,7 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 - [Frontend Tools](https://docs.copilotkit.ai/pydantic-ai/frontend-tools)
 
 **Human in the Loop**
+- [HITL Overview](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/index)
 - [Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent)
 - [Governed Action Approval UI](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/governed-actions)
 

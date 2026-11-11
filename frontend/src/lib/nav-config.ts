@@ -279,6 +279,16 @@ export const NAV: NavGroup[] = [
     title: "Human in the Loop",
     routes: [
       {
+        path: "/human-in-the-loop",
+        title: "HITL Overview",
+        docPath: "/pydantic-ai/human-in-the-loop/index",
+        summary:
+          "Why and when an agent should pause for a person's input or approval; links to the flow-based Pydantic AI page.",
+        status: "reference",
+        statusNote:
+          "Overview with a video and an infographic, no code. Its card link omits the /pydantic-ai prefix.",
+      },
+      {
         path: "/human-in-the-loop/agent",
         hasDemo: true,
         title: "Pydantic AI Agents",
