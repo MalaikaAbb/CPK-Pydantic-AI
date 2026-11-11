@@ -5,6 +5,7 @@ import { MetricCard, type MetricCardComponentProps } from "./metric-card";
 import { BarChart, type BarChartComponentProps } from "./charts/bar-chart";
 import { PieChart, type PieChartComponentProps } from "./charts/pie-chart";
 
+// @ts-expect-error Doc code kept verbatim: follows from the catalog's zod4/json-render Zod type mismatch (TS2345). README §9 #21.
 export const { registry } = defineRegistry(catalog, {
   components: {
     // The agent may nest charts inside a MetricCard root — forward children.

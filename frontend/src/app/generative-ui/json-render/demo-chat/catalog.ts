@@ -8,6 +8,7 @@ const dataPoint = z.object({ label: z.string(), value: z.number() });
 export const catalog = defineCatalog(schema, {
   components: {
     MetricCard: {
+      // @ts-expect-error Doc code kept verbatim: `zod4` (4.6.x) schemas are not the Zod type @json-render/core 0.21 resolves (its own zod peer); TS2322 on toJSONSchema. README §9 #21.
       props: z.object({
         label: z.string(),
         value: z.string(),
@@ -17,6 +18,7 @@ export const catalog = defineCatalog(schema, {
         "A labelled metric (single number) with an optional trend subtitle",
     },
     BarChart: {
+      // @ts-expect-error Doc code kept verbatim: `zod4` (4.6.x) schemas are not the Zod type @json-render/core 0.21 resolves (its own zod peer); TS2322 on toJSONSchema. README §9 #21.
       props: z.object({
         title: z.string(),
         description: z.string().nullable(),
@@ -26,6 +28,7 @@ export const catalog = defineCatalog(schema, {
         "A vertical bar chart for comparing discrete values side by side",
     },
     PieChart: {
+      // @ts-expect-error Doc code kept verbatim: `zod4` (4.6.x) schemas are not the Zod type @json-render/core 0.21 resolves (its own zod peer); TS2322 on toJSONSchema. README §9 #21.
       props: z.object({
         title: z.string(),
         description: z.string().nullable(),
