@@ -269,14 +269,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/standard-catalog",
-        hasDemo: true,
         title: "Components · Standard catalog",
         docPath: "/pydantic-ai/generative-ui/components/standard-catalog",
         summary:
           "standardUI's 69 components as is, extended with a ProductCard, with Map/Video/HtmlView omitted, and with Card overridden.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. ProductCard and productSchema are repo scaffolding; maplibre-gl added as the page says. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The extend sample names ProductCard and productSchema without defining them; the Map component needs maplibre-gl, which this repo doesn't install.",
       },
       {
         path: "/generative-ui/components/state-and-actions",

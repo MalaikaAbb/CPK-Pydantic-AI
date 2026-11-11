@@ -1,72 +1,34 @@
-// Ported from the agno harness (itself from CPK-LangGraph-TS / aws-strands-ts).
-// The pydantic-ai doc page is byte-identical to the agno one (diffed
-// 2026-11-11). Harness glue points at this repo's Pydantic AI `genui` agent.
-
 import { RouteHeader } from "@/components/route-header";
-import { SourceCodeGroup } from "@/components/source-code";
-import { Callout, Panel, TryIt } from "@/components/ui";
+import { Callout, Panel } from "@/components/ui";
 
-const BASE = "frontend/src/app/generative-ui/components/standard-catalog/demo-chat";
-
+/**
+ * Reference only. This page's code imports `@copilotkit/react-core/v2/generative-ui`,
+ * which the pinned CopilotKit (^1.77.0) does not export (added in 1.85). Bumping
+ * dependencies is out of scope for a doc sync, so nothing is built here; see
+ * README §9.29. An earlier revision of this branch ported a working demo from
+ * the agno harness on a 1.85 bump; that port was reverted.
+ */
 export default function Page() {
   return (
     <>
       <RouteHeader path="/generative-ui/components/standard-catalog" />
 
-      <Panel title="What it demonstrates">
+      <Panel title="What the page covers">
         <p className="text-sm leading-relaxed text-slate-700 dark:text-slate-300">
-          <code>standardUI</code> is a ready-made catalog of 69 components —
-          layout, text, inputs, tables, charts, maps, media. You can use it as
-          is, put your own components on top with <code>extends</code>, trim it
-          with <code>omit</code> so the prompt is shorter, or swap the React
-          component behind a standard name with <code>overrides</code>.
+          Standard catalog: standardUI&apos;s ready-made components used as is, extended with a custom component, trimmed with omit, and with Card overridden. Charts and maps need their optional libraries.
         </p>
-        <div className="mt-4 space-y-3">
-          <TryIt
-            prompts={["Show the Eiffel Tower and the Louvre on a map"]}
-            expect="standardUI: a MapLibre map with two markers. omit variant: no map — the agent uses a list or text, because Map was dropped from what it sees."
-            fail="On standardUI, a plain list of places means maplibre-gl did not load."
-          />
-          <TryIt
-            prompts={["Put a short summary of our three plans in a card"]}
-            expect="On the override variant the card has the large rounded corners and padding of MyCard; on standardUI it has the default card look."
-          />
-        </div>
       </Panel>
 
-      <Panel title="The page's catalogs">
-        <SourceCodeGroup
-          files={[
-            { file: `${BASE}/extend.ts` },
-            { file: `${BASE}/omit.ts` },
-            { file: `${BASE}/override.tsx` },
-          ]}
-        />
-      </Panel>
-
-      <Panel title="The demo">
-        <SourceCodeGroup files={[{ file: `${BASE}/page.tsx` }]} />
-      </Panel>
-
-      <Callout tone="warn" title="Gaps and harness changes">
-        <ul className="space-y-1.5">
-          <li>
-            · &ldquo;Add your own components&rdquo; uses <code>ProductCard</code>{" "}
-            and <code>productSchema</code> without defining them — scaffolding
-            supplies both.
-          </li>
-          <li>
-            · &ldquo;Drop components&rdquo; omits its imports; added, marked in
-            the file.
-          </li>
-          <li>
-            · The same id <code>acme/app@1</code> is used by all three samples;
-            each lives in its own file and only one is mounted at a time.
-          </li>
-          <li>
-            · <code>maplibre-gl</code> is installed, as the page says to for{" "}
-            <code>Map</code>.
-          </li>
+      <Callout tone="warn" title="Reference only — needs CopilotKit 1.85">
+        <p>
+          The page&apos;s code imports{" "}
+          <code>@copilotkit/react-core/v2/generative-ui</code>, which this
+          repo&apos;s pinned <code>@copilotkit/react-core</code> (^1.77.0)
+          does not export. A doc sync does not bump dependencies, so no demo is
+          built until the repo moves to 1.85.
+        </p>
+        <ul className="mt-2 list-disc space-y-1 pl-5">
+          <li>The extend sample names ProductCard and productSchema without defining them; the Map component needs maplibre-gl, which this repo doesn&apos;t install.</li>
         </ul>
       </Callout>
     </>
