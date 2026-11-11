@@ -71,7 +71,7 @@ Before you begin, you'll need the following:
                 ```
 
                 <Callout type="info" title="What about other models?">
-                  The starter template is configured to use OpenAI's GPT-4o by default, but you can modify it to use any language model supported by Pydantic AI.
+                  The starter template is configured to use OpenAI's GPT-6 Luna by default, but you can modify it to use any language model supported by Pydantic AI.
                 </Callout>
             </Step>
             <Step>
@@ -137,7 +137,7 @@ Before you begin, you'll need the following:
                 ```
 
                 <Callout type="info" title="What about other models?">
-                  This example uses OpenAI's GPT-4.1-mini, but you can modify it to use any language model supported by Pydantic AI.
+                  This example uses OpenAI's GPT-6 Luna, but you can modify it to use any language model supported by Pydantic AI.
                 </Callout>
             </Step>
             <Step>
@@ -153,7 +153,7 @@ Before you begin, you'll need the following:
                 from starlette.responses import Response
                 from starlette.routing import Route
 
-                agent = Agent('openai:gpt-4.1-mini', instructions='Be fun!')
+                agent = Agent('openai:gpt-6-luna', instructions='Be fun!')
 
 
                 async def run_agent(request: Request) -> Response:
@@ -187,7 +187,7 @@ Before you begin, you'll need the following:
                 ### Install CopilotKit packages
 
                 ```npm
-                npm install @copilotkit/react-ui @copilotkit/react-core @copilotkit/runtime @ag-ui/client@1.0.1
+                npm install @copilotkit/react-ui @copilotkit/react-core @copilotkit/runtime @ag-ui/client@1.0.2
                 ```
             </Step>
             <Step>
@@ -268,18 +268,18 @@ Before you begin, you'll need the following:
                 ```
 
                 `app/layout.tsx` is a server component and cannot import the provider
-                directly, so it renders your client file instead:
+                directly, so it renders your client file instead. Keep the scaffold's
+                `globals.css` import and add the CopilotKit stylesheet once:
 
                 ```tsx title="app/layout.tsx"
-                import { Providers } from "./providers"; // [!code highlight]
+                import { Providers } from "./providers";
+                import "@copilotkit/react-core/v2/styles.css";
+                import "./globals.css";
 
-                // ...
-
-                export default function RootLayout({ children }: {children: React.ReactNode}) {
+                export default function RootLayout({ children }: { children: React.ReactNode }) {
                   return (
                     <html lang="en">
                       <body>
-                        {/* [!code highlight:3] */}
                         <Providers>
                           {children}
                         </Providers>
