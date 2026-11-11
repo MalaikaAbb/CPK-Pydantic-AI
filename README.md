@@ -22,7 +22,7 @@ A navigable, working test harness for the CopilotKit Pydantic AI integration —
 
 This repo covers a **scoped set of 28 doc pages** (§8). Each route implements what its page teaches and shows the exact source that makes it work, read off disk at render time.
 
-**Everything comes from the documentation.** Newer pages keep their full source in the demo **Code** tab rather than in the prose, and that is used verbatim where the prose is incomplete. Where neither supplies working code, the route says so and is marked ⚠️ Partial or ❌ Broken. The exceptions are labelled in the file and on the route: leaf components and parse helpers on JSON Render and Hashbrown, a `Markdown` stand-in on Human in the Loop, and `booked_schema.json`, which is borrowed from the google-adk demo bundle (§9.19).
+**Everything comes from the documentation.** Newer pages keep their full source in the demo **Code** tab rather than in the prose, and that is used verbatim where the prose is incomplete. Where neither supplies working code, the route says so and is marked ⚠️ Partial or ❌ Broken. The exceptions are labelled in the file and on the route: leaf components and parse helpers on JSON Render, a `Markdown` stand-in on Human in the Loop, and `booked_schema.json`, which is borrowed from the google-adk demo bundle (§9.19).
 
 Tracks: **<https://docs.copilotkit.ai/pydantic-ai>**
 
@@ -47,7 +47,7 @@ Next.js 16 App Router  ·  localhost:3000
   │  copilotkit-a2ui-fixed-schema    a2ui: { injectA2UITool: false }
   │  copilotkit-declarative-gen-ui   A2UI via the provider's catalog
   │  copilotkit-ogui                 openGenerativeUI: { agents: [...] }
-  │  copilotkit-byoc-json-render / copilotkit-byoc-hashbrown
+  │  copilotkit-byoc-json-render / copilotkit-declarative-hashbrown
   ▼  HTTP, server-to-server
 Pydantic AI agent server  ·  localhost:8000  (Python)
   │  backend/main.py — Starlette, one AGUIAdapter.dispatch_request route per agent
@@ -234,7 +234,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/generative-ui/json-render`** — ❌ **Broken, by design.** The doc's renderer, its missing helpers written in, and its `<Renderer spec catalog>` call kept as published. A **fixed** mode sits beside it. **Try (as published):** `Break down revenue by category as a pie chart.` **Pass:** a red box, most likely `useVisibility must be used within a VisibilityProvider`. **Try (fixed):** the same prompt. **Pass:** a pie chart. A metric-led dashboard prompt renders nothing in *as published* and raw JSON in *fixed*: the bundle agent's `MetricCard` props do not match the doc's catalog (§9.21).
 
-**`/generative-ui/hashbrown`** — ❌ **Broken, by design.** The doc's three Hashbrown calls kept as published, plus a fixed mode. **Try (as published):** `Show me a sales dashboard.` **Pass:** a red box, `TypeError: Cannot read properties of undefined (reading 'forEach')`. **Try (fixed):** the same. **Pass:** no crash, suggestion pills, an empty reply. The bundle agent's component names (`metric`, `pieChart`, …) are not in the doc's catalog, so nothing parses (§9.22).
+**`/generative-ui/hashbrown`** — ⚠️ **Partial (not yet checked in a browser).** The page's demo as published (2026-11-11): `HashBrownDashboard` builds one UI kit (`metric`, `pieChart`, `barChart`, `dealCard`, Markdown) and the assistant-message slot parses each reply with `useJsonParser(content, kit.schema)` and renders it with `kit.render(value)`. Every file, the dedicated `/api/copilotkit-declarative-hashbrown` runtime and the agent come from the page and its Code tab. **Try:** the *Sales dashboard* suggestion. **Pass:** a metric card, a donut and a bar chart stream into the reply. **Fail:** raw JSON or an empty bubble, or a provider error on the `gpt-6-luna` model (§9.22).
 
 **`/generative-ui/state-rendering`** — ⚠️ **Partial.** The React half is implemented as documented and is reactive; no agent writes `searches`, because the doc page has no Python on it. **Try:** `Add a search for the tallest mountains`. **Pass:** the agent replies normally and the Searches list stays empty — that is the documented-but-unimplementable outcome, not a wiring bug. **Fail:** the chat itself errors, or the raw-state pane throws.
 
@@ -291,7 +291,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [A2UI · Fixed Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/fixed-schema) | `/generative-ui/a2ui/fixed-schema` | ⚠️ Partial | Backend verified. Needs zod 3 (§9.18), borrowed `booked_schema.json` (§9.19), Mastra's renderers. Not yet checked in a browser. |
 | [Open Generative UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-generative-ui) | `/generative-ui/open-generative-ui` | ⚠️ Partial | Demo-bundle code, verbatim; both cells. Not yet checked in a browser. |
 | [JSON Render](https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render) | `/generative-ui/json-render` | ❌ Broken | By design: the doc's library call throws. Fixed mode renders charts; metric cards never validate — §9.21. |
-| [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ❌ Broken | By design: the doc's hook calls throw. Fixed mode renders nothing for the bundle agent — §9.22. |
+| [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ⚠️ Partial | Rebuilt 2026-11-11 from the page's now-complete demo code; page, Code tab and agent agree. Not yet type-checked or run — §9.22. |
 | [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | — | 🚧 Not started | Skipped for now. The prose uses a TypeScript `BuiltInAgent` and an MCP server on `:3108` it does not provide; the demo bundle uses a Pydantic AI agent and the public Excalidraw server. |
 | [Frontend Tools](https://docs.copilotkit.ai/pydantic-ai/frontend-tools) | `/frontend-tools` | ✅ Working | `sayHello`, browser-executed. |
 | [HITL · Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent) | `/human-in-the-loop/agent` | ❌ Broken | By design: front and back both define `write_essay`; the run is refused with `RUN_ERROR` (observed in the browser) — §9.23. |
@@ -385,8 +385,8 @@ The demo's `a2ui_dynamic.py` does `from tools import build_a2ui_operations_from_
 **21. JSON Render: the doc's catalog and the doc's agent disagree.**
 On top of the library mismatches (`<Renderer>` takes `registry`, not `catalog`, and needs `JSONUIProvider`; the `assistantMessage` slot rejects a plain component; suggestions registered outside the provider), the page's `registry.tsx` declares `MetricCard` as `{ title: string, value: number, delta?: number }`. The demo bundle's agent prompts for `{ label: string, value: string, trend: string | null }`. Observed: a dashboard request comes back rooted at a `MetricCard` with `label`/`value: "$2.15M"`. It fails validation, so nothing renders in *as published* and raw JSON shows in *fixed*. `BarChart`/`PieChart` survive, because the catalog only requires `data`.
 
-**22. Hashbrown: three incompatible shapes.**
-The page's hook calls do not match `@hashbrownai/react` 0.6.1 (`useJsonParser` needs a schema; `useUiKit` takes `{ components }`; the kit is rendered with `.render(value)`), so *as published* throws on the first message. The page's *Backend* section shows `{ "type": "MetricCard", … }`. The demo bundle's agent emits `{ "ui": [ { "metric": { "props": … } } ] }` with lowercase names (`metric`, `pieChart`, `barChart`, `dealCard`, `Markdown`) and chart `data` as a JSON *string* (observed). The fixed mode's kit, built from the page's own catalog, knows only `MetricCard`, `BarChart`, `PieChart` and `Stack`, so nothing the agent sends parses.
+**22. Hashbrown: the old three-shape mismatch is resolved by the 2026-11-11 page.**
+Before this sync the page printed hook calls that did not match `@hashbrownai/react` 0.6.1, a `{ "type": "MetricCard", … }` backend shape, and a catalog that disagreed with the demo agent, so the route was ❌ Broken with a harness-written "fixed" mode. The page now prints the demo's own `page.tsx`, `chat.tsx` and `hashbrown-renderer.tsx`, and its *Backend* section shows the same `{ "ui": [ { "metric": { "props": … } } ] }` envelope the agent is prompted for. The route runs those files and the Code tab's components, runtime route and agent unchanged; the fixed mode and the harness-written `charts.tsx` / `metric-card.tsx` re-exports are removed. The renderer uses `prompt` (core) and `useUiKit({ examples })`, which 0.6.1 exports (they were removed only in 0.8). Two things remain unverified: whether OpenAI serves the agent's new `gpt-6-luna` model, and whether the code typechecks against the installed packages.
 
 **22b. `@hashbrownai/core` 0.6.1 needs an older AG-UI than CopilotKit does.**
 Hashbrown 0.6.1 (the latest release) depends on `@ag-ui/core` / `@ag-ui/client` **0.0.59** and imports `EventSchemas` from it. This repo's `overrides` pin every `@ag-ui/*` to **1.0.1** so CopilotKit and the runtime routes share one copy, and 1.0.1 no longer exports `EventSchemas`. Under the global pin alone the Hashbrown route fails to build: `Export EventSchemas doesn't exist in target module` in `@hashbrownai/core/index.esm.js`. `tsc` does not catch it; only the bundler does. Fixed with a scoped override, so Hashbrown gets its own nested 0.0.59 and everything else stays on 1.0.1:
@@ -542,10 +542,10 @@ pydantic-ai/
     │   │                         CopilotKitIntelligence, identifyUser, 4 verbs
     │   ├── api/copilotkit-a2ui-fixed-schema/ · copilotkit-declarative-gen-ui/ ·
     │   │   copilotkit-ogui/      demo-bundle runtimes (single-route)
-    │   ├── api/copilotkit-byoc-json-render/ · copilotkit-byoc-hashbrown/
+    │   ├── api/copilotkit-byoc-json-render/ · copilotkit-declarative-hashbrown/
     │   │                         harness-written runtimes the pages point at
     │   ├── generative-ui/a2ui/{fixed,dynamic}-schema/   a2ui/ catalog files, _components/, demo.tsx
-    │   ├── generative-ui/{json-render,hashbrown}/       as-published + fixed demos
+    │   ├── generative-ui/{json-render,hashbrown}/       json-render: as-published + fixed; hashbrown: Code-tab demo
     │   ├── generative-ui/open-generative-ui/{minimal,advanced}/
     │   ├── human-in-the-loop/{agent,governed-actions}/
     │   ├── multi-agent/subagents/
@@ -554,7 +554,7 @@ pydantic-ai/
     │       └── demo-chat/page.tsx    the running feature, chrome-free
     ├── src/components/
     │   ├── providers.tsx         CopilotKitProvider — router mode, identity headers, inspector ownership
-    │   ├── byoc-dashboard.tsx    harness MetricCard/BarChart/PieChart for JSON Render + Hashbrown
+    │   ├── byoc-dashboard.tsx    harness MetricCard/BarChart/PieChart for JSON Render
     │   ├── demo-error-boundary.tsx  shows a published snippet's runtime error in place
     │   ├── nav-sidebar.tsx       nav, generated from nav-config
     │   ├── route-header.tsx      title, status badge, doc link

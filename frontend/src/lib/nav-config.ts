@@ -254,10 +254,10 @@ export const NAV: NavGroup[] = [
         title: "Hashbrown",
         docPath: "/pydantic-ai/generative-ui/hashbrown",
         summary:
-          "Streamed JSON meant to be parsed progressively by @hashbrownai/react and rendered through a component catalog.",
-        status: "broken",
+          "Streamed JSON parsed progressively by @hashbrownai/react and rendered through a UI kit shared by a HashBrownDashboard provider.",
+        status: "partial",
         statusNote:
-          "As published it throws (0.6.1 hook API mismatch). The bundle agent emits lowercase component names the doc's catalog lacks, so even the 'fixed' mode renders nothing.",
+          "Rebuilt 2026-11-11 from the page's now-complete demo code (page, Code tab and agent agree). Not yet checked in a browser; the agent model gpt-6-luna is kept as published.",
       },
     ],
   },
