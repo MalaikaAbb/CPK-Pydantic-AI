@@ -20,6 +20,7 @@ mounted under its id:
     POST /byoc_hashbrown/        → Hashbrown
     POST /open_gen_ui/           → Open Generative UI (minimal)
     POST /open_gen_ui_advanced/  → Open Generative UI (advanced)
+    POST /genui/                 → Components and surfaces
     POST /hitl_agent/            → Human in the Loop · Pydantic AI Agents
     POST /subagents/             → Sub-Agents
 
