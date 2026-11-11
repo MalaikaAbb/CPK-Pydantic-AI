@@ -289,14 +289,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/theming",
-        hasDemo: true,
         title: "Components · Theming",
         docPath: "/pydantic-ai/generative-ui/components/theming",
         summary:
           "The theme option's CSS variables, a typed GenerativeUITheme file, dark-mode overrides, map styles, and .a2ui-surface CSS.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The dark-mode script renders in the demo body, not <head>; the page's mapStyle URLs are placeholders, so the Map variant draws no basemap. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The mapStyle URLs are placeholders.",
       },
       {
         path: "/generative-ui/components/transports",
