@@ -249,6 +249,8 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/generative-ui/components/markdown-mode`** — ⚠️ **Partial (not yet checked in a browser).** The agent writes A2UI operations in `a2ui` code blocks in its reply. **Try:** `Give me a seat-count slider that shows the monthly price at $29 per seat.` **Pass:** prose with a live slider card in the middle. **Fail:** plain prose or raw JSON. Expected here: the fence guide is AG-UI context, which `AGUIAdapter` drops, and the `sendContext: false` variant needs `forwarded_props`, which it doesn't pass on (§9.29).
 
+**`/generative-ui/components/from-a2ui`** — ⚠️ **Partial (not yet checked in a browser).** The A2UI 1.0 "After" catalog (`Airport`, `Arrow`) on the new engine. **Try:** `Show a flight card from SFO (San Francisco) to JFK (New York) with a Book button.` **Pass:** two Airport components with an Arrow and a Button. **Fail:** a rejection naming a v0.9 shape, or plain text (§9.29).
+
 **`/generative-ui/json-render`** — ❌ **Broken, by design.** The doc's renderer, its missing helpers written in, and its `<Renderer spec catalog>` call kept as published. A **fixed** mode sits beside it. **Try (as published):** `Break down revenue by category as a pie chart.` **Pass:** a red box, most likely `useVisibility must be used within a VisibilityProvider`. **Try (fixed):** the same prompt. **Pass:** a pie chart. A metric-led dashboard prompt renders nothing in *as published* and raw JSON in *fixed*: the bundle agent's `MetricCard` props do not match the doc's catalog (§9.21).
 
 **`/generative-ui/hashbrown`** — ❌ **Broken, by design.** The doc's three Hashbrown calls kept as published, plus a fixed mode. **Try (as published):** `Show me a sales dashboard.` **Pass:** a red box, `TypeError: Cannot read properties of undefined (reading 'forEach')`. **Try (fixed):** the same. **Pass:** no crash, suggestion pills, an empty reply. The bundle agent's component names (`metric`, `pieChart`, …) are not in the doc's catalog, so nothing parses (§9.22).
@@ -315,6 +317,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [Theming](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/theming) | `/generative-ui/components/theming` | ⚠️ Partial | Added 2026-11-11, ported from agno; placeholder mapStyle URLs draw no basemap. §9.29. Not yet type-checked or run. |
 | [Transports](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/transports) | `/generative-ui/components/transports` | ⚠️ Partial | Added 2026-11-11, ported from agno; the runtime's undefined `agent` is the `genui` agent; `shop` in `agentIds` isn't printed or registered. §9.29. Not yet type-checked or run. |
 | [Markdown mode](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/markdown-mode) | `/generative-ui/components/markdown-mode` | ⚠️ Partial | Added 2026-11-11, ported from agno; no UI expected from either variant with `AGUIAdapter` 1.107 — §9.29. Not yet type-checked or run. |
+| [Adopt from A2UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/from-a2ui) | `/generative-ui/components/from-a2ui` | ⚠️ Partial | Added 2026-11-11, ported from agno; Airport/Arrow scaffolding. §9.29. Not yet type-checked or run. |
 | [JSON Render](https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render) | `/generative-ui/json-render` | ❌ Broken | By design: the doc's library call throws. Fixed mode renders charts; metric cards never validate — §9.21. |
 | [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ❌ Broken | By design: the doc's hook calls throw. Fixed mode renders nothing for the bundle agent — §9.22. |
 | [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | — | 🚧 Not started | Skipped for now. The prose uses a TypeScript `BuiltInAgent` and an MCP server on `:3108` it does not provide; the demo bundle uses a Pydantic AI agent and the public Excalidraw server. |
@@ -640,6 +643,7 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 - [Theming](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/theming)
 - [Transports](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/transports)
 - [Markdown mode](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/markdown-mode)
+- [Adopt from A2UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/from-a2ui)
 - [JSON Render](https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render)
 - [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown)
 - [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) (not started)

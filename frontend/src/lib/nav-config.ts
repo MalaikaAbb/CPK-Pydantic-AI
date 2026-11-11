@@ -326,6 +326,17 @@ export const NAV: NavGroup[] = [
           "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The fence guide travels as context, which AGUIAdapter drops; the sendContext: false variant needs a backend reading forwarded_props, which AGUIAdapter doesn't pass to the agent — no UI expected from either (§9.29).",
       },
       {
+        path: "/generative-ui/components/from-a2ui",
+        hasDemo: true,
+        title: "Components · Adopt from A2UI",
+        docPath: "/pydantic-ai/generative-ui/components/from-a2ui",
+        summary:
+          "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
+        status: "partial",
+        statusNote:
+          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Airport and Arrow are repo scaffolding. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
