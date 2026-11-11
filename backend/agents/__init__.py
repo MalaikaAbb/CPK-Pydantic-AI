@@ -31,6 +31,7 @@ from . import (
     byoc_json_render_agent,
     hitl_agent,
     language_agent,
+    mcp_apps_agent,
     my_agent,
     open_gen_ui_advanced_agent,
     open_gen_ui_agent,
@@ -80,6 +81,8 @@ AGENTS: dict[str, AgentEntry] = {
     "byoc_hashbrown": AgentEntry(byoc_hashbrown_agent.agent),
     "open_gen_ui": AgentEntry(open_gen_ui_agent.agent),
     "open_gen_ui_advanced": AgentEntry(open_gen_ui_advanced_agent.agent),
+    # MCP Apps (the page's BuiltInAgent, swapped for a Pydantic AI agent).
+    "mcp_apps": AgentEntry(mcp_apps_agent.agent),
     # Human in the Loop.
     "hitl_agent": AgentEntry(hitl_agent.agent),
     # Multi-agent.

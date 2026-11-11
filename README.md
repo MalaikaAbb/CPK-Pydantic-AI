@@ -73,6 +73,7 @@ The browser never talks to port 8000. The runtime route is the only thing that d
 | `byoc_hashbrown` | — (prompted to reply with `{ ui: [...] }`) | Hashbrown |
 | `open_gen_ui` / `open_gen_ui_advanced` | — (`generateSandboxedUi` is injected by the runtime) | Open Generative UI |
 | `hitl_agent` | `write_essay` via `@agent.tool_plain` | Human in the Loop · Pydantic AI Agents |
+| `mcp_apps` | — (MCP server tools arrive per run via the runtime's `mcpApps`) | MCP Apps |
 | `subagents` | `research_agent`, `writing_agent`, `critique_agent` · `StateDeps[SubagentsState]` | Sub-Agents |
 | `default` | alias for `my_agent` | what router mode resolves to |
 
@@ -159,7 +160,7 @@ Confirm with:
 
 ```bash
 curl http://localhost:8000/health
-# {"status":"ok","agents":["a2ui_dynamic","a2ui_fixed","byoc_hashbrown","byoc_json_render","hitl_agent","language_agent","my_agent","open_gen_ui","open_gen_ui_advanced","subagents","weather_agent"]}
+# {"status":"ok","agents":["a2ui_dynamic","a2ui_fixed","byoc_hashbrown","byoc_json_render","hitl_agent","language_agent","mcp_apps","my_agent","open_gen_ui","open_gen_ui_advanced","subagents","weather_agent"]}
 ```
 
 **Terminal 2 — the app:**
@@ -232,6 +233,8 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/generative-ui/open-generative-ui`** — ⚠️ **Partial (not yet checked in a browser).** Agent-authored HTML/CSS/JS streaming into a sandboxed iframe, with a minimal/advanced toggle. **Try:** `Quicksort visualization` (minimal), then `Calculator (calls evaluateExpression)` (advanced). **Pass:** placeholder lines, then a preview that fills in and animates. In *advanced*, the calculator's result appears and the browser console logs `[open-gen-ui/advanced] evaluateExpression …`. **Fail:** plain text or raw HTML, meaning `generateSandboxedUi` never reached the agent.
 
+**`/generative-ui/mcp-apps`** — ⚠️ **Partial (not yet checked in a browser).** The runtime's `mcpApps` option on its own endpoint (`/api/copilotkit-mcp-apps`), the page's provider and a `CopilotSidebar`. The page's `BuiltInAgent` is swapped for a Pydantic AI agent with the same prompt (`mcp_apps`). **Needs** an MCP Apps server on `http://localhost:3108/mcp` (from `modelcontextprotocol/ext-apps`; the page doesn't say which). **Try:** `What tools do you have?`, then ask it to use one. **Pass:** the server's tool UI renders in an iframe in the sidebar. **Fail:** no tools (server unreachable) or no iframe (§9.30).
+
 **`/generative-ui/json-render`** — ❌ **Broken, by design.** The doc's renderer, its missing helpers written in, and its `<Renderer spec catalog>` call kept as published. A **fixed** mode sits beside it. **Try (as published):** `Break down revenue by category as a pie chart.` **Pass:** a red box, most likely `useVisibility must be used within a VisibilityProvider`. **Try (fixed):** the same prompt. **Pass:** a pie chart. A metric-led dashboard prompt renders nothing in *as published* and raw JSON in *fixed*: the bundle agent's `MetricCard` props do not match the doc's catalog (§9.21).
 
 **`/generative-ui/hashbrown`** — ❌ **Broken, by design.** The doc's three Hashbrown calls kept as published, plus a fixed mode. **Try (as published):** `Show me a sales dashboard.` **Pass:** a red box, `TypeError: Cannot read properties of undefined (reading 'forEach')`. **Try (fixed):** the same. **Pass:** no crash, suggestion pills, an empty reply. The bundle agent's component names (`metric`, `pieChart`, …) are not in the doc's catalog, so nothing parses (§9.22).
@@ -290,6 +293,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [A2UI · Dynamic Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/dynamic-schema) | `/generative-ui/a2ui/dynamic-schema` | ⚠️ Partial | Prose auto-inject path; the demo's agent-side tool needs an unpublished helper — §9.20. Not yet checked in a browser. |
 | [A2UI · Fixed Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/fixed-schema) | `/generative-ui/a2ui/fixed-schema` | ⚠️ Partial | Backend verified. Needs zod 3 (§9.18), borrowed `booked_schema.json` (§9.19), Mastra's renderers. Not yet checked in a browser. |
 | [Open Generative UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-generative-ui) | `/generative-ui/open-generative-ui` | ⚠️ Partial | Demo-bundle code, verbatim; both cells. Not yet checked in a browser. |
+| [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | `/generative-ui/mcp-apps` | ⚠️ Partial | Added 2026-11-11. BuiltInAgent → Pydantic AI agent (same prompt); own runtime endpoint; needs an external MCP server on :3108 — §9.30. Not yet type-checked or run. |
 | [JSON Render](https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render) | `/generative-ui/json-render` | ❌ Broken | By design: the doc's library call throws. Fixed mode renders charts; metric cards never validate — §9.21. |
 | [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ❌ Broken | By design: the doc's hook calls throw. Fixed mode renders nothing for the bundle agent — §9.22. |
 | [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | — | 🚧 Not started | Skipped for now. The prose uses a TypeScript `BuiltInAgent` and an MCP server on `:3108` it does not provide; the demo bundle uses a Pydantic AI agent and the public Excalidraw server. |
@@ -421,6 +425,9 @@ It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so 
 - **`CPK_INTELLIGENCE_API_KEY`.** The doc uses this name. This repo's runtime route reads `INTELLIGENCE_API_KEY` (the same drift as Quickstart, §9.25). The shared runtime route is left unchanged here, because changing it affects every route.
 - **Identity.** The doc's `<CopilotKitProvider>` sends no identity headers, so `identifyUser` falls back to `anonymous`. Verified: `GET /api/copilotkit/threads` with no headers returns `endUserId: "anonymous"` rows. With the root provider's headers it returns `harness-local` rows.
 
+**30. MCP Apps: a BuiltInAgent page and a server you have to supply.**
+[The page](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) prints only CopilotKit's `BuiltInAgent` (`openai/gpt-6-luna`, "You are a helpful assistant."), with no Pydantic AI code and no Code tab. Per this harness's rule, the runtime keeps the page's `mcpApps` config verbatim and points `default` at a Pydantic AI agent with the same prompt and no tools (`backend/agents/mcp_apps_agent.py`, model `MODEL`). The runtime sits at `/api/copilotkit-mcp-apps` (the provider's `runtimeUrl` changed to match) because the middleware applies to every agent on a runtime. The page's server URL, `http://localhost:3108/mcp`, is not started by anything in this repo, and the page names only the `modelcontextprotocol/ext-apps` repository, not which server listens there. The `MCPAppsMiddleware` `.use()` alternative and the HTTP/SSE transport objects are shown on the route, not run. The page's Intelligence callout links to a "MCP Apps with Intelligence" section that is not on the page.
+
 ---
 
 ## 10. Troubleshooting
@@ -517,6 +524,7 @@ pydantic-ai/
 │       ├── model.py              the one place the model id is decided
 │       ├── my_agent.py           Quickstart agent (exports `agent`, not an ASGI app)
 │       ├── weather_agent.py      Tool Rendering agent — get_weather
+│       ├── mcp_apps_agent.py     MCP Apps — page prompt, no tools (BuiltInAgent swap)
 │       ├── language_agent.py     Shared State agent — StateDeps, set_language tool, per-request build_deps()
 │       ├── a2ui_fixed.py         A2UI Fixed Schema — demo bundle, verbatim
 │       ├── a2ui_schemas/         flight_schema.json (bundle) + booked_schema.json (borrowed, §9.19)
@@ -603,6 +611,7 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 - [A2UI · Dynamic Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/dynamic-schema)
 - [A2UI · Fixed Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/fixed-schema) · [Mastra's version](https://docs.copilotkit.ai/mastra/generative-ui/a2ui/fixed-schema) (renderers used here)
 - [Open Generative UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-generative-ui)
+- [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps)
 - [JSON Render](https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render)
 - [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown)
 - [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) (not started)

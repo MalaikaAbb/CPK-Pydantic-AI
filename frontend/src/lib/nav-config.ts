@@ -238,6 +238,17 @@ export const NAV: NavGroup[] = [
         statusNote: "All demo-bundle code, verbatim. Not yet checked in a browser.",
       },
       {
+        path: "/generative-ui/mcp-apps",
+        hasDemo: true,
+        title: "Open-ended · MCP Apps",
+        docPath: "/pydantic-ai/generative-ui/mcp-apps",
+        summary:
+          "Tools from an MCP server that carry their own UI, rendered in a sandboxed iframe in the chat via the runtime's mcpApps option.",
+        status: "partial",
+        statusNote:
+          "Not yet checked in a browser. The page's BuiltInAgent is swapped for a Pydantic AI agent with the same prompt; the runtime has its own endpoint. Needs an MCP Apps server on localhost:3108, which you start yourself (the page doesn't say which).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
