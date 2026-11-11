@@ -5,7 +5,7 @@ A navigable, working test harness for the CopilotKit Pydantic AI integration —
 | | |
 |---|---|
 | **Doc sync date** | Machine-maintained — `doc-snapshot/manifest.json` → `syncedAt`, rewritten on every sync |
-| **CopilotKit packages** | `@copilotkit/react-core` ^1.85.0 · `@copilotkit/runtime` ^1.85.0 (v2 surface) · `@copilotkit/a2ui-renderer` ^1.85.0 · `@ag-ui/client` 1.0.2 (bumped from 1.77 / 1.0.1 for Components and surfaces, §9.29) |
+| **CopilotKit packages** | `@copilotkit/react-core` 1.77.0 · `@copilotkit/runtime` 1.77.0 (v2 surface) · `@copilotkit/a2ui-renderer` 1.77.0 |
 | **AG-UI package** | `@ag-ui/client` 1.0.1 |
 | **Generative UI libraries** | `@json-render/react` 0.21 · `@hashbrownai/react` + `/core` 0.6.1 · `recharts` 3 · `@radix-ui/react-separator` |
 | **zod** | 3.25.76, pinned on purpose — the A2UI binder needs zod 3 (§9.18) |
@@ -73,7 +73,6 @@ The browser never talks to port 8000. The runtime route is the only thing that d
 | `byoc_hashbrown` | — (prompted to reply with `{ ui: [...] }`) | Hashbrown |
 | `open_gen_ui` / `open_gen_ui_advanced` | — (`generateSandboxedUi` is injected by the runtime) | Open Generative UI |
 | `hitl_agent` | `write_essay` via `@agent.tool_plain` | Human in the Loop · Pydantic AI Agents |
-| `genui` | — (page prompt only; `render_ui` arrives with each run) | Components and surfaces (all nine routes) |
 | `subagents` | `research_agent`, `writing_agent`, `critique_agent` · `StateDeps[SubagentsState]` | Sub-Agents |
 | `default` | alias for `my_agent` | what router mode resolves to |
 
@@ -160,7 +159,7 @@ Confirm with:
 
 ```bash
 curl http://localhost:8000/health
-# {"status":"ok","agents":["a2ui_dynamic","a2ui_fixed","byoc_hashbrown","byoc_json_render","genui","hitl_agent","language_agent","my_agent","open_gen_ui","open_gen_ui_advanced","subagents","weather_agent"]}
+# {"status":"ok","agents":["a2ui_dynamic","a2ui_fixed","byoc_hashbrown","byoc_json_render","hitl_agent","language_agent","my_agent","open_gen_ui","open_gen_ui_advanced","subagents","weather_agent"]}
 ```
 
 **Terminal 2 — the app:**
@@ -233,7 +232,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/generative-ui/open-generative-ui`** — ⚠️ **Partial (not yet checked in a browser).** Agent-authored HTML/CSS/JS streaming into a sandboxed iframe, with a minimal/advanced toggle. **Try:** `Quicksort visualization` (minimal), then `Calculator (calls evaluateExpression)` (advanced). **Pass:** placeholder lines, then a preview that fills in and animates. In *advanced*, the calculator's result appears and the browser console logs `[open-gen-ui/advanced] evaluateExpression …`. **Fail:** plain text or raw HTML, meaning `generateSandboxedUi` never reached the agent.
 
-**`/generative-ui/components`** — ⚠️ **Partial (not yet checked in a browser).** `standardUI` on the provider; when a run carries a catalog the runtime adds `render_ui` and a guide, and the agent can answer with real components. Served by the Pydantic AI `genui` agent (page prompt, no tools) because the page's runtime is a TanStack `BuiltInAgent`. **Try:** `Compare the Starter, Team, and Enterprise plans in a table`, then `add a column for support`. **Pass:** a table streams in and the follow-up edits it in place. **Fail:** plain markdown. That is the likely outcome today: `AGUIAdapter` forwards `render_ui` but drops the guide (§9.29).
+**`/generative-ui/components`** — 📖 **Reference only.** The overview. A catalog on the provider (generativeUI={{ ui: standardUI }}) makes the runtime add a render_ui tool and a guide to each run, so the agent can answer with real components that stream in. Its runtime sample is a TanStack BuiltInAgent factory; an existing agent only has to pass the run's tools and context to its model. Not built: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync (§9.29). **Try:** nothing to run.
 
 **`/generative-ui/components/surfaces`** — ⚠️ **Partial (not yet checked in a browser).** `GenerativeUISurface` page targets the chat fills, limits, scrolls to and replaces. **Try:** `Show me cheap running shoes in the featured row.` then `Show the featured products again.` **Pass:** the page's own row is replaced by a ProductGrid, and the second prompt brings the row back. **Fail:** the grid lands in the chat or nothing renders (target descriptions and the guide travel as context, which `AGUIAdapter` drops — §9.29).
 
@@ -309,7 +308,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [A2UI · Dynamic Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/dynamic-schema) | `/generative-ui/a2ui/dynamic-schema` | ⚠️ Partial | Prose auto-inject path; the demo's agent-side tool needs an unpublished helper — §9.20. Not yet checked in a browser. |
 | [A2UI · Fixed Schema](https://docs.copilotkit.ai/pydantic-ai/generative-ui/a2ui/fixed-schema) | `/generative-ui/a2ui/fixed-schema` | ⚠️ Partial | Backend verified. Needs zod 3 (§9.18), borrowed `booked_schema.json` (§9.19), Mastra's renderers. Not yet checked in a browser. |
 | [Open Generative UI](https://docs.copilotkit.ai/pydantic-ai/generative-ui/open-generative-ui) | `/generative-ui/open-generative-ui` | ⚠️ Partial | Demo-bundle code, verbatim; both cells. Not yet checked in a browser. |
-| [Components and surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components) | `/generative-ui/components` | ⚠️ Partial | Added 2026-11-11, ported from agno. Page runtime is a TanStack `BuiltInAgent` (shown, not run); served by a Pydantic AI `genui` agent at `/genui/`. Needs @copilotkit 1.85 (bumped here). Context drop — §9.29. Not yet type-checked or run. |
+| [Components and surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components) | `/generative-ui/components` | 📖 Reference | Added 2026-11-11, reference only: needs CopilotKit 1.85 (`/v2/generative-ui`); repo pins 1.77 — §9.29. |
 | [Surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/surfaces) | `/generative-ui/components/surfaces` | ⚠️ Partial | Added 2026-11-11, ported from agno; Product/ProductRow scaffolding; no products tool. §9.29. Not yet type-checked or run. |
 | [Catalogs](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/catalogs) | `/generative-ui/components/catalogs` | ⚠️ Partial | Added 2026-11-11, ported from agno; Hero/Panel/cartUI scaffolding; `valibot` added. §9.29. Not yet type-checked or run. |
 | [Standard catalog](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/standard-catalog) | `/generative-ui/components/standard-catalog` | ⚠️ Partial | Added 2026-11-11, ported from agno; ProductCard/productSchema scaffolding; `maplibre-gl` added as the page says. §9.29. Not yet type-checked or run. |
@@ -449,8 +448,8 @@ It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so 
 - **`CPK_INTELLIGENCE_API_KEY`.** The doc uses this name. This repo's runtime route reads `INTELLIGENCE_API_KEY` (the same drift as Quickstart, §9.25). The shared runtime route is left unchanged here, because changing it affects every route.
 - **Identity.** The doc's `<CopilotKitProvider>` sends no identity headers, so `identifyUser` falls back to `anonymous`. Verified: `GET /api/copilotkit/threads` with no headers returns `endUserId: "anonymous"` rows. With the root provider's headers it returns `harness-local` rows.
 
-**29. Components and surfaces: Pydantic AI's AG-UI adapter drops the run's context.**
-[The overview page](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components) says an existing agent needs no runtime change, only that it "pass the run's tools and context to its model": the runtime adds a `render_ui` tool and a guide (the components, their props, how to call `render_ui`) to every run that carries a catalog. In pydantic-ai-slim 1.107, `AGUIAdapter` builds the run from `messages`, `tools` and `state` only. `tools` become a frontend toolset, so `render_ui` does reach the model, but AG-UI `context` — where the guide, surface target descriptions and the markdown-mode fence guide travel — is dropped, and `forwarded_props` (the `sendContext: false` path) is not handed to the agent either. The page prints no Pydantic AI agent and no way to fix this (its runtime is a TanStack `BuiltInAgent`, shown on the overview route, not run). This repo does **not** work around it: the `genui` agent (`backend/agents/genui_agent.py`) is the page's prompt with no tools, so all nine routes are expected to answer in plain text, or to call `render_ui` with whatever the tool schema alone suggests. The routes themselves are ported from the agno harness (whose doc pages are byte-identical to these), with that repo's labelled scaffolding (`Product`, `ProductRow`, `Cart`, `Hero`, `Panel`, `Airport`, `Arrow`, …). The section needs `@copilotkit/*` 1.85, so `frontend/package.json` moves from 1.77 to ^1.85.0 and `@ag-ui/client` / `@ag-ui/core` from 1.0.1 to 1.0.2 (the version 1.85 pins); the lockfile is re-synced by `npm install`. The page's model is `gpt-6-luna`; the agent uses `MODEL`.
+**29. Components and surfaces: needs CopilotKit 1.85, so all nine routes are reference-only.**
+Every page in the [Components and surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components) section imports from `@copilotkit/react-core/v2/generative-ui` (`standardUI`, `createGenerativeUI`, `GenerativeUISurface`, the `generativeUI` provider prop). That entry first ships in 1.85; this repo pins `@copilotkit/react-core` ^1.77.0, which has no such export. A doc sync does not bump dependencies, so the nine routes are reference pages that say what each page teaches and what it leaves out; no demo, runtime route or agent is built. (An earlier revision of this branch ported agno's demos on a 1.85 bump with repo-authored scaffolding; it was reverted.) Two findings for whoever does the bump: the pages' runtime is a TanStack `BuiltInAgent`, so a Pydantic AI agent has to stand in; and pydantic-ai-slim 1.107's `AGUIAdapter` builds the run from messages, tools and state only — `render_ui` would reach the model, but AG-UI `context` (the catalog guide, surface target descriptions, the markdown fence guide) is dropped and `forwarded_props` (the `sendContext: false` path) is not passed to the agent. Several pages' fragments also use app pieces they never define (`Product`, `ProductRow`, `Cart`/`cart.addItem`, `Hero`, `Panel`, `cartUI`, `ProductCard`/`productSchema`, `Airport`, `Arrow`), and Catalogs / Standard catalog need `valibot`, `@valibot/to-json-schema` and `maplibre-gl`.
 
 ---
 
@@ -548,7 +547,6 @@ pydantic-ai/
 │       ├── model.py              the one place the model id is decided
 │       ├── my_agent.py           Quickstart agent (exports `agent`, not an ASGI app)
 │       ├── weather_agent.py      Tool Rendering agent — get_weather
-│       ├── genui_agent.py        Components and surfaces — page prompt, no tools (§9.29)
 │       ├── language_agent.py     Shared State agent — StateDeps, set_language tool, per-request build_deps()
 │       ├── a2ui_fixed.py         A2UI Fixed Schema — demo bundle, verbatim
 │       ├── a2ui_schemas/         flight_schema.json (bundle) + booked_schema.json (borrowed, §9.19)

@@ -239,14 +239,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components",
-        hasDemo: true,
         title: "Components and surfaces",
         docPath: "/pydantic-ai/generative-ui/components",
         summary:
           "standardUI on the provider: the runtime adds render_ui and its guide, and the agent answers with streamed A2UI 1.0 components.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "The page's runtime is a BuiltInAgent TanStack factory (shown, not run); the same provider config is served by a Pydantic AI genui agent (page prompt, no tools). pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29). Needs @copilotkit 1.85 (bumped here). Ported from agno; not yet checked in a browser.",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The runtime sample is a CopilotKit BuiltInAgent (TanStack factory), not a Pydantic AI agent. pydantic-ai-slim 1.107's AGUIAdapter forwards the run's tools but drops AG-UI context, where the render_ui guide travels; a Pydantic AI agent would get the tool but not the guide (§9.29).",
       },
       {
         path: "/generative-ui/components/surfaces",
