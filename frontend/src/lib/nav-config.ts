@@ -243,10 +243,10 @@ export const NAV: NavGroup[] = [
         title: "JSON Render",
         docPath: "/pydantic-ai/generative-ui/json-render",
         summary:
-          "An agent-emitted { root, elements } spec, meant to be validated against a Zod catalog and drawn by @json-render/react.",
-        status: "broken",
+          "An agent-emitted { root, elements } spec, allow-listed and drawn by @json-render/react through a defineCatalog + defineRegistry registry.",
+        status: "partial",
         statusNote:
-          "As published it throws (<Renderer catalog> instead of registry, no JSONUIProvider). The bundle agent's MetricCard props don't match the doc's catalog, so metric cards are always dropped. The 'fixed' mode renders the charts.",
+          "Rebuilt 2026-11-11 from the page's now-complete demo code (catalog and agent agree). Uses the zod4 alias; repo stays on @json-render 0.21 (page says 0.18). Not yet checked in a browser.",
       },
       {
         path: "/generative-ui/hashbrown",
