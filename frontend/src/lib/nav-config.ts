@@ -273,6 +273,17 @@ export const NAV: NavGroup[] = [
           "A tool the agent calls that executes in the browser, forwarded automatically over AG-UI.",
         status: "working",
       },
+      {
+        path: "/webmcp",
+        hasDemo: true,
+        title: "WebMCP",
+        docPath: "/pydantic-ai/webmcp",
+        summary:
+          "A frontend tool with webmcp enabled, mirrored onto document.modelContext so WebMCP-aware browser agents can discover and call it.",
+        status: "broken",
+        statusNote:
+          "Both samples call searchOrders, which the page never defines; it is not filled in, so calling the tool throws. Needs Chrome 149+ with the WebMCP flag or origin trial to test at all. The core-only sample is type-checked, not run.",
+      },
     ],
   },
   {
