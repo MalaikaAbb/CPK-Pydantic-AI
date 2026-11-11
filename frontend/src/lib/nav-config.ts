@@ -271,6 +271,17 @@ export const NAV: NavGroup[] = [
           "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. Hero, Panel and cartUI are repo scaffolding; valibot added for the schema-library sample. The fs.writeFileSync line is kept as a // doc: comment and the demo prints the exported catalog. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
       },
       {
+        path: "/generative-ui/components/standard-catalog",
+        hasDemo: true,
+        title: "Components · Standard catalog",
+        docPath: "/pydantic-ai/generative-ui/components/standard-catalog",
+        summary:
+          "standardUI's 69 components as is, extended with a ProductCard, with Map/Video/HtmlView omitted, and with Card overridden.",
+        status: "partial",
+        statusNote:
+          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. ProductCard and productSchema are repo scaffolding; maplibre-gl added as the page says. pydantic-ai 1.107's AGUIAdapter drops AG-UI context, so the catalog guide never reaches the model (§9.29).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",

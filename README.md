@@ -239,6 +239,8 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/generative-ui/components/catalogs`** — ⚠️ **Partial (not yet checked in a browser).** `createGenerativeUI` catalogs: typed props, zod and Valibot, `extends`, `parameterOrder`, `exportA2UICatalog`. **Try:** `Show me three running shoes as product cards.` **Pass:** ProductCards with model-invented values; the Export tab lists `component, title, children, color`. **Fail:** standard components such as Table on `shopUI`, or plain text (§9.29).
 
+**`/generative-ui/components/standard-catalog`** — ⚠️ **Partial (not yet checked in a browser).** `standardUI` as is, extended, with `omit`, and with a `Card` override. **Try:** `Show the Eiffel Tower and the Louvre on a map.` **Pass:** a MapLibre map on `standardUI`, and no map on the omit variant. **Fail:** a plain list (`maplibre-gl` did not load) or plain text (§9.29).
+
 **`/generative-ui/json-render`** — ❌ **Broken, by design.** The doc's renderer, its missing helpers written in, and its `<Renderer spec catalog>` call kept as published. A **fixed** mode sits beside it. **Try (as published):** `Break down revenue by category as a pie chart.` **Pass:** a red box, most likely `useVisibility must be used within a VisibilityProvider`. **Try (fixed):** the same prompt. **Pass:** a pie chart. A metric-led dashboard prompt renders nothing in *as published* and raw JSON in *fixed*: the bundle agent's `MetricCard` props do not match the doc's catalog (§9.21).
 
 **`/generative-ui/hashbrown`** — ❌ **Broken, by design.** The doc's three Hashbrown calls kept as published, plus a fixed mode. **Try (as published):** `Show me a sales dashboard.` **Pass:** a red box, `TypeError: Cannot read properties of undefined (reading 'forEach')`. **Try (fixed):** the same. **Pass:** no crash, suggestion pills, an empty reply. The bundle agent's component names (`metric`, `pieChart`, …) are not in the doc's catalog, so nothing parses (§9.22).
@@ -300,6 +302,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [Components and surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components) | `/generative-ui/components` | ⚠️ Partial | Added 2026-11-11, ported from agno. Page runtime is a TanStack `BuiltInAgent` (shown, not run); served by a Pydantic AI `genui` agent at `/genui/`. Needs @copilotkit 1.85 (bumped here). Context drop — §9.29. Not yet type-checked or run. |
 | [Surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/surfaces) | `/generative-ui/components/surfaces` | ⚠️ Partial | Added 2026-11-11, ported from agno; Product/ProductRow scaffolding; no products tool. §9.29. Not yet type-checked or run. |
 | [Catalogs](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/catalogs) | `/generative-ui/components/catalogs` | ⚠️ Partial | Added 2026-11-11, ported from agno; Hero/Panel/cartUI scaffolding; `valibot` added. §9.29. Not yet type-checked or run. |
+| [Standard catalog](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/standard-catalog) | `/generative-ui/components/standard-catalog` | ⚠️ Partial | Added 2026-11-11, ported from agno; ProductCard/productSchema scaffolding; `maplibre-gl` added as the page says. §9.29. Not yet type-checked or run. |
 | [JSON Render](https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render) | `/generative-ui/json-render` | ❌ Broken | By design: the doc's library call throws. Fixed mode renders charts; metric cards never validate — §9.21. |
 | [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ❌ Broken | By design: the doc's hook calls throw. Fixed mode renders nothing for the bundle agent — §9.22. |
 | [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | — | 🚧 Not started | Skipped for now. The prose uses a TypeScript `BuiltInAgent` and an MCP server on `:3108` it does not provide; the demo bundle uses a Pydantic AI agent and the public Excalidraw server. |
@@ -620,6 +623,7 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 - [Components and surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components)
 - [Surfaces](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/surfaces)
 - [Catalogs](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/catalogs)
+- [Standard catalog](https://docs.copilotkit.ai/pydantic-ai/generative-ui/components/standard-catalog)
 - [JSON Render](https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render)
 - [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown)
 - [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) (not started)
