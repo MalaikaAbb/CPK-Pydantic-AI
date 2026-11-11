@@ -309,14 +309,13 @@ export const NAV: NavGroup[] = [
       },
       {
         path: "/generative-ui/components/markdown-mode",
-        hasDemo: true,
         title: "Components · Markdown mode",
         docPath: "/pydantic-ai/generative-ui/components/markdown-mode",
         summary:
           "The agent writes A2UI operations in a2ui code blocks inside its reply; sendContext: false moves the catalog into forwardedProps.",
-        status: "partial",
+        status: "reference",
         statusNote:
-          "Ported from agno (from CPK-LangGraph-TS / aws-strands-ts); not yet checked in a browser. The fence guide travels as context, which AGUIAdapter drops; the sendContext: false variant needs a backend reading forwarded_props, which AGUIAdapter doesn't pass to the agent — no UI expected from either (§9.29).",
+          "Reference only: needs @copilotkit/react-core 1.85 (the @copilotkit/react-core/v2/generative-ui entry); this repo pins ^1.77.0, which has no such export, and dependency bumps are out of scope for doc-sync. The Python sample uses an undefined MY_PROMPT and no json import. The fence guide travels as AG-UI context and the sendContext: false path needs forwarded_props; Pydantic AI's AGUIAdapter passes neither to the agent (§9.29).",
       },
       {
         path: "/generative-ui/components/from-a2ui",
