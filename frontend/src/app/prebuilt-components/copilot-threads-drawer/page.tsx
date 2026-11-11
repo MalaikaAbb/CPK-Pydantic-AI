@@ -21,6 +21,14 @@ const GAPS: [string, string][] = [
     "The doc names this variable. This repo's runtime route reads INTELLIGENCE_API_KEY, and the runtime does not read either name by itself. Set INTELLIGENCE_API_KEY, or the drawer stays locked.",
   ],
   [
+    "The controlled and agentId snippets are fragments",
+    "ControlledChat is printed with no imports and no provider, and the agentId sample is a single JSX line. Here they get the imports and run under the app's root <CopilotKit>, which is harness glue, not the doc's.",
+  ],
+  [
+    "research_agent is not an agent here",
+    "The agentId sample names research_agent. This runtime registers no agent by that id, so tab 6 can only show that the drawer switched agents (an empty list), not a populated one.",
+  ],
+  [
     "Multi-user scoping",
     "Covered on Thread & History Lifecycle, which the doc links to. The doc's own provider sends no identity headers, so on these tabs identifyUser resolves to “anonymous”.",
   ],
@@ -46,6 +54,16 @@ export default function Page() {
             prompts={["Can you tell me a joke?", "Now one about Python"]}
             expect="Tab 1 — after the first reply, a row appears in the drawer. Click New Conversation and the chat shows the welcome screen. Send something, then click the first row: its history replays. The row's ⋮ menu offers Archive and Delete but no Rename."
             fail="The drawer shows a locked 'Threads are a CopilotKit Intelligence feature' panel (see Intelligence access below), or the chat is squeezed to a narrow column beside the drawer. That second one is the doc's own layout: CopilotChat is a bare flex child with no flex: 1."
+          />
+          <TryIt
+            prompts={["Tell me a fun fact"]}
+            expect="Tab 3 — after the reply, click the header's New conversation button: the chat shows the welcome screen and no drawer row stays selected. The new thread gets a row only after its first run. Tab 4 is the same with the drawer's own New Conversation row and (+) launcher hidden by the CSS parts."
+            fail="The button does nothing (useCopilotChatConfiguration returned null, or startNewThread did not reset the chat), or tab 4 still shows the drawer's New Conversation row."
+          />
+          <TryIt
+            prompts={["Remember the word pineapple"]}
+            expect="Tab 5 — the thread id lives in React state. Picking a row and clicking either New conversation control switch the chat, and no 'controlled threadId' warning appears in the console. Tab 6 — the drawer lists no threads: the runtime has no research_agent."
+            fail="Tab 5: selecting a row or New Conversation leaves the chat where it was and logs a warning (the callbacks were not called). Tab 6: threads of the default agent show up, meaning agentId was ignored."
           />
           <TryIt
             prompts={["Hello from the sidebar"]}
@@ -97,6 +115,22 @@ export default function Page() {
 
       <Panel title="2 · Use the Drawer with a sidebar chat">
         <SourceCode file={SAMPLES_FILE} region="sidebar" />
+      </Panel>
+
+      <Panel title={`3 · Add your own "New conversation" button`} description="useCopilotChatConfiguration() inside the same configuration provider as the drawer and chat.">
+        <SourceCode file={SAMPLES_FILE} region="new-conversation" />
+      </Panel>
+
+      <Panel title="4 · Show only your button" description="The page's CSS parts, mounted only while tab 4 is open.">
+        <SourceCode file={SAMPLES_FILE} region="hide-drawer-controls" />
+      </Panel>
+
+      <Panel title="5 · Controlled threadId" description="The page's fragment: the app owns threadId and hands the drawer onThreadSelect and onNewThread.">
+        <SourceCode file={SAMPLES_FILE} region="controlled" />
+      </Panel>
+
+      <Panel title="6 · Which agent's threads the drawer shows" description="The one-line agentId sample.">
+        <SourceCode file={SAMPLES_FILE} region="agent-id" />
       </Panel>
 
 
