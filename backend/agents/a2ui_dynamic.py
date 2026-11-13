@@ -48,7 +48,7 @@ SYSTEM_PROMPT = dedent(
 
 # The demo's constructor minus `deps_type`, which only its own tool needed.
 agent = Agent(
-    model=OpenAIResponsesModel("gpt-5-mini"),
+    model=OpenAIResponsesModel("gpt-6-luna"),
     system_prompt=SYSTEM_PROMPT,
 )
 #endregion

@@ -11,8 +11,10 @@ from .model import MODEL
 from pydantic_ai import Agent
 
 #region agent
-# The doc's `agent.py`. Its model id is `openai:gpt-5.4-mini`, which does not
-# resolve on a normal OpenAI account — MODEL is the Quickstart's id instead.
+# The doc's `agent.py`. Its model id was `openai:gpt-5.4-mini`, which does not
+# resolve on a normal OpenAI account, and is `openai:gpt-6-luna` since
+# 2026-11-11 (not checked). MODEL is the Quickstart's id instead; set
+# OPENAI_MODEL=openai:gpt-6-luna to run the page's literal.
 agent = Agent(MODEL)
 
 
