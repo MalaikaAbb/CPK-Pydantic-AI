@@ -90,8 +90,9 @@ export default function Page() {
       </Panel>
 
       <Callout tone="info" title="Model id">
-        The page builds the agent with <code>openai:gpt-5.4-mini</code>, which
-        OpenAI does not serve. As on the other routes that print it, this repo
+        The page now builds the agent with <code>openai:gpt-6-luna</code>{" "}
+        (before 2026-11-11, <code>openai:gpt-5.4-mini</code>, which OpenAI does
+        not serve). The new id is unchecked. As on the other routes, this repo
         uses <code>OPENAI_MODEL</code> (default <code>openai:gpt-4.1-mini</code>).
         It makes no difference here, because the run fails before any model is
         called.
