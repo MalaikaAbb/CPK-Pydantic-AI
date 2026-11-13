@@ -48,12 +48,14 @@ export default function Page() {
 
       <Callout tone="warn" title="Two departures from the doc's samples">
         <p>
-          <strong>The model id is not real.</strong> The doc&apos;s{" "}
-          <code>agent.py</code> builds{" "}
-          <code>Agent(&quot;openai:gpt-5.4-mini&quot;)</code>. OpenAI does not
-          serve that id, so the agent here uses the Quickstart&apos;s{" "}
-          <code>openai:gpt-4.1-mini</code>, overridable with{" "}
-          <code>OPENAI_MODEL</code>.
+          <strong>The model id is swapped.</strong> The doc&apos;s{" "}
+          <code>agent.py</code> now builds{" "}
+          <code>Agent(&quot;openai:gpt-6-luna&quot;)</code> (it was{" "}
+          <code>openai:gpt-5.4-mini</code>, which OpenAI does not serve). The
+          new id has not been checked, so the agent here keeps the
+          Quickstart&apos;s <code>openai:gpt-4.1-mini</code>; set{" "}
+          <code>OPENAI_MODEL=openai:gpt-6-luna</code> to run the page&apos;s
+          literal.
         </p>
         <p className="mt-2">
           <strong>

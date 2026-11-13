@@ -61,7 +61,7 @@ export const NAV: NavGroup[] = [
           "The bring-your-own-agent path: a Pydantic AI agent behind AGUIAdapter, reached through HttpAgent, under the doc's own <CopilotKit> provider.",
         status: "working",
         statusNote:
-          "The doc's providers.tsx wraps the Quickstart demo only. The runtime still reads INTELLIGENCE_API_KEY, not the doc's renamed CPK_INTELLIGENCE_API_KEY.",
+          "The doc's providers.tsx wraps the Quickstart demo only. The runtime still reads INTELLIGENCE_API_KEY, not the doc's renamed CPK_INTELLIGENCE_API_KEY. The page's gpt-6-luna model, @ag-ui/client 1.0.2 and stylesheet order are not applied (README §9.25).",
       },
     ],
   },
@@ -88,10 +88,10 @@ export const NAV: NavGroup[] = [
         title: "Threads Drawer",
         docPath: "/pydantic-ai/prebuilt-components/copilot-threads-drawer",
         summary:
-          "The drop-in conversation sidebar, wired with no active-thread state of its own. The doc's two samples are two tabs: drawer + CopilotChat, drawer + CopilotSidebar.",
+          "The drop-in conversation sidebar, wired with no active-thread state of its own. One tab per doc sample: drawer + CopilotChat, drawer + CopilotSidebar, your own New-conversation button (with and without the ::part CSS), a controlled threadId, and agentId.",
         status: "working",
         statusNote:
-          "Needs Intelligence mode with an active entitlement, otherwise the drawer shows its Upgrade view. The sidebar sample's YourMainContent is undefined in the doc. Tabs not yet checked in a browser.",
+          "Needs Intelligence mode with an active entitlement, otherwise the drawer shows its Upgrade view. The sidebar sample's YourMainContent is undefined in the doc; the controlled and agentId samples are fragments (run under the root provider). Tabs not yet checked in a browser.",
       },
       {
         path: "/headless-threads",
@@ -186,6 +186,17 @@ export const NAV: NavGroup[] = [
         offNav: true,
       },
       {
+        path: "/generative-ui/tool-based",
+        hasDemo: true,
+        title: "Controlled · Components as Tools",
+        docPath: "/pydantic-ai/generative-ui/tool-based",
+        summary:
+          "Bar and pie chart components registered with useComponent; a tool-less Pydantic AI agent calls them by name and they render inline in the chat.",
+        status: "partial",
+        statusNote:
+          "Code-tab demo, not yet checked in a browser. The bundle's ./suggestions module is unpublished, so its import and call are commented out. The headless CopilotChatToolCallsView snippet is shown, not run. Model gpt-6-luna kept as published.",
+      },
+      {
         path: "/generative-ui/tool-rendering",
         hasDemo: true,
         title: "Tool Rendering",
@@ -204,6 +215,16 @@ export const NAV: NavGroup[] = [
         status: "partial",
         statusNote:
           "Frontend implemented as documented. The doc's agent.py block contains React code, not Python — there is no agent to write `searches`, so the list stays empty.",
+      },
+      {
+        path: "/generative-ui/a2ui",
+        title: "Declarative · A2UI",
+        docPath: "/pydantic-ai/generative-ui/a2ui",
+        summary:
+          "The A2UI overview: the runtime's a2ui option that adds the A2UI middleware, and the optional theme prop on <CopilotKit>.",
+        status: "reference",
+        statusNote:
+          "Overview page with no demo or agent. Both snippets are kept byte-for-byte and type-checked (myAgent and children are undefined on the page, suppressed). The setup runs on the Fixed and Dynamic Schema routes.",
       },
       {
         path: "/generative-ui/a2ui/dynamic-schema",
@@ -238,15 +259,122 @@ export const NAV: NavGroup[] = [
         statusNote: "All demo-bundle code, verbatim. Not yet checked in a browser.",
       },
       {
+        path: "/generative-ui/components",
+        hasDemo: true,
+        title: "Components and surfaces",
+        docPath: "/pydantic-ai/generative-ui/components",
+        summary:
+          "standardUI on the provider: the runtime adds render_ui and its guide, and the agent answers with streamed A2UI 1.0 components.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: the page's standardUI provider.",
+      },
+      {
+        path: "/generative-ui/components/surfaces",
+        hasDemo: true,
+        title: "Components · Surfaces",
+        docPath: "/pydantic-ai/generative-ui/components/surfaces",
+        summary:
+          "GenerativeUISurface page targets the chat can fill, limit, scroll to, and replace, with per-component error boundaries.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: error-boundary provider, 'featured' (limited) and 'sidebar-notes' targets. Not mounted: FeaturedProducts and the per-item target (undefined products/Product/product).",
+      },
+      {
+        path: "/generative-ui/components/catalogs",
+        hasDemo: true,
+        title: "Components · Catalogs",
+        docPath: "/pydantic-ai/generative-ui/components/catalogs",
+        summary:
+          "createGenerativeUI catalogs: typed components, zod and Valibot props, extends, parameterOrder and exportA2UICatalog.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: shopUI. Not mounted: Combine/export (undefined cartUI); schema-library and positional-order fragments.",
+      },
+      {
+        path: "/generative-ui/components/standard-catalog",
+        hasDemo: true,
+        title: "Components · Standard catalog",
+        docPath: "/pydantic-ai/generative-ui/components/standard-catalog",
+        summary:
+          "standardUI's 69 components as is, extended with a ProductCard, with Map/Video/HtmlView omitted, and with Card overridden.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: as is, omit, overrides. Not mounted: extend (undefined ProductCard, productSchema).",
+      },
+      {
+        path: "/generative-ui/components/state-and-actions",
+        title: "Components · State and actions",
+        docPath: "/pydantic-ai/generative-ui/components/state-and-actions",
+        summary:
+          "App state bound into props, functions run on click, events sent to the agent, and writable props that keep user input.",
+        status: "broken",
+        statusNote:
+          "Reference only, no backend. Every sample needs pieces the page never defines (Cart type and cart instance, ProductCard) or is a fragment (events, writable, function declarations), so nothing is mounted.",
+      },
+      {
+        path: "/generative-ui/components/theming",
+        hasDemo: true,
+        title: "Components · Theming",
+        docPath: "/pydantic-ai/generative-ui/components/theming",
+        summary:
+          "The theme option's CSS variables, a typed GenerativeUITheme file, dark-mode overrides, map styles, and .a2ui-surface CSS.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: provider theme, CSS variables, dark-mode script. Shown only: per-mode/map fragments, theme file.",
+      },
+      {
+        path: "/generative-ui/components/transports",
+        hasDemo: true,
+        title: "Components · Transports",
+        docPath: "/pydantic-ai/generative-ui/components/transports",
+        summary:
+          "The render_ui tool transport vs the markdown transport, the runtime's generativeUI flag, and agentIds scoping.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted on a generativeUI: true runtime: tool, markdown, agentIds as default. The markdown variant cannot work (it depends on context only). No shop agent is published.",
+      },
+      {
+        path: "/generative-ui/components/markdown-mode",
+        hasDemo: true,
+        title: "Components · Markdown mode",
+        docPath: "/pydantic-ai/generative-ui/components/markdown-mode",
+        summary:
+          "The agent writes A2UI operations in a2ui code blocks inside its reply; sendContext: false moves the catalog into forwardedProps.",
+        status: "broken",
+        statusNote:
+          "Wired to the components Pydantic AI agent on CopilotKit 1.87, but expected to show no UI: markdown mode sends the schema and fence guide only as context, which Pydantic AI's AGUIAdapter never reads (§9.29). Not browser-checked.",
+      },
+      {
+        path: "/generative-ui/components/from-a2ui",
+        hasDemo: true,
+        title: "Components · Adopt from A2UI",
+        docPath: "/pydantic-ai/generative-ui/components/from-a2ui",
+        summary:
+          "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: the After catalog; Airport/Arrow borrowed from aws-strands-ts.",
+        path: "/generative-ui/mcp-apps",
+        hasDemo: true,
+        title: "Open-ended · MCP Apps",
+        docPath: "/pydantic-ai/generative-ui/mcp-apps",
+        summary:
+          "Tools from an MCP server that carry their own UI, rendered in a sandboxed iframe in the chat via the runtime's mcpApps option.",
+        status: "partial",
+        statusNote:
+          "Not yet checked in a browser. The page's BuiltInAgent is swapped for a Pydantic AI agent with the same prompt; the runtime has its own endpoint. Needs an MCP Apps server on localhost:3108, which you start yourself (the page doesn't say which).",
+      },
+      {
         path: "/generative-ui/json-render",
         hasDemo: true,
         title: "JSON Render",
         docPath: "/pydantic-ai/generative-ui/json-render",
         summary:
-          "An agent-emitted { root, elements } spec, meant to be validated against a Zod catalog and drawn by @json-render/react.",
-        status: "broken",
+          "An agent-emitted { root, elements } spec, allow-listed and drawn by @json-render/react through a defineCatalog + defineRegistry registry.",
+        status: "partial",
         statusNote:
-          "As published it throws (<Renderer catalog> instead of registry, no JSONUIProvider). The bundle agent's MetricCard props don't match the doc's catalog, so metric cards are always dropped. The 'fixed' mode renders the charts.",
+          "Rebuilt 2026-11-11 from the page's now-complete demo code (catalog and agent agree). Uses the zod4 alias; repo stays on @json-render 0.21 (page says 0.18). Not yet checked in a browser.",
       },
       {
         path: "/generative-ui/hashbrown",
@@ -254,10 +382,10 @@ export const NAV: NavGroup[] = [
         title: "Hashbrown",
         docPath: "/pydantic-ai/generative-ui/hashbrown",
         summary:
-          "Streamed JSON meant to be parsed progressively by @hashbrownai/react and rendered through a component catalog.",
-        status: "broken",
+          "Streamed JSON parsed progressively by @hashbrownai/react and rendered through a UI kit shared by a HashBrownDashboard provider.",
+        status: "partial",
         statusNote:
-          "As published it throws (0.6.1 hook API mismatch). The bundle agent emits lowercase component names the doc's catalog lacks, so even the 'fixed' mode renders nothing.",
+          "Rebuilt 2026-11-11 from the page's now-complete demo code (page, Code tab and agent agree). Not yet checked in a browser; the agent model gpt-6-luna is kept as published.",
       },
     ],
   },
@@ -273,11 +401,32 @@ export const NAV: NavGroup[] = [
           "A tool the agent calls that executes in the browser, forwarded automatically over AG-UI.",
         status: "working",
       },
+      {
+        path: "/webmcp",
+        hasDemo: true,
+        title: "WebMCP",
+        docPath: "/pydantic-ai/webmcp",
+        summary:
+          "A frontend tool with webmcp enabled, mirrored onto document.modelContext so WebMCP-aware browser agents can discover and call it.",
+        status: "broken",
+        statusNote:
+          "Both samples call searchOrders, which the page never defines; it is not filled in, so calling the tool throws. Needs Chrome 149+ with the WebMCP flag or origin trial to test at all. The core-only sample is type-checked, not run.",
+      },
     ],
   },
   {
     title: "Human in the Loop",
     routes: [
+      {
+        path: "/human-in-the-loop",
+        title: "HITL Overview",
+        docPath: "/pydantic-ai/human-in-the-loop/index",
+        summary:
+          "Why and when an agent should pause for a person's input or approval; links to the flow-based Pydantic AI page.",
+        status: "reference",
+        statusNote:
+          "Overview with a video and an infographic, no code. Its card link omits the /pydantic-ai prefix.",
+      },
       {
         path: "/human-in-the-loop/agent",
         hasDemo: true,
@@ -288,6 +437,27 @@ export const NAV: NavGroup[] = [
         status: "broken",
         statusNote:
           "By design. Frontend and backend both define write_essay, and Pydantic AI rejects the run with RUN_ERROR (observed in the browser). The hook also uses v1-only options (renderAndWaitForResponse).",
+      },
+      {
+        path: "/human-in-the-loop/useInterrupt",
+        hasDemo: true,
+        title: "Pausing the Agent for Input",
+        docPath: "/pydantic-ai/human-in-the-loop/useInterrupt",
+        summary:
+          "A scheduling agent told to call a frontend schedule_meeting tool whose Promise handler holds the run until the user picks a slot; plus useInterrupt's resolve/cancel API.",
+        status: "broken",
+        statusNote:
+          "The page's frontend schedule_meeting snippet is not published for pydantic-ai (region missing, no Code tab), so it isn't registered; the agent is the printed backend block. The generic useInterrupt samples never fire against a Pydantic AI agent. Not yet run.",
+      },
+      {
+        path: "/human-in-the-loop/headless",
+        title: "Headless Interrupts",
+        docPath: "/pydantic-ai/human-in-the-loop/headless",
+        summary:
+          "Resolving a paused run from a surface outside the chat: a Promise-based frontend tool exposes its pending payload as React state.",
+        status: "broken",
+        statusNote:
+          "Reference only. The page's only code sample is not published for pydantic-ai (region 'headless-promise-primitives' missing, no Code tab), so there is nothing to build.",
       },
       {
         path: "/human-in-the-loop/governed-actions",

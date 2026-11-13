@@ -1,0 +1,20 @@
+// Verbatim from the demo Code tab of https://docs.copilotkit.ai/pydantic-ai/generative-ui/json-render (bundle: src/app/demos/declarative-json-render/page.tsx).
+"use client";
+
+import { CopilotKit } from "@copilotkit/react-core/v2";
+import { AGENT_ID, Chat } from "./chat";
+
+export default function ByocJsonRenderDemo() {
+  return (
+    <CopilotKit
+      runtimeUrl="/api/copilotkit-declarative-json-render"
+      agent={AGENT_ID}
+    >
+      <div className="flex justify-center items-center h-screen w-full">
+        <div className="h-full w-full max-w-4xl">
+          <Chat />
+        </div>
+      </div>
+    </CopilotKit>
+  );
+}

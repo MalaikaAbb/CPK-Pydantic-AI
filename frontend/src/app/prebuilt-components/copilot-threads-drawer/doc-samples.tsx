@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * The two code samples on the Threads Drawer page, one `#region` each, so the
+ * The code samples on the Threads Drawer page, one `#region` each, so the
  * notes page can show each sample next to its tab.
  *
  * Source: https://docs.copilotkit.ai/pydantic-ai/prebuilt-components/copilot-threads-drawer
@@ -10,7 +10,10 @@
  * region:
  *
  *  - Each doc sample is `export default function Page()`. A file can only have
- *    one default export, so they are renamed (`SetupPage`, `SidebarPage`).
+ *    one default export, so they are renamed (`SetupPage`, `SidebarPage`,
+ *    `NewConversationPage`). The `ControlledChat` and `agentId` snippets are
+ *    fragments with no imports and no export; they get `export` and the
+ *    imports at the top of this file, nothing else.
  *  - `height: "100dvh"` becomes `"100%"`. The demo frame's header and tab bar
  *    sit above the sample, and at `100dvh` the frame's `overflow: hidden` cuts
  *    off the bottom of the chat, input included. That would be a harness bug,
@@ -23,12 +26,14 @@
  * to `anonymous`. They are not the threads Headless Threads lists.
  */
 
+import { useState } from "react";
 import {
   CopilotChat,
   CopilotChatConfigurationProvider,
   CopilotKitProvider,
   CopilotSidebar,
   CopilotThreadsDrawer,
+  useCopilotChatConfiguration,
 } from "@copilotkit/react-core/v2";
 import "@copilotkit/react-core/v2/styles.css";
 
@@ -72,5 +77,87 @@ export function SidebarPage() {
       </CopilotChatConfigurationProvider>
     </CopilotKitProvider>
   );
+}
+//#endregion
+
+//#region new-conversation
+// "Add your own \"New conversation\" button". Published sample apart from the
+// two edits above (renamed from `Page`, `100dvh` → `100%`). The doc's
+// `// [!code highlight]` markers are docs-site markup and are left out.
+function NewConversationButton() {
+  const configuration = useCopilotChatConfiguration();
+
+  return (
+    <button
+      type="button"
+      onClick={() => configuration?.startNewThread()}
+    >
+      New conversation
+    </button>
+  );
+}
+
+export function NewConversationPage() {
+  return (
+    <CopilotKitProvider runtimeUrl="/api/copilotkit">
+      <CopilotChatConfigurationProvider>
+        <div style={{ display: "flex", height: "100%" }}>
+          <CopilotThreadsDrawer />
+          <main style={{ flex: 1, display: "flex", flexDirection: "column" }}>
+            <header>
+              <NewConversationButton />
+            </header>
+            <CopilotChat />
+          </main>
+        </div>
+      </CopilotChatConfigurationProvider>
+    </CopilotKitProvider>
+  );
+}
+//#endregion
+
+//#region hide-drawer-controls
+// The page's CSS for "show only your button", verbatim. The demo tab mounts it
+// in a <style> next to `NewConversationPage`, so it applies only while that tab
+// is open.
+export const HIDE_DRAWER_CONTROLS_CSS = `
+copilotkit-threads-drawer::part(new-thread-button),
+copilotkit-threads-drawer::part(launcher-new-thread) {
+  display: none;
+}
+`;
+//#endregion
+
+//#region controlled
+// The controlled-thread fragment from the same section. The doc prints it with
+// no imports and no provider around it; `useState` is imported above, and it
+// runs under the app's root `<CopilotKit>` (agent `default`, the root
+// provider's identity headers).
+export function ControlledChat() {
+  const [threadId, setThreadId] = useState(() => crypto.randomUUID());
+  const startNew = () => setThreadId(crypto.randomUUID());
+
+  return (
+    <CopilotChatConfigurationProvider threadId={threadId}>
+      <CopilotThreadsDrawer
+        onThreadSelect={(id) => setThreadId(id)}
+        onNewThread={startNew}
+      />
+      <button type="button" onClick={startNew}>
+        New conversation
+      </button>
+      <CopilotChat />
+    </CopilotChatConfigurationProvider>
+  );
+}
+//#endregion
+
+//#region agent-id
+// "Which agent's threads the drawer shows": the one-line sample, rendered as
+// published under the app's root `<CopilotKit>`. This harness registers no
+// `research_agent` on the runtime, so the expected result is an empty list.
+// The wrapper function is harness glue; the JSX is the doc's.
+export function ResearchAgentDrawer() {
+  return <CopilotThreadsDrawer agentId="research_agent" />;
 }
 //#endregion
