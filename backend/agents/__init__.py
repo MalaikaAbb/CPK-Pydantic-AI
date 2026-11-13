@@ -29,6 +29,7 @@ from . import (
     a2ui_fixed,
     byoc_hashbrown_agent,
     byoc_json_render_agent,
+    gen_ui_tool_based,
     hitl_agent,
     language_agent,
     mcp_apps_agent,
@@ -83,6 +84,9 @@ AGENTS: dict[str, AgentEntry] = {
     "open_gen_ui_advanced": AgentEntry(open_gen_ui_advanced_agent.agent),
     # MCP Apps (the page's BuiltInAgent, swapped for a Pydantic AI agent).
     "mcp_apps": AgentEntry(mcp_apps_agent.agent),
+    # Components as Tools. Keyed by the bundle's backend path; the runtime
+    # registers it as `gen-ui-tool-based`, the id the bundle page names.
+    "gen_ui_tool_based": AgentEntry(gen_ui_tool_based.agent),
     # Human in the Loop.
     "hitl_agent": AgentEntry(hitl_agent.agent),
     # Multi-agent.

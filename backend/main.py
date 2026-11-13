@@ -21,6 +21,7 @@ mounted under its id:
     POST /open_gen_ui/           → Open Generative UI (minimal)
     POST /open_gen_ui_advanced/  → Open Generative UI (advanced)
     POST /mcp_apps/              → MCP Apps
+    POST /gen_ui_tool_based/     → Components as Tools
     POST /hitl_agent/            → Human in the Loop · Pydantic AI Agents
     POST /subagents/             → Sub-Agents
 
