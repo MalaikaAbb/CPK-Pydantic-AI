@@ -468,6 +468,11 @@ The page now builds the supervisor and all three sub-agents on `OpenAIResponsesM
 **25. Quickstart drift not yet applied.**
 The page now pins `pydantic-ai-slim[ag-ui,openai]>=2,<3` and `starlette>=0.46.2`, while this repo is on 1.107.7 / 0.45.3. Its runtime reads `CPK_INTELLIGENCE_API_KEY`, which is what `npx copilotkit@latest project select` writes; this repo still reads `INTELLIGENCE_API_KEY`. Its `providers.tsx` is applied, but only around the Quickstart demo, because every other route needs the harness's root provider (identity headers, no locked agent).
 
+Further drift as of 2026-11-11, also not applied:
+- **Model.** The agent is now `Agent('openai:gpt-6-luna', instructions='Be fun!')` (was `openai:gpt-4.1-mini`). `my_agent` runs `MODEL`, whose default is still `openai:gpt-4.1-mini`, because changing it moves every agent onto an id nobody has checked yet. `OPENAI_MODEL=openai:gpt-6-luna` runs the page's value.
+- **`@ag-ui/client@1.0.2`.** The install line now pins 1.0.2; this repo pins `@ag-ui/*` 1.0.1 to match its installed `@copilotkit/react-core`. Bumping one without the other installs two copies and breaks the `AbstractAgent` types, so it waits for a CopilotKit bump.
+- **`app/layout.tsx`.** The page now imports `@copilotkit/react-core/v2/styles.css` and then `./globals.css` in the root layout. This repo's root layout imports both, globals first; the order is left as is because it affects every route's styling.
+
 **15. The Quickstart assumes one agent at the root.**
 It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so `backend/main.py` gives each agent its own `POST /<id>/` route and the runtime addresses `http://localhost:8000/<id>/`. How each agent is built is unchanged. The trailing slash matters — without it Starlette issues a redirect the POST does not survive cleanly.
 

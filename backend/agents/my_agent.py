@@ -13,7 +13,8 @@ from pydantic_ai import Agent
 
 #region agent
 # The Quickstart's `main.py`, unchanged apart from the model id — see model.py
-# for why that is a variable here.
+# for why that is a variable here. The page prints 'openai:gpt-6-luna' (was
+# 'openai:gpt-4.1-mini', MODEL's default) since 2026-11-11.
 #
 # Note there is no `to_ag_ui()` any more: the Quickstart now hands the agent to
 # `AGUIAdapter.dispatch_request` inside a Starlette route. `main.py` does that

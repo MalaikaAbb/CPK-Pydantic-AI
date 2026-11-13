@@ -7,6 +7,11 @@ with it fails on its first run.
 
 So the id is a variable: the Quickstart's value by default, overridable with
 OPENAI_MODEL when you want to test against whatever the docs currently show.
+
+Since 2026-11-11 the Quickstart (and Tool Rendering) print `openai:gpt-6-luna`.
+The default here is still `openai:gpt-4.1-mini`: switching it moves every
+agent in this package onto an id that has not been checked, so that is left
+for a run that can verify it. OPENAI_MODEL=openai:gpt-6-luna runs the doc's id.
 """
 
 import os

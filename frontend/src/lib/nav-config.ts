@@ -61,7 +61,7 @@ export const NAV: NavGroup[] = [
           "The bring-your-own-agent path: a Pydantic AI agent behind AGUIAdapter, reached through HttpAgent, under the doc's own <CopilotKit> provider.",
         status: "working",
         statusNote:
-          "The doc's providers.tsx wraps the Quickstart demo only. The runtime still reads INTELLIGENCE_API_KEY, not the doc's renamed CPK_INTELLIGENCE_API_KEY.",
+          "The doc's providers.tsx wraps the Quickstart demo only. The runtime still reads INTELLIGENCE_API_KEY, not the doc's renamed CPK_INTELLIGENCE_API_KEY. The page's gpt-6-luna model, @ag-ui/client 1.0.2 and stylesheet order are not applied (README §9.25).",
       },
     ],
   },
