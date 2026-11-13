@@ -354,7 +354,9 @@ export const NAV: NavGroup[] = [
           "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
         status: "partial",
         statusNote:
-          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: the After catalog; Airport/Arrow borrowed from aws-strands-ts.",
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: the After catalog; Airport/Arrow borrowed from aws-strands-ts. Shown only: the \"Use 1.0 with the React a2ui renderer\" snippets (no published agent emits A2UI 1.0 ops, §9.33).",
+      },
+      {
         path: "/generative-ui/mcp-apps",
         hasDemo: true,
         title: "Open-ended · MCP Apps",

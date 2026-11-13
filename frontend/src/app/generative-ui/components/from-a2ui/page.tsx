@@ -1,6 +1,32 @@
 import { RouteHeader } from "@/components/route-header";
 import { SourceCodeGroup } from "@/components/source-code";
-import { Callout, Panel } from "@/components/ui";
+import { Callout, CodeBlock, Panel } from "@/components/ui";
+
+// "Use 1.0 with the React a2ui renderer", as printed. Shown, not run: no
+// agent this page (or the A2UI pages) publishes for Pydantic AI emits native
+// A2UI 1.0 `a2ui_operations`, which the page says this path needs. The
+// installed @copilotkit/a2ui-renderer 1.87.1 does export these names.
+const V1_BASIC = `import { basicCatalogV1 } from "@copilotkit/a2ui-renderer";
+
+<CopilotKit runtimeUrl="/api/copilotkit" a2ui={{ catalog: basicCatalogV1 }}>
+  {/* Your app */}
+</CopilotKit>`;
+
+const V1_CUSTOM = `import { z } from "zod";
+import {
+  createCatalog,
+  DynamicStringSchemaV1,
+} from "@copilotkit/a2ui-renderer";
+
+const myCatalog = createCatalog(
+  { Greeting: { props: z.object({ name: DynamicStringSchemaV1 }) } },
+  { Greeting: ({ props }) => <p>Hello {props.name}</p> },
+  {
+    catalogId: "acme/greetings@1",
+    protocolVersion: "1.0",
+    includeBasicCatalog: true,
+  },
+);`;
 
 /**
  * The demo in `demo-chat/` runs the page's code on the `components` Pydantic AI agent (see the callout).
@@ -43,6 +69,22 @@ export default function Page() {
             { file: "frontend/src/app/generative-ui/components/_shared/borrowed-ui.tsx" },
           ]}
         />
+      </Panel>
+
+      <Panel title="Printed on the page, not run: Use 1.0 with the React a2ui renderer">
+        <p className="mb-3 text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+          The page now also shows how to stay on the <code>a2ui</code> provider
+          option and opt into A2UI 1.0 catalogs. Not mounted: the page says the
+          agent must emit native 1.0 <code>a2ui_operations</code>, and no
+          Pydantic AI agent it (or the A2UI pages) publishes does that; this
+          repo&apos;s A2UI agents write v0.9 operations. The renderer exports
+          (<code>basicCatalogV1</code>, <code>DynamicStringSchemaV1</code>,{" "}
+          <code>protocolVersion</code>) do exist in the pinned 1.87.1.
+        </p>
+        <div className="space-y-3">
+          <CodeBlock code={V1_BASIC} language="tsx" filename="Opt into the 1.0 basic catalog" />
+          <CodeBlock code={V1_CUSTOM} language="tsx" filename="A custom 1.0 catalog" />
+        </div>
       </Panel>
     </>
   );
