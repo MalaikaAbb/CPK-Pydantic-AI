@@ -322,6 +322,16 @@ export const NAV: NavGroup[] = [
     title: "Human in the Loop",
     routes: [
       {
+        path: "/human-in-the-loop",
+        title: "HITL Overview",
+        docPath: "/pydantic-ai/human-in-the-loop/index",
+        summary:
+          "Why and when an agent should pause for a person's input or approval; links to the flow-based Pydantic AI page.",
+        status: "reference",
+        statusNote:
+          "Overview with a video and an infographic, no code. Its card link omits the /pydantic-ai prefix.",
+      },
+      {
         path: "/human-in-the-loop/agent",
         hasDemo: true,
         title: "Pydantic AI Agents",
@@ -331,6 +341,27 @@ export const NAV: NavGroup[] = [
         status: "broken",
         statusNote:
           "By design. Frontend and backend both define write_essay, and Pydantic AI rejects the run with RUN_ERROR (observed in the browser). The hook also uses v1-only options (renderAndWaitForResponse).",
+      },
+      {
+        path: "/human-in-the-loop/useInterrupt",
+        hasDemo: true,
+        title: "Pausing the Agent for Input",
+        docPath: "/pydantic-ai/human-in-the-loop/useInterrupt",
+        summary:
+          "A scheduling agent told to call a frontend schedule_meeting tool whose Promise handler holds the run until the user picks a slot; plus useInterrupt's resolve/cancel API.",
+        status: "broken",
+        statusNote:
+          "The page's frontend schedule_meeting snippet is not published for pydantic-ai (region missing, no Code tab), so it isn't registered; the agent is the printed backend block. The generic useInterrupt samples never fire against a Pydantic AI agent. Not yet run.",
+      },
+      {
+        path: "/human-in-the-loop/headless",
+        title: "Headless Interrupts",
+        docPath: "/pydantic-ai/human-in-the-loop/headless",
+        summary:
+          "Resolving a paused run from a surface outside the chat: a Promise-based frontend tool exposes its pending payload as React state.",
+        status: "broken",
+        statusNote:
+          "Reference only. The page's only code sample is not published for pydantic-ai (region 'headless-promise-primitives' missing, no Code tab), so there is nothing to build.",
       },
       {
         path: "/human-in-the-loop/governed-actions",

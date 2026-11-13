@@ -73,6 +73,7 @@ The browser never talks to port 8000. The runtime route is the only thing that d
 | `byoc_hashbrown` | — (prompted to reply with `{ ui: [...] }`) | Hashbrown |
 | `open_gen_ui` / `open_gen_ui_advanced` | — (`generateSandboxedUi` is injected by the runtime) | Open Generative UI |
 | `hitl_agent` | `write_essay` via `@agent.tool_plain` | Human in the Loop · Pydantic AI Agents |
+| `interrupt_agent` | — (prompted to call a frontend `schedule_meeting` that is never published) | Pausing the Agent for Input |
 | `mcp_apps` | — (MCP server tools arrive per run via the runtime's `mcpApps`) | MCP Apps |
 | `gen-ui-tool-based` | — (calls the frontend's `useComponent` tools; served at `/gen_ui_tool_based/`) | Components as Tools |
 | `subagents` | `research_agent`, `writing_agent`, `critique_agent` · `StateDeps[SubagentsState]` | Sub-Agents |
@@ -161,7 +162,7 @@ Confirm with:
 
 ```bash
 curl http://localhost:8000/health
-# {"status":"ok","agents":["a2ui_dynamic","a2ui_fixed","byoc_hashbrown","byoc_json_render","hitl_agent","language_agent","mcp_apps","my_agent","open_gen_ui","open_gen_ui_advanced","subagents","weather_agent"]}
+# {"status":"ok","agents":["a2ui_dynamic","a2ui_fixed","byoc_hashbrown","byoc_json_render","hitl_agent","interrupt_agent","language_agent","my_agent","open_gen_ui","open_gen_ui_advanced","subagents","weather_agent"]}
 ```
 
 **Terminal 2 — the app:**
@@ -254,7 +255,13 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 ### Human in the Loop
 
+**`/human-in-the-loop`** — 📖 **Reference.** The HITL overview: what pausing for a person is for, with a video, an infographic and one link to the Pydantic AI Agents page. No code. **Try:** nothing to run; follow the links to the routes below. Its card link omits the `/pydantic-ai` prefix.
+
 **`/human-in-the-loop/agent`** — ❌ **Broken, by design.** The page's essay-approval tool, frontend and backend both as published. **Try:** `Write an essay about the benefits of AI.` **Pass:** a run error before any reply: `The AG-UI frontend tools defines a tool whose name conflicts with existing tool from the agent: 'write_essay'` (observed in the browser as a `RUN_ERROR` event, and against the backend directly). **Fail:** a draft card. That would mean the frontend tool was not sent (§9.23).
+
+**`/human-in-the-loop/useInterrupt`** — ❌ **Broken (as published).** The page's backend block (`interrupt_agent`, told to call a client-side `schedule_meeting`) behind a chat, with the page's Approve / Cancel `useInterrupt` component mounted. The frontend `schedule_meeting` snippet is not published for pydantic-ai, so nothing registers it (§9.32). **Try:** `Book a 30-minute call with Alex about the roadmap.` **Pass (for this route):** a text reply and no picker; no Approve / Cancel card. **Fail:** a backend run error, or a picker (something registered the tool).
+
+**`/human-in-the-loop/headless`** — ❌ **Broken (reference only).** The page describes a Promise-based frontend tool whose pending payload drives a picker outside the chat, but its only code sample is not published for pydantic-ai (region missing, no Code tab), so nothing is built (§9.32). **Try:** nothing to run.
 
 **`/human-in-the-loop/governed-actions`** — ⚠️ **Partial (not yet checked in a browser).** The `useHumanInTheLoop` half of the page on `my_agent`. `useInterrupt` and `handleApproval` are shown as text. **Try:** `Use approve_governed_action to apply a 30% discount to account NW-8812, verdict require_approval.` **Pass:** a *User approval required* card with the arguments as JSON. The run waits for Approve or Reject. **Fail:** a prose answer. Name the tool explicitly; nothing in the agent's prompt mentions it.
 
@@ -307,6 +314,9 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ❌ Broken | By design: the doc's hook calls throw. Fixed mode renders nothing for the bundle agent — §9.22. |
 | [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | — | 🚧 Not started | Skipped for now. The prose uses a TypeScript `BuiltInAgent` and an MCP server on `:3108` it does not provide; the demo bundle uses a Pydantic AI agent and the public Excalidraw server. |
 | [Frontend Tools](https://docs.copilotkit.ai/pydantic-ai/frontend-tools) | `/frontend-tools` | ✅ Working | `sayHello`, browser-executed. |
+| [HITL Overview](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/index) | `/human-in-the-loop` | 📖 Reference | Added 2026-11-11. Overview, no code. |
+| [Pausing the Agent for Input](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt) | `/human-in-the-loop/useInterrupt` | ❌ Broken | Added 2026-11-11. Frontend `schedule_meeting` snippet unpublished; backend block runs — §9.32. Not yet type-checked or run. |
+| [Headless Interrupts](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/headless) | `/human-in-the-loop/headless` | ❌ Broken | Added 2026-11-11. Reference only: the page's one snippet is unpublished for pydantic-ai — §9.32. |
 | [WebMCP](https://docs.copilotkit.ai/pydantic-ai/webmcp) | `/webmcp` | ❌ Broken | Added 2026-11-11. `searchOrders` is never defined on the page, not filled in; needs Chrome 149+ WebMCP — §9.31. Not yet type-checked or run. |
 | [HITL · Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent) | `/human-in-the-loop/agent` | ❌ Broken | By design: front and back both define `write_essay`; the run is refused with `RUN_ERROR` (observed in the browser) — §9.23. |
 | [Governed Action Approval UI](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/governed-actions) | `/human-in-the-loop/governed-actions` | ⚠️ Partial | `useHumanInTheLoop` half only; Pydantic AI never emits an AG-UI interrupt. Not yet checked in a browser. |
@@ -435,6 +445,8 @@ It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so 
 - **`CPK_INTELLIGENCE_API_KEY`.** The doc uses this name. This repo's runtime route reads `INTELLIGENCE_API_KEY` (the same drift as Quickstart, §9.25). The shared runtime route is left unchanged here, because changing it affects every route.
 - **Identity.** The doc's `<CopilotKitProvider>` sends no identity headers, so `identifyUser` falls back to `anonymous`. Verified: `GET /api/copilotkit/threads` with no headers returns `endUserId: "anonymous"` rows. With the root provider's headers it returns `harness-local` rows.
 
+**32. Pausing the Agent for Input: the frontend half is not published.**
+[The page](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt) explains that for Pydantic AI the pause is a frontend `schedule_meeting` tool with a Promise-based handler, then renders `snippet skipped: region 'frontend-promise-handler' missing in pydantic-ai::gen-ui-interrupt` where that code should be, and has no Code tab. Only the backend block is printed (`SYSTEM_PROMPT` and `Agent(model=OpenAIResponsesModel("gpt-6-luna"), …)`, without imports). The harness runs that block as `interrupt_agent` (imports added) and registers no `schedule_meeting`, so the model is told to call a tool that does not exist. The page's generic `useInterrupt` samples (Approve / Cancel, multi-interrupt) target AG-UI interrupt outcomes, which Pydantic AI's adapter never emits; the first is mounted and never renders, the second is a bare hook call kept in `_doc/` and type-checked only. [Headless Interrupts](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/headless) has the same problem in full: its only sample renders `snippet skipped: region 'headless-promise-primitives' missing in pydantic-ai::interrupt-headless`, so that route is reference-only.
 **31. WebMCP: `searchOrders` is never defined.**
 [The page](https://docs.copilotkit.ai/pydantic-ai/webmcp) prints two samples (a React `useFrontendTool` with `webmcp`, and a core-only `CopilotKitCore({ tools })`), and both handlers call `searchOrders(status)` without defining or importing it. Per this harness's rule it is not written in: the references carry `@ts-expect-error`, the React sample is mounted under the root provider, and calling the tool throws `ReferenceError`. The core-only sample is type-checked in `frontend/src/app/webmcp/_doc/` but not imported (it would create a second core). Testing needs Chrome 149+ with the WebMCP origin trial or `chrome://flags/#enable-webmcp-testing`; elsewhere CopilotKit registers nothing.
 **30. MCP Apps: a BuiltInAgent page and a server you have to supply.**
@@ -549,6 +561,7 @@ pydantic-ai/
 │       ├── byoc_json_render_agent.py / byoc_hashbrown_agent.py   demo bundle, verbatim
 │       ├── open_gen_ui_agent.py / open_gen_ui_advanced_agent.py  demo bundle, verbatim
 │       ├── hitl_agent.py         Human in the Loop — the page's agent, model id swapped
+│       ├── interrupt_agent.py    Pausing the Agent for Input — the page's backend block (§9.32)
 │       ├── subagents.py          Sub-Agents supervisor — demo bundle, verbatim
 │       └── search_agent.py       PLACEHOLDER — State Rendering has no Python (§9)
 │
@@ -640,7 +653,10 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 - [WebMCP](https://docs.copilotkit.ai/pydantic-ai/webmcp)
 
 **Human in the Loop**
+- [HITL Overview](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/index)
 - [Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent)
+- [Pausing the Agent for Input](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/useInterrupt)
+- [Headless Interrupts](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/headless)
 - [Governed Action Approval UI](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/governed-actions)
 
 **Multi-Agent**

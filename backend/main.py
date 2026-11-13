@@ -23,6 +23,7 @@ mounted under its id:
     POST /mcp_apps/              → MCP Apps
     POST /gen_ui_tool_based/     → Components as Tools
     POST /hitl_agent/            → Human in the Loop · Pydantic AI Agents
+    POST /interrupt_agent/       → Human in the Loop · Pausing the Agent for Input
     POST /subagents/             → Sub-Agents
 
 The full list is the keys of `agents.AGENTS`. Each path matches the `HttpAgent`
