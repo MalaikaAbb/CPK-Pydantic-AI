@@ -59,7 +59,7 @@ as this guide uses it as a starting point.
         language: str = "english"
 
 
-    agent = Agent("openai:gpt-5.4-mini", deps_type=StateDeps[AgentState])
+    agent = Agent("openai:gpt-6-luna", deps_type=StateDeps[AgentState])
 
 
     @agent.instructions()

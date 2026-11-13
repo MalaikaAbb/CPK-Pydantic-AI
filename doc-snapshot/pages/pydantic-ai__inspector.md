@@ -86,7 +86,7 @@ Use the **Inspect** panes to answer a specific debugging question:
 | What readable or document context was shared? | **Context**        | [Agent read-only context](/pydantic-ai/shared-state/agent-readonly) |
 
 To reproduce a problem without changing the saved conversation, open a real
-[Thread](/pydantic-ai/threads) and choose **Try from here**. Inspector copies its
+[Thread](/pydantic-ai/AG-UI-Streams) and choose **Try from here**. Inspector copies its
 messages and state into **Playground**, where you can vary the prompt, state, or
 next message and run, stop, retry, and continue independently.
 

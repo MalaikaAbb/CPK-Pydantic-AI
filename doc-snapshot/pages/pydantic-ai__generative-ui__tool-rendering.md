@@ -50,7 +50,7 @@ as this guide uses it as a starting point.
         from starlette.responses import Response
         from starlette.routing import Route
 
-        agent = Agent("openai:gpt-5.4-mini")
+        agent = Agent("openai:gpt-6-luna")
 
 
         @agent.tool_plain
