@@ -88,10 +88,10 @@ export const NAV: NavGroup[] = [
         title: "Threads Drawer",
         docPath: "/pydantic-ai/prebuilt-components/copilot-threads-drawer",
         summary:
-          "The drop-in conversation sidebar, wired with no active-thread state of its own. The doc's two samples are two tabs: drawer + CopilotChat, drawer + CopilotSidebar.",
+          "The drop-in conversation sidebar, wired with no active-thread state of its own. One tab per doc sample: drawer + CopilotChat, drawer + CopilotSidebar, your own New-conversation button (with and without the ::part CSS), a controlled threadId, and agentId.",
         status: "working",
         statusNote:
-          "Needs Intelligence mode with an active entitlement, otherwise the drawer shows its Upgrade view. The sidebar sample's YourMainContent is undefined in the doc. Tabs not yet checked in a browser.",
+          "Needs Intelligence mode with an active entitlement, otherwise the drawer shows its Upgrade view. The sidebar sample's YourMainContent is undefined in the doc; the controlled and agentId samples are fragments (run under the root provider). Tabs not yet checked in a browser.",
       },
       {
         path: "/headless-threads",
