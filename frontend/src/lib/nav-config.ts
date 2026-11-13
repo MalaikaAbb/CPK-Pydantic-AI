@@ -217,6 +217,16 @@ export const NAV: NavGroup[] = [
           "Frontend implemented as documented. The doc's agent.py block contains React code, not Python — there is no agent to write `searches`, so the list stays empty.",
       },
       {
+        path: "/generative-ui/a2ui",
+        title: "Declarative · A2UI",
+        docPath: "/pydantic-ai/generative-ui/a2ui",
+        summary:
+          "The A2UI overview: the runtime's a2ui option that adds the A2UI middleware, and the optional theme prop on <CopilotKit>.",
+        status: "reference",
+        statusNote:
+          "Overview page with no demo or agent. Both snippets are kept byte-for-byte and type-checked (myAgent and children are undefined on the page, suppressed). The setup runs on the Fixed and Dynamic Schema routes.",
+      },
+      {
         path: "/generative-ui/a2ui/dynamic-schema",
         hasDemo: true,
         title: "A2UI · Dynamic Schema",
