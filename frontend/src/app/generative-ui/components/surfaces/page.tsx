@@ -1,12 +1,9 @@
 import { RouteHeader } from "@/components/route-header";
+import { SourceCodeGroup } from "@/components/source-code";
 import { Callout, Panel } from "@/components/ui";
 
 /**
- * Reference only. This page's code imports `@copilotkit/react-core/v2/generative-ui`,
- * which the pinned CopilotKit (^1.77.0) does not export (added in 1.85). Bumping
- * dependencies is out of scope for a doc sync, so nothing is built here; see
- * README §9.29. An earlier revision of this branch ported a working demo from
- * the agno harness on a 1.85 bump; that port was reverted.
+ * The demo in `demo-chat/` runs the page's code on the `components` Pydantic AI agent (see the callout).
  */
 export default function Page() {
   return (
@@ -19,19 +16,34 @@ export default function Page() {
         </p>
       </Panel>
 
-      <Callout tone="warn" title="Reference only — needs CopilotKit 1.85">
+      <Callout tone="info" title="How this route is wired">
         <p>
-          The page&apos;s code imports{" "}
-          <code>@copilotkit/react-core/v2/generative-ui</code>, which this
-          repo&apos;s pinned <code>@copilotkit/react-core</code> (^1.77.0)
-          does not export. A doc sync does not bump dependencies, so no demo is
-          built until the repo moves to 1.85.
+          The demo runs the page&apos;s provider config on{" "}
+          <code>/api/copilotkit-genui</code>. The agent is this repo&apos;s{" "}
+          <code>components</code> agent (<code>backend/agents/components_agent.py</code>),
+          a Pydantic AI <code>Agent</code> standing in for the section&apos;s
+          TanStack <code>BuiltInAgent</code> (same prompt, no tools). CopilotKit
+          is 1.87 (was 1.77, which has no <code>v2/generative-ui</code>).
         </p>
-        <ul className="mt-2 list-disc space-y-1 pl-5">
-          <li>The samples use Product, ProductRow and a product list they never define, and import shopUI from a ./catalog the page doesn&apos;t print.</li>
-          <li>Target descriptions travel as AG-UI context, which Pydantic AI&apos;s AGUIAdapter drops (§9.29).</li>
-        </ul>
+        <p className="mt-2">
+          The run&apos;s <code>render_ui</code> tool reaches the model with its
+          full schema, but its guide does not: Pydantic AI&apos;s{" "}
+          <code>AGUIAdapter</code> never reads the run&apos;s context
+          (pydantic-ai-slim 1.107.7; 2.68 is the same), and the page shows no
+          Pydantic AI code for that, so none is added. Expect UI that may be
+          rejected or incomplete until checked in a browser (README §9.29).
+        </p>
       </Callout>
+
+      <Panel title="The demo's code" description="The page's code as mounted in the demo (labelled where the harness adds an import, a runtime URL or a borrowed component). Snippets that cannot run are listed in the status note.">
+        <SourceCodeGroup
+          files={[
+            { file: "frontend/src/app/generative-ui/components/surfaces/demo-chat/page.tsx" },
+            { file: "frontend/src/app/generative-ui/components/surfaces/demo-chat/targets.tsx" },
+            { file: "frontend/src/app/generative-ui/components/surfaces/demo-chat/surfaces.css" },
+          ]}
+        />
+      </Panel>
     </>
   );
 }

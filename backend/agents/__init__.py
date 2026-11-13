@@ -29,6 +29,7 @@ from . import (
     a2ui_fixed,
     byoc_hashbrown_agent,
     byoc_json_render_agent,
+    components_agent,
     hitl_agent,
     language_agent,
     my_agent,
@@ -80,6 +81,9 @@ AGENTS: dict[str, AgentEntry] = {
     "byoc_hashbrown": AgentEntry(byoc_hashbrown_agent.agent),
     "open_gen_ui": AgentEntry(open_gen_ui_agent.agent),
     "open_gen_ui_advanced": AgentEntry(open_gen_ui_advanced_agent.agent),
+    # Components and surfaces (all nine pages share it): the section's
+    # BuiltInAgent as a Pydantic AI agent, see components_agent.py.
+    "components": AgentEntry(components_agent.agent),
     # Human in the Loop.
     "hitl_agent": AgentEntry(hitl_agent.agent),
     # Multi-agent.

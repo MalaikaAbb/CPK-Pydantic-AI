@@ -1,12 +1,9 @@
 import { RouteHeader } from "@/components/route-header";
+import { SourceCodeGroup } from "@/components/source-code";
 import { Callout, Panel } from "@/components/ui";
 
 /**
- * Reference only. This page's code imports `@copilotkit/react-core/v2/generative-ui`,
- * which the pinned CopilotKit (^1.77.0) does not export (added in 1.85). Bumping
- * dependencies is out of scope for a doc sync, so nothing is built here; see
- * README §9.29. An earlier revision of this branch ported a working demo from
- * the agno harness on a 1.85 bump; that port was reverted.
+ * The demo in `demo-chat/` runs the page's code on the `components` Pydantic AI agent (see the callout).
  */
 export default function Page() {
   return (
@@ -19,19 +16,31 @@ export default function Page() {
         </p>
       </Panel>
 
-      <Callout tone="warn" title="Reference only — needs CopilotKit 1.85">
+      <Callout tone="warn" title="How this route is wired">
         <p>
-          The page&apos;s code imports{" "}
-          <code>@copilotkit/react-core/v2/generative-ui</code>, which this
-          repo&apos;s pinned <code>@copilotkit/react-core</code> (^1.77.0)
-          does not export. A doc sync does not bump dependencies, so no demo is
-          built until the repo moves to 1.85.
+          The demo runs the page&apos;s provider config on{" "}
+          <code>/api/copilotkit-genui</code>. The agent is this repo&apos;s{" "}
+          <code>components</code> agent (<code>backend/agents/components_agent.py</code>),
+          a Pydantic AI <code>Agent</code> standing in for the section&apos;s
+          TanStack <code>BuiltInAgent</code> (same prompt, no tools). CopilotKit
+          is 1.87 (was 1.77, which has no <code>v2/generative-ui</code>).
         </p>
-        <ul className="mt-2 list-disc space-y-1 pl-5">
-          <li>The Python sample uses an undefined MY_PROMPT and no json import.</li>
-          <li>The fence guide travels as AG-UI context and the sendContext: false path needs forwarded_props; Pydantic AI&apos;s AGUIAdapter passes neither to the agent (§9.29).</li>
-        </ul>
+        <p className="mt-2">
+          Expect no UI. Markdown mode sends the component schema and the fence
+          guide only as context entries, and Pydantic AI&apos;s{" "}
+          <code>AGUIAdapter</code> never reads the run&apos;s context (the page
+          shows no Pydantic AI code for that), so the model never learns the
+          format (README §9.29).
+        </p>
       </Callout>
+
+      <Panel title="The demo's code" description="The page's code as mounted in the demo (labelled where the harness adds an import, a runtime URL or a borrowed component). Snippets that cannot run are listed in the status note.">
+        <SourceCodeGroup
+          files={[
+            { file: "frontend/src/app/generative-ui/components/markdown-mode/demo-chat/page.tsx" },
+          ]}
+        />
+      </Panel>
     </>
   );
 }
