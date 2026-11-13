@@ -186,6 +186,17 @@ export const NAV: NavGroup[] = [
         offNav: true,
       },
       {
+        path: "/generative-ui/tool-based",
+        hasDemo: true,
+        title: "Controlled · Components as Tools",
+        docPath: "/pydantic-ai/generative-ui/tool-based",
+        summary:
+          "Bar and pie chart components registered with useComponent; a tool-less Pydantic AI agent calls them by name and they render inline in the chat.",
+        status: "partial",
+        statusNote:
+          "Code-tab demo, not yet checked in a browser. The bundle's ./suggestions module is unpublished, so its import and call are commented out. The headless CopilotChatToolCallsView snippet is shown, not run. Model gpt-6-luna kept as published.",
+      },
+      {
         path: "/generative-ui/tool-rendering",
         hasDemo: true,
         title: "Tool Rendering",
@@ -204,6 +215,16 @@ export const NAV: NavGroup[] = [
         status: "partial",
         statusNote:
           "Frontend implemented as documented. The doc's agent.py block contains React code, not Python — there is no agent to write `searches`, so the list stays empty.",
+      },
+      {
+        path: "/generative-ui/a2ui",
+        title: "Declarative · A2UI",
+        docPath: "/pydantic-ai/generative-ui/a2ui",
+        summary:
+          "The A2UI overview: the runtime's a2ui option that adds the A2UI middleware, and the optional theme prop on <CopilotKit>.",
+        status: "reference",
+        statusNote:
+          "Overview page with no demo or agent. Both snippets are kept byte-for-byte and type-checked (myAgent and children are undefined on the page, suppressed). The setup runs on the Fixed and Dynamic Schema routes.",
       },
       {
         path: "/generative-ui/a2ui/dynamic-schema",
@@ -236,6 +257,17 @@ export const NAV: NavGroup[] = [
           "The agent writes sandboxed HTML/CSS/JS that streams into an iframe, with a minimal and a sandbox-functions cell.",
         status: "partial",
         statusNote: "All demo-bundle code, verbatim. Not yet checked in a browser.",
+      },
+      {
+        path: "/generative-ui/mcp-apps",
+        hasDemo: true,
+        title: "Open-ended · MCP Apps",
+        docPath: "/pydantic-ai/generative-ui/mcp-apps",
+        summary:
+          "Tools from an MCP server that carry their own UI, rendered in a sandboxed iframe in the chat via the runtime's mcpApps option.",
+        status: "partial",
+        statusNote:
+          "Not yet checked in a browser. The page's BuiltInAgent is swapped for a Pydantic AI agent with the same prompt; the runtime has its own endpoint. Needs an MCP Apps server on localhost:3108, which you start yourself (the page doesn't say which).",
       },
       {
         path: "/generative-ui/json-render",
@@ -272,6 +304,17 @@ export const NAV: NavGroup[] = [
         summary:
           "A tool the agent calls that executes in the browser, forwarded automatically over AG-UI.",
         status: "working",
+      },
+      {
+        path: "/webmcp",
+        hasDemo: true,
+        title: "WebMCP",
+        docPath: "/pydantic-ai/webmcp",
+        summary:
+          "A frontend tool with webmcp enabled, mirrored onto document.modelContext so WebMCP-aware browser agents can discover and call it.",
+        status: "broken",
+        statusNote:
+          "Both samples call searchOrders, which the page never defines; it is not filled in, so calling the tool throws. Needs Chrome 149+ with the WebMCP flag or origin trial to test at all. The core-only sample is type-checked, not run.",
       },
     ],
   },
