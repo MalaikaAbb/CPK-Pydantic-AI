@@ -186,6 +186,17 @@ export const NAV: NavGroup[] = [
         offNav: true,
       },
       {
+        path: "/generative-ui/tool-based",
+        hasDemo: true,
+        title: "Controlled · Components as Tools",
+        docPath: "/pydantic-ai/generative-ui/tool-based",
+        summary:
+          "Bar and pie chart components registered with useComponent; a tool-less Pydantic AI agent calls them by name and they render inline in the chat.",
+        status: "partial",
+        statusNote:
+          "Code-tab demo, not yet checked in a browser. The bundle's ./suggestions module is unpublished, so its import and call are commented out. The headless CopilotChatToolCallsView snippet is shown, not run. Model gpt-6-luna kept as published.",
+      },
+      {
         path: "/generative-ui/tool-rendering",
         hasDemo: true,
         title: "Tool Rendering",
