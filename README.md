@@ -250,6 +250,8 @@ Code on a page is never a re-typed approximation: each page reads real files via
 
 **`/frontend-tools`** — `useFrontendTool`, executed in the browser. **Try:** `Say hello to Malaika`. **Pass:** a browser alert fires, and after you dismiss it the agent confirms it said hello — proving the return string travelled back over AG-UI. **Fail:** a text reply with no alert.
 
+**`/webmcp`** — ❌ **Broken (as published).** The page's `OrderSearch` registers `searchOrders` with `webmcp: { annotations: { readOnlyHint: true } }` under the root provider, so CopilotKit mirrors it onto `document.modelContext`. **Try:** in Chrome 149+ with `chrome://flags/#enable-webmcp-testing`, open the demo and Chrome's Model Context Tool Inspector, then call `searchOrders`. **Pass (for this route):** the tool is listed with its schema and annotation, and the call fails with `ReferenceError: searchOrders is not defined` — the page never defines it (§9.31). **Fail:** the tool is missing although the demo reports `document.modelContext` as available.
+
 ### Human in the Loop
 
 **`/human-in-the-loop/agent`** — ❌ **Broken, by design.** The page's essay-approval tool, frontend and backend both as published. **Try:** `Write an essay about the benefits of AI.` **Pass:** a run error before any reply: `The AG-UI frontend tools defines a tool whose name conflicts with existing tool from the agent: 'write_essay'` (observed in the browser as a `RUN_ERROR` event, and against the backend directly). **Fail:** a draft card. That would mean the frontend tool was not sent (§9.23).
@@ -305,6 +307,7 @@ Code on a page is never a re-typed approximation: each page reads real files via
 | [Hashbrown](https://docs.copilotkit.ai/pydantic-ai/generative-ui/hashbrown) | `/generative-ui/hashbrown` | ❌ Broken | By design: the doc's hook calls throw. Fixed mode renders nothing for the bundle agent — §9.22. |
 | [MCP Apps](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) | — | 🚧 Not started | Skipped for now. The prose uses a TypeScript `BuiltInAgent` and an MCP server on `:3108` it does not provide; the demo bundle uses a Pydantic AI agent and the public Excalidraw server. |
 | [Frontend Tools](https://docs.copilotkit.ai/pydantic-ai/frontend-tools) | `/frontend-tools` | ✅ Working | `sayHello`, browser-executed. |
+| [WebMCP](https://docs.copilotkit.ai/pydantic-ai/webmcp) | `/webmcp` | ❌ Broken | Added 2026-11-11. `searchOrders` is never defined on the page, not filled in; needs Chrome 149+ WebMCP — §9.31. Not yet type-checked or run. |
 | [HITL · Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent) | `/human-in-the-loop/agent` | ❌ Broken | By design: front and back both define `write_essay`; the run is refused with `RUN_ERROR` (observed in the browser) — §9.23. |
 | [Governed Action Approval UI](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/governed-actions) | `/human-in-the-loop/governed-actions` | ⚠️ Partial | `useHumanInTheLoop` half only; Pydantic AI never emits an AG-UI interrupt. Not yet checked in a browser. |
 | [Reading agent state](https://docs.copilotkit.ai/pydantic-ai/shared-state/in-app-agent-read) | `/shared-state/in-app-agent-read` | ✅ Working | `initialState`/`render` missing, and `StateDeps` is one-way — §9. |
@@ -432,6 +435,8 @@ It points `HttpAgent` at `http://localhost:8000/`. This harness needs three, so 
 - **`CPK_INTELLIGENCE_API_KEY`.** The doc uses this name. This repo's runtime route reads `INTELLIGENCE_API_KEY` (the same drift as Quickstart, §9.25). The shared runtime route is left unchanged here, because changing it affects every route.
 - **Identity.** The doc's `<CopilotKitProvider>` sends no identity headers, so `identifyUser` falls back to `anonymous`. Verified: `GET /api/copilotkit/threads` with no headers returns `endUserId: "anonymous"` rows. With the root provider's headers it returns `harness-local` rows.
 
+**31. WebMCP: `searchOrders` is never defined.**
+[The page](https://docs.copilotkit.ai/pydantic-ai/webmcp) prints two samples (a React `useFrontendTool` with `webmcp`, and a core-only `CopilotKitCore({ tools })`), and both handlers call `searchOrders(status)` without defining or importing it. Per this harness's rule it is not written in: the references carry `@ts-expect-error`, the React sample is mounted under the root provider, and calling the tool throws `ReferenceError`. The core-only sample is type-checked in `frontend/src/app/webmcp/_doc/` but not imported (it would create a second core). Testing needs Chrome 149+ with the WebMCP origin trial or `chrome://flags/#enable-webmcp-testing`; elsewhere CopilotKit registers nothing.
 **30. MCP Apps: a BuiltInAgent page and a server you have to supply.**
 [The page](https://docs.copilotkit.ai/pydantic-ai/generative-ui/mcp-apps) prints only CopilotKit's `BuiltInAgent` (`openai/gpt-6-luna`, "You are a helpful assistant."), with no Pydantic AI code and no Code tab. Per this harness's rule, the runtime keeps the page's `mcpApps` config verbatim and points `default` at a Pydantic AI agent with the same prompt and no tools (`backend/agents/mcp_apps_agent.py`, model `MODEL`). The runtime sits at `/api/copilotkit-mcp-apps` (the provider's `runtimeUrl` changed to match) because the middleware applies to every agent on a runtime. The page's server URL, `http://localhost:3108/mcp`, is not started by anything in this repo, and the page names only the `modelcontextprotocol/ext-apps` repository, not which server listens there. The `MCPAppsMiddleware` `.use()` alternative and the HTTP/SSE transport objects are shown on the route, not run. The page's Intelligence callout links to a "MCP Apps with Intelligence" section that is not on the page.
 **28. A2UI overview: two snippets with undefined names.**
@@ -632,6 +637,7 @@ Grouped as the doc nav groups them. ⚑ marks pages that resolve but are absent 
 
 **App Control**
 - [Frontend Tools](https://docs.copilotkit.ai/pydantic-ai/frontend-tools)
+- [WebMCP](https://docs.copilotkit.ai/pydantic-ai/webmcp)
 
 **Human in the Loop**
 - [Pydantic AI Agents](https://docs.copilotkit.ai/pydantic-ai/human-in-the-loop/agent)
