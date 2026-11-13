@@ -259,6 +259,102 @@ export const NAV: NavGroup[] = [
         statusNote: "All demo-bundle code, verbatim. Not yet checked in a browser.",
       },
       {
+        path: "/generative-ui/components",
+        hasDemo: true,
+        title: "Components and surfaces",
+        docPath: "/pydantic-ai/generative-ui/components",
+        summary:
+          "standardUI on the provider: the runtime adds render_ui and its guide, and the agent answers with streamed A2UI 1.0 components.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: the page's standardUI provider.",
+      },
+      {
+        path: "/generative-ui/components/surfaces",
+        hasDemo: true,
+        title: "Components · Surfaces",
+        docPath: "/pydantic-ai/generative-ui/components/surfaces",
+        summary:
+          "GenerativeUISurface page targets the chat can fill, limit, scroll to, and replace, with per-component error boundaries.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: error-boundary provider, 'featured' (limited) and 'sidebar-notes' targets. Not mounted: FeaturedProducts and the per-item target (undefined products/Product/product).",
+      },
+      {
+        path: "/generative-ui/components/catalogs",
+        hasDemo: true,
+        title: "Components · Catalogs",
+        docPath: "/pydantic-ai/generative-ui/components/catalogs",
+        summary:
+          "createGenerativeUI catalogs: typed components, zod and Valibot props, extends, parameterOrder and exportA2UICatalog.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: shopUI. Not mounted: Combine/export (undefined cartUI); schema-library and positional-order fragments.",
+      },
+      {
+        path: "/generative-ui/components/standard-catalog",
+        hasDemo: true,
+        title: "Components · Standard catalog",
+        docPath: "/pydantic-ai/generative-ui/components/standard-catalog",
+        summary:
+          "standardUI's 69 components as is, extended with a ProductCard, with Map/Video/HtmlView omitted, and with Card overridden.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: as is, omit, overrides. Not mounted: extend (undefined ProductCard, productSchema).",
+      },
+      {
+        path: "/generative-ui/components/state-and-actions",
+        title: "Components · State and actions",
+        docPath: "/pydantic-ai/generative-ui/components/state-and-actions",
+        summary:
+          "App state bound into props, functions run on click, events sent to the agent, and writable props that keep user input.",
+        status: "broken",
+        statusNote:
+          "Reference only, no backend. Every sample needs pieces the page never defines (Cart type and cart instance, ProductCard) or is a fragment (events, writable, function declarations), so nothing is mounted.",
+      },
+      {
+        path: "/generative-ui/components/theming",
+        hasDemo: true,
+        title: "Components · Theming",
+        docPath: "/pydantic-ai/generative-ui/components/theming",
+        summary:
+          "The theme option's CSS variables, a typed GenerativeUITheme file, dark-mode overrides, map styles, and .a2ui-surface CSS.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: provider theme, CSS variables, dark-mode script. Shown only: per-mode/map fragments, theme file.",
+      },
+      {
+        path: "/generative-ui/components/transports",
+        hasDemo: true,
+        title: "Components · Transports",
+        docPath: "/pydantic-ai/generative-ui/components/transports",
+        summary:
+          "The render_ui tool transport vs the markdown transport, the runtime's generativeUI flag, and agentIds scoping.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted on a generativeUI: true runtime: tool, markdown, agentIds as default. The markdown variant cannot work (it depends on context only). No shop agent is published.",
+      },
+      {
+        path: "/generative-ui/components/markdown-mode",
+        hasDemo: true,
+        title: "Components · Markdown mode",
+        docPath: "/pydantic-ai/generative-ui/components/markdown-mode",
+        summary:
+          "The agent writes A2UI operations in a2ui code blocks inside its reply; sendContext: false moves the catalog into forwardedProps.",
+        status: "broken",
+        statusNote:
+          "Wired to the components Pydantic AI agent on CopilotKit 1.87, but expected to show no UI: markdown mode sends the schema and fence guide only as context, which Pydantic AI's AGUIAdapter never reads (§9.29). Not browser-checked.",
+      },
+      {
+        path: "/generative-ui/components/from-a2ui",
+        hasDemo: true,
+        title: "Components · Adopt from A2UI",
+        docPath: "/pydantic-ai/generative-ui/components/from-a2ui",
+        summary:
+          "The v0.9 a2ui renderer → A2UI 1.0 migration: the After catalog running on the new engine, with the Before code shown.",
+        status: "partial",
+        statusNote:
+          "Wired to the components Pydantic AI agent (standing in for the section's BuiltInAgent; page prompt, no tools) on CopilotKit 1.87. render_ui reaches the model with its full schema, but not its guide: Pydantic AI's AGUIAdapter never reads the run's context (§9.29). Not browser-checked. Mounted: the After catalog; Airport/Arrow borrowed from aws-strands-ts.",
         path: "/generative-ui/mcp-apps",
         hasDemo: true,
         title: "Open-ended · MCP Apps",
