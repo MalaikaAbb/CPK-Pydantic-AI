@@ -47,7 +47,13 @@ const agents = {
   // bundle page mounts `<CopilotKit runtimeUrl="/api/copilotkit"
   // agent="subagents">`, so its agent has to live on this route.
   hitl_agent: new HttpAgent({ url: agentUrl("hitl_agent") }),
+  // Human in the Loop · Pausing the Agent for Input (the page's interrupt_agent).
+  interrupt_agent: new HttpAgent({ url: agentUrl("interrupt_agent") }),
   subagents: new HttpAgent({ url: agentUrl("subagents") }),
+  // Components as Tools. The bundle page mounts `<CopilotKit
+  // runtimeUrl="/api/copilotkit" agent="gen-ui-tool-based">`, and the bundle's
+  // runtime route maps that id to `${AGENT_URL}/gen_ui_tool_based/`.
+  "gen-ui-tool-based": new HttpAgent({ url: agentUrl("gen_ui_tool_based") }),
 };
 
 /**
