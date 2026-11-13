@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "docsRoot": "https://docs.copilotkit.ai/pydantic-ai",
-  "syncedAt": "2026-11-11T14:11:17.859Z",
+  "syncedAt": "2026-11-13T11:11:21.046Z",
   "pages": {
     "/pydantic-ai": {
       "file": "pydantic-ai.md",
@@ -14,7 +14,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:18 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:21 GMT"
     },
     "/pydantic-ai/ag-ui": {
       "file": "pydantic-ai__ag-ui.md",
@@ -26,7 +26,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:18 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:21 GMT"
     },
     "/pydantic-ai/copilot-runtime": {
       "file": "pydantic-ai__copilot-runtime.md",
@@ -38,7 +38,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:18 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:21 GMT"
     },
     "/pydantic-ai/custom-look-and-feel/headless-ui": {
       "file": "pydantic-ai__custom-look-and-feel__headless-ui.md",
@@ -50,7 +50,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:18 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:21 GMT"
     },
     "/pydantic-ai/custom-look-and-feel/slots": {
       "file": "pydantic-ai__custom-look-and-feel__slots.md",
@@ -62,7 +62,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:18 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
     },
     "/pydantic-ai/frontend-tools": {
       "file": "pydantic-ai__frontend-tools.md",
@@ -74,31 +74,139 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:18 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:21 GMT"
+    },
+    "/pydantic-ai/generative-ui/a2ui": {
+      "file": "pydantic-ai__generative-ui__a2ui.md",
+      "sha256": "dcb4bf31095b4337eea703f942af3f91ce368768079e385280ad9269f77e1057",
+      "bytes": 4121,
+      "lines": 115,
+      "routes": [
+        "/generative-ui/a2ui"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
     },
     "/pydantic-ai/generative-ui/a2ui/dynamic-schema": {
       "file": "pydantic-ai__generative-ui__a2ui__dynamic-schema.md",
-      "sha256": "27389b19da8ec3a004074ebffb0a1faf3b55c4c69245c6c506db5bb434bebdc4",
-      "bytes": 20380,
+      "sha256": "e5100498c807a5c0737a6c80b061783fbbad3f86adb1431fee24007fa7ff629d",
+      "bytes": 20421,
       "lines": 584,
       "routes": [
         "/generative-ui/a2ui/dynamic-schema"
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
     },
     "/pydantic-ai/generative-ui/a2ui/fixed-schema": {
       "file": "pydantic-ai__generative-ui__a2ui__fixed-schema.md",
-      "sha256": "be4a0196fe482fffe65e1886832bffa43bd6f551c1d13f40833407dfcb392c80",
-      "bytes": 20217,
+      "sha256": "d3906e77300fb98bb8de0b8687c41d1522db65a689b9fe1b55a6dcf3cd45e8ad",
+      "bytes": 20391,
       "lines": 596,
       "routes": [
         "/generative-ui/a2ui/fixed-schema"
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components": {
+      "file": "pydantic-ai__generative-ui__components.md",
+      "sha256": "0dd098cbee4bc03b04991fa10f31c0400d0db50fee06b67a0b679e2c5f2a6226",
+      "bytes": 33549,
+      "lines": 795,
+      "routes": [
+        "/generative-ui/components"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components/catalogs": {
+      "file": "pydantic-ai__generative-ui__components__catalogs.md",
+      "sha256": "87c7520672832d195aaca9a2b93446866b1d233086c7251819812dab0c851b8a",
+      "bytes": 23827,
+      "lines": 520,
+      "routes": [
+        "/generative-ui/components/catalogs"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components/markdown-mode": {
+      "file": "pydantic-ai__generative-ui__components__markdown-mode.md",
+      "sha256": "4dbde79721c1d83775ce192122ed8e756a0f0328d93d452c0f50540a475bd421",
+      "bytes": 8738,
+      "lines": 188,
+      "routes": [
+        "/generative-ui/components/markdown-mode"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components/standard-catalog": {
+      "file": "pydantic-ai__generative-ui__components__standard-catalog.md",
+      "sha256": "892eb88653b2c8decf46244fc2d943ad607fe1c682f4f5d79273b170e536f838",
+      "bytes": 16163,
+      "lines": 238,
+      "routes": [
+        "/generative-ui/components/standard-catalog"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components/state-and-actions": {
+      "file": "pydantic-ai__generative-ui__components__state-and-actions.md",
+      "sha256": "8ade081178358555f7c64d66a9b791b278e4e48d8f1948b252dd5ce64840ea16",
+      "bytes": 23520,
+      "lines": 556,
+      "routes": [
+        "/generative-ui/components/state-and-actions"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components/surfaces": {
+      "file": "pydantic-ai__generative-ui__components__surfaces.md",
+      "sha256": "6d59b15e3228897603e158799c93befeb9f44e0797a195ac03d007309a8f49e0",
+      "bytes": 21260,
+      "lines": 427,
+      "routes": [
+        "/generative-ui/components/surfaces"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components/theming": {
+      "file": "pydantic-ai__generative-ui__components__theming.md",
+      "sha256": "7e01e1ac84424f7a694f6a23058910497eea9e3dd8f99f1efa2c3cf34bd65852",
+      "bytes": 6803,
+      "lines": 203,
+      "routes": [
+        "/generative-ui/components/theming"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
+    },
+    "/pydantic-ai/generative-ui/components/transports": {
+      "file": "pydantic-ai__generative-ui__components__transports.md",
+      "sha256": "62d5f91f9f41f0db3954e283f378222d485e71ee1b40cece6ec432e35004f5fd",
+      "bytes": 5159,
+      "lines": 139,
+      "routes": [
+        "/generative-ui/components/transports"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
     },
     "/pydantic-ai/generative-ui/hashbrown": {
       "file": "pydantic-ai__generative-ui__hashbrown.md",
@@ -110,7 +218,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:22 GMT"
     },
     "/pydantic-ai/generative-ui/json-render": {
       "file": "pydantic-ai__generative-ui__json-render.md",
@@ -122,7 +230,19 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
+    },
+    "/pydantic-ai/generative-ui/mcp-apps": {
+      "file": "pydantic-ai__generative-ui__mcp-apps.md",
+      "sha256": "c8f507d0163b5a98408e1dfa0ab9cf7eb5eae907febdd2cd5b3d69e4ae231cd8",
+      "bytes": 8713,
+      "lines": 315,
+      "routes": [
+        "/generative-ui/mcp-apps"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/generative-ui/open-generative-ui": {
       "file": "pydantic-ai__generative-ui__open-generative-ui.md",
@@ -134,7 +254,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/generative-ui/state-rendering": {
       "file": "pydantic-ai__generative-ui__state-rendering.md",
@@ -146,7 +266,19 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
+    },
+    "/pydantic-ai/generative-ui/tool-based": {
+      "file": "pydantic-ai__generative-ui__tool-based.md",
+      "sha256": "c60b377235bb07867af4daf76ce7ace0a3d8e46a2f34aded55caf5cdd1150358",
+      "bytes": 5055,
+      "lines": 142,
+      "routes": [
+        "/generative-ui/tool-based"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/generative-ui/tool-rendering": {
       "file": "pydantic-ai__generative-ui__tool-rendering.md",
@@ -158,7 +290,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/generative-ui/your-components/display-only": {
       "file": "pydantic-ai__generative-ui__your-components__display-only.md",
@@ -170,7 +302,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/generative-ui/your-components/interactive": {
       "file": "pydantic-ai__generative-ui__your-components__interactive.md",
@@ -182,7 +314,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/headless-threads": {
       "file": "pydantic-ai__headless-threads.md",
@@ -194,7 +326,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/human-in-the-loop/agent": {
       "file": "pydantic-ai__human-in-the-loop__agent.md",
@@ -206,7 +338,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/human-in-the-loop/governed-actions": {
       "file": "pydantic-ai__human-in-the-loop__governed-actions.md",
@@ -218,7 +350,43 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
+    },
+    "/pydantic-ai/human-in-the-loop/headless": {
+      "file": "pydantic-ai__human-in-the-loop__headless.md",
+      "sha256": "efddf611028f55a85ad4c161fffa00e4e69a6ecfd15b7c6bb9bb5c63f01565b5",
+      "bytes": 2896,
+      "lines": 84,
+      "routes": [
+        "/human-in-the-loop/headless"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
+    },
+    "/pydantic-ai/human-in-the-loop/index": {
+      "file": "pydantic-ai__human-in-the-loop__index.md",
+      "sha256": "f032d7c6ca2695a2e5d612f8031c5f29f0be73b69035d75201764ee21be02793",
+      "bytes": 1737,
+      "lines": 59,
+      "routes": [
+        "/human-in-the-loop"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
+    },
+    "/pydantic-ai/human-in-the-loop/useInterrupt": {
+      "file": "pydantic-ai__human-in-the-loop__useInterrupt.md",
+      "sha256": "0ed6048899149e3529f9457f2688af937c84b4820deb6fd3751ae03c6e1248b5",
+      "bytes": 7488,
+      "lines": 206,
+      "routes": [
+        "/human-in-the-loop/useInterrupt"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/inspector": {
       "file": "pydantic-ai__inspector.md",
@@ -230,7 +398,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/multi-agent-flows": {
       "file": "pydantic-ai__multi-agent-flows.md",
@@ -242,19 +410,19 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/multi-agent/subagents": {
       "file": "pydantic-ai__multi-agent__subagents.md",
-      "sha256": "12e53b0e30e4427528d5ff67a4334dbeff98e0e433962a4e7f66b0a3c5a1f34a",
-      "bytes": 19196,
-      "lines": 553,
+      "sha256": "4c8f19e35e4432f27219872b348f75fdefce3924f2c56bf249ef81e962a0ffa8",
+      "bytes": 19633,
+      "lines": 555,
       "routes": [
         "/multi-agent/subagents"
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:23 GMT"
     },
     "/pydantic-ai/prebuilt-components": {
       "file": "pydantic-ai__prebuilt-components.md",
@@ -266,7 +434,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
     },
     "/pydantic-ai/prebuilt-components/copilot-threads-drawer": {
       "file": "pydantic-ai__prebuilt-components__copilot-threads-drawer.md",
@@ -278,7 +446,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
     },
     "/pydantic-ai/programmatic-control": {
       "file": "pydantic-ai__programmatic-control.md",
@@ -290,7 +458,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
     },
     "/pydantic-ai/quickstart": {
       "file": "pydantic-ai__quickstart.md",
@@ -302,7 +470,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
     },
     "/pydantic-ai/shared-state/in-app-agent-read": {
       "file": "pydantic-ai__shared-state__in-app-agent-read.md",
@@ -314,7 +482,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:19 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
     },
     "/pydantic-ai/shared-state/in-app-agent-write": {
       "file": "pydantic-ai__shared-state__in-app-agent-write.md",
@@ -326,7 +494,7 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:20 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
     },
     "/pydantic-ai/threads-lifecycle": {
       "file": "pydantic-ai__threads-lifecycle.md",
@@ -338,11 +506,23 @@
       ],
       "status": "ok",
       "age": 0,
-      "date": "Wed, 11 Nov 2026 14:11:20 GMT"
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
+    },
+    "/pydantic-ai/webmcp": {
+      "file": "pydantic-ai__webmcp.md",
+      "sha256": "506d41a11277d0635850db453a45c8443701f30bf1ebdbecb4bc94bde10f7bb3",
+      "bytes": 7490,
+      "lines": 165,
+      "routes": [
+        "/webmcp"
+      ],
+      "status": "ok",
+      "age": 0,
+      "date": "Fri, 13 Nov 2026 11:11:24 GMT"
     }
   },
   "sitemap": {
-    "fetchedAt": "2026-11-11T14:11:17.859Z",
+    "fetchedAt": "2026-11-13T11:11:21.046Z",
     "urlsUnderRoot": 175,
     "knownUnmapped": [
       "https://docs.copilotkit.ai/pydantic-ai/AG-UI-Streams",
@@ -385,6 +565,7 @@
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/arcade",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/claude-managed-agents",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/daytona",
+      "https://docs.copilotkit.ai/pydantic-ai/cookbook/google-antigravity",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/jev-generative-ui",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/manufact",
       "https://docs.copilotkit.ai/pydantic-ai/cookbook/openbox-governed-copilotkit",
